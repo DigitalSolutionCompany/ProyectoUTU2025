@@ -7,17 +7,16 @@
 </head>
 <body>
     <nav></nav>
-    <head>
+    <main>
 <h1>DRAFTOSAURUS</h1>
 <div class="row">
     <div class="col-sm-1"></div>
     <div class="col-sm-10">
         <form action="login.php" method="post">
-            <legend>Elija la cantidad de jugadore</legend>
+            <legend>Elija la cantidad de jugadores</legend>
             <div class="mb-3">
               <label for="cantidad" class="form-label">Las reglas van a variar dependiendo de la cantidad de jugadores</label>
               <select name="cantidad" id="cantidad" name="cantidad" step="0.01" class="form-select" required>
-                <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -25,7 +24,7 @@
                 
               </select>
             </div>
-            <button type="submit" id="botoncito" class="btn btn-primary"><a href="logins.html" class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover">Siguiente</a></button>
+            <button type="submit" id="botoncito" class="btn btn-primary"><a href="login.html" class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover">Siguiente</a></button>
         </form>
     </div>
     <div class="col-sm-1"></div>
@@ -59,6 +58,14 @@
     
 </div>
 
-    </head>
+</main>
 </body>
 </html>
+<style>
+    main {
+        background-color: blanchedalmond;
+    }
+    h1{
+        text-align: center;
+    }
+</style>
