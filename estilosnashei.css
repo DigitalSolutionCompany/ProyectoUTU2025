@@ -1,0 +1,22 @@
+body {background-color: darkolivegreen;
+}
+img {
+width: 100%; 
+padding: 0%;
+border: 0.1rem solid black;
+margin-bottom: 0.4rem;
+} 
+.segundofondo {
+background-color: bisque;
+width: 90%;
+margin: 0 auto;
+padding: 3rem;
+margin-top: 1rem;
+margin-bottom: 1rem;
+
+  }
+  #boton{
+    position:fixed;
+    width: 7rem !important;
+    
+  }
