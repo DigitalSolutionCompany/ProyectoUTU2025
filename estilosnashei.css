@@ -1,3 +1,48 @@
+/*probando.html */
+.paginainicio {background: linear-gradient(135deg, #4e7044, #2d4731);}
+    h1 { 
+    font-size: 2rem;
+    color: #f0e6d2; /* Beige claro */
+    text-align: center;
+    margin-top: 40px;
+    letter-spacing: 2px;
+    }
+#botonreglas {
+  width: 12rem !important;
+      background-color: #48a868; /* verde brillante */
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+ }
+ select {
+    width: 120px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+#contenedorjugadores {
+    text-align: center;
+}
+#numerojugadores {
+    font-size: 0.7rem !important;
+}
+
+#cantidad {
+    display: inline-block;
+    width: 12rem;
+}
+
+
+
+
+
+
+/*reglas.html */
 body {background-color: darkolivegreen;
 }
 img {
@@ -18,5 +63,15 @@ margin-bottom: 1rem;
   #boton{
     position:fixed;
     width: 7rem !important;
+    top: 0px;
+      background-color: #48a868; /* verde brillante */
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     
   }
+
+  
