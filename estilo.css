@@ -36,7 +36,11 @@
     display: inline-block;
     width: 12rem;
 }
+.contenedor-login{
+  padding-top: 5rem;
 
+}
+ select{margin-bottom: 20px;}
 
 /*reglas.html */
 body, html {
