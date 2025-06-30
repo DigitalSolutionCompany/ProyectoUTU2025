@@ -1,0 +1,118 @@
+/*probando.html */
+.paginainicio {background: linear-gradient(135deg, #4e7044, #2d4731);}
+    h1 { 
+    font-size: 2rem;
+    color: #f0e6d2; /* Beige claro */
+    text-align: center;
+    margin-top: 40px;
+    letter-spacing: 2px;
+    }
+#botonreglas {
+  width: 12rem !important;
+      background-color: #48a868; /* verde brillante */
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+ }
+ select {
+    width: 120px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+#contenedorjugadores {
+    text-align: center;
+}
+#numerojugadores {
+    font-size: 0.7rem !important;
+}
+
+#cantidad {
+    display: inline-block;
+    width: 12rem;
+}
+
+
+/*reglas.html */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #2E5D34;
+}
+
+.encabezado {
+    position: fixed;
+    width: 100%;
+    height: 3rem;
+    top: 0;
+    background-color: #5C4033;
+    z-index: 10;
+}
+
+#boton {
+    position: fixed;
+    width: 7rem !important;
+    height: 3rem;
+    top: 0;
+    background-color: #C26A34; color: #FFFFFF;
+    border: none;
+    border-radius: 0.3rem;
+    padding: 12px 24px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 6px #5C4033;
+    z-index: 20;
+}
+
+.contorno {
+     background-color: #2E5D34;
+    width: 95%;
+    margin: 0 auto;
+    padding: 3rem;
+    border: 0.4rem solid #5C4033;
+    min-height: 100vh; 
+    box-sizing: border-box;
+}
+
+.principal {
+    background-color: #2E5D34;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem; 
+    margin-top: 1rem;
+    border: 0.4rem solid #5C4033;
+    box-sizing: border-box;
+    
+}
+
+img {
+    width: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto 1rem auto;
+    border: 0.1rem solid black;
+}
+
+
+/*ranking.html */
+#tablaranking {
+    border-collapse: collapse; 
+    width: 70%;                
+    min-height: 50vh;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: auto;             
+    table-layout: fixed;       
+}
+#tablaranking th,
+#tablaranking td {
+    border: 0.3rem solid black;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
