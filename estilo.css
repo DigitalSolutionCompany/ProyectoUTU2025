@@ -1,53 +1,173 @@
-/*probando.html */
-.paginainicio {background: linear-gradient(135deg, #4e7044, #2d4731);}
-    h1 { 
-    font-size: 2rem;
-    color: #f0e6d2; /* Beige claro */
-    text-align: center;
-    margin-top: 40px;
-    letter-spacing: 2px;
-    }
-#botonreglas {
-  width: 12rem !important;
-      background-color: #48a868; /* verde brillante */
-    border: none;
-    border-radius: 12px;
-    padding: 12px 24px;
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
- }
- select {
-    width: 120px;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    text-align: center;
-}
-#contenedorjugadores {
-    text-align: center;
-}
-#numerojugadores {
-    font-size: 0.7rem !important;
-}
+/*principal.html */
+.paginainicio {
+            background: linear-gradient(135deg, #E6D5B8 100%, #E6D5B8 50%, #E6D5B8 100%);
+        }
 
-#cantidad {
-    display: inline-block;
-    width: 12rem;
-}
-.contenedor-login{
-  padding-top: 5rem;
+        #encabezadoprincipal {
+            position: fixed;
+            width: 100%;
+            height: 9vh;
+            top: 0;
+            background: linear-gradient(90deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            z-index: 9999;
+            color: #F5E6D3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.125rem 0.625rem rgba(0,0,0,0.3);
+        }
 
-}
- select{margin-bottom: 20px;}
+        .recuadromain {
+            background: linear-gradient(135deg, #E6D5B8 0%, #D4C4A8 50%, #C9B99C 100%);
+            width: 100%;
+            height: 100vh; 
+            padding-top: 4rem; 
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            color: #5D4037;
+        }
+
+        #botonreglas {
+            background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
+            color: white;
+            border: 0.125rem solid #8B4513;
+            width: 12rem !important;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.25rem 0.9375rem rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 3rem;
+        }
+
+        #botonreglas:hover {
+            background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
+            transform: translateY(-0.1rem);
+            box-shadow: 0 0.4rem 1.25rem rgba(0,0,0,0.3);
+        }
+
+        #botonranking {
+            background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
+            color: white;
+            border: 0.125rem solid #8B4513;
+            width: 12rem !important;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.25rem 0.9375rem rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 2rem;
+        }
+
+        #botonranking:hover {
+            background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
+            transform: translateY(-0.1rem);
+            box-shadow: 0 0.4rem 1.25rem rgba(0,0,0,0.3);
+        }
+
+        /* Decoración del select */
+        #cantidad {
+            margin-bottom: 3rem !important;
+            background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
+            color: white;
+            border: 0.1875rem solid #8B4513;
+            border-radius: 0.9375rem;
+            padding: 0.75rem;
+            font-weight: bold;
+            box-shadow: 0 0.25rem 0.9375rem rgba(139, 69, 19, 0.3);
+            transition: all 0.3s ease;
+            width: 17.5rem;
+            font-size: 1rem;
+            margin-top: 2rem;
+        }
+
+        #cantidad:hover {
+            background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
+            transform: translateY(-0.1rem);
+            box-shadow: 0 0.4rem 1.25rem rgba(0,0,0,0.3);
+            border-color: #A0522D;
+        }
+
+        #cantidad:focus {
+            outline: none;
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 0.1875rem rgba(255, 107, 53, 0.3);
+        }
+
+        #cantidad option {
+            background-color: #DC5A2F;
+            color: white;
+        }
+
+        /* Contenedores para cada jugador */
+        .jugador2,
+        .jugador3,
+        .jugador4 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 2rem;
+        }
+        
+        /* Decoración de los inputs */
+        .jugador2 .form-control,
+        .jugador3 .form-control,
+        .jugador4 .form-control {
+            width: 17.5rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            border: 0.125rem solid #A0522D;
+            background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
+            transition: all 0.3s ease;
+            box-shadow: inset 0.125rem 0.125rem 0.3125rem rgba(139, 69, 19, 0.1);
+            color: #5D4037;
+            font-weight: 500;
+            border-radius: 0.5rem;
+        }
+
+        /* Efectos para inputs */
+        .jugador2 .form-control:hover,
+        .jugador3 .form-control:hover,
+        .jugador4 .form-control:hover {
+            border-color: #FF6B35;
+            background: linear-gradient(145deg, #FFFFFF, #F0E1CE);
+            transform: scale(1.02);
+            box-shadow: 0 0.125rem 0.625rem rgba(255, 107, 53, 0.2);
+        }
+
+        /* Efectos inputs */
+        .jugador2 .form-control:focus,
+        .jugador3 .form-control:focus,
+        .jugador4 .form-control:focus {
+            outline: none;
+            border-color: #4A90A4;
+            background: linear-gradient(145deg, #FFFFFF, #F8F3E8);
+            box-shadow: 0 0 0 0.1875rem rgba(74, 144, 164, 0.2), inset 0.125rem 0.125rem 0.3125rem rgba(139, 69, 19, 0.1);
+            transform: scale(1.03);
+        }
+
+        .jugador2 .form-control::placeholder,
+        .jugador3 .form-control::placeholder,
+        .jugador4 .form-control::placeholder {
+            color: #8D7053;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
 
 /*reglas.html */
-body, html {
+body{
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #2E5D34;
+    background-color: #553423; 
+    font-family: sans-serif;
 }
 
 .encabezado {
@@ -55,68 +175,96 @@ body, html {
     width: 100%;
     height: 3rem;
     top: 0;
-    background-color: #5C4033;
+    background-color: #553423; 
+    display: flex;
+    align-items: center;
     z-index: 10;
 }
 
 #boton {
     position: fixed;
-    width: 7rem !important;
+    width: 6rem !important;
     height: 3rem;
-    top: 0;
-    background-color: #C26A34; color: #FFFFFF;
+    top: 0 !important;
+    left: 0 !important;
+    background-color: #4b3020; 
+    color: #F0E6D2;
     border: none;
-    border-radius: 0.3rem;
-    padding: 12px 24px;
-    color: white;
+    padding: 0.6rem 1rem; 
     font-weight: bold;
-    box-shadow: 0 4px 6px #5C4033;
     z-index: 20;
+    
+}
+
+#boton:hover {
+    background-color: #5C3B27; 
 }
 
 .contorno {
-     background-color: #2E5D34;
+    background-color: #F0E6D2; 
     width: 95%;
     margin: 0 auto;
-    padding: 3rem;
-    border: 0.4rem solid #5C4033;
-    min-height: 100vh; 
+    padding: 0.9rem;
+    border: 0.3rem solid #8B5E3C; 
+    border-radius: 0.5rem;
     box-sizing: border-box;
 }
 
 .principal {
-    background-color: #2E5D34;
+    background-color: #F0E6D2;
     width: 100%;
-    margin: 0 auto;
-    padding: 1rem; 
-    margin-top: 1rem;
-    border: 0.4rem solid #5C4033;
+    margin: 1rem auto 0 auto;
+    padding: 1rem;
+    border: 0.3rem solid #8B5E3C; 
+    border-radius: 0.5rem;
     box-sizing: border-box;
-    
 }
 
 img {
-    width: 90%;
+    width: 100%;
+    max-width: 25rem; 
     height: auto;
     display: block;
-    margin: 0 auto 1rem auto;
-    border: 0.1rem solid black;
+    margin: 1rem auto;
+    border-radius: 0.5rem;
+    border: 0.0625rem solid #8B5E3C; 
 }
-
 
 /*ranking.html */
-#tablaranking {
-    border-collapse: collapse; 
-    width: 70%;                
-    min-height: 50vh;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin: auto;             
-    table-layout: fixed;       
+.tablabody  {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
-#tablaranking th,
-#tablaranking td {
-    border: 0.3rem solid black;
-    padding: 10px;
+#tablaranking {
+    background-color: white;
+    border-collapse: separate;
+    border-spacing: 1;
+    border: 0.1rem solid black;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+}
+#tablaranking th {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 20px;
     text-align: center;
-    vertical-align: middle;
+    font-weight: bold;
+    font-size: 16px;
+    border-right: 0.1rem solid black;
+    border: 0.1rem solid black;
+}
+#tablaranking td {
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 14px;
+    border: 0.1rem solid black;
+}
+#tablaranking tr:hover {
+    background-color: #e3f2fd;
+    transition: background-color 0.3s ease;
 }
