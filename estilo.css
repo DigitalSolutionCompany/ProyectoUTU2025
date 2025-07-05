@@ -1,172 +1,220 @@
 /*principal.html */
 .paginainicio {
-            background: linear-gradient(135deg, #E6D5B8 100%, #E6D5B8 50%, #E6D5B8 100%);
-        }
+    background: linear-gradient(135deg, #E6D5B8 100%, #E6D5B8 50%, #E6D5B8 100%);
+}
 
-        #encabezadoprincipal {
-            position: fixed;
-            width: 100%;
-            height: 9vh;
-            top: 0;
-            background: linear-gradient(90deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
-            z-index: 9999;
-            color: #F5E6D3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0.125rem 0.625rem rgba(0,0,0,0.3);
-        }
+#encabezadoprincipal {
+    position: fixed;
+    width: 100%;
+    height: 9vh;
+    top: 0;
+    background: linear-gradient(90deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+    z-index: 9999;
+    color: #F5E6D3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3);
+}
 
-        .recuadromain {
-            background: linear-gradient(135deg, #E6D5B8 0%, #D4C4A8 50%, #C9B99C 100%);
-            width: 100%;
-            height: 100vh; 
-            padding-top: 4rem; 
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            align-items: center;
-            color: #5D4037;
-        }
+#encabezadoprincipal h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #F5E6D3;
+    text-shadow:
+        0 0.125rem 0.25rem rgba(0, 0, 0, 0.5),
+        0 0 1rem rgba(255, 215, 0, 0.3);
+    letter-spacing: 0.125rem;
+    text-transform: uppercase;
+    position: relative;
+    margin: 0;
+    text-align: start;
+}
 
-        #botonreglas {
-            background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
-            color: white;
-            border: 0.125rem solid #8B4513;
-            width: 12rem !important;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 0.25rem 0.9375rem rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: 3rem;
-        }
 
-        #botonreglas:hover {
-            background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
-            transform: translateY(-0.1rem);
-            box-shadow: 0 0.4rem 1.25rem rgba(0,0,0,0.3);
-        }
+.recuadromain {
+    background: linear-gradient(135deg, #E6D5B8 0%, #D4C4A8 50%, #C9B99C 100%);
+    width: 100%;
+    height: 100vh;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    color: #5D4037;
+}
 
-        #botonranking {
-            background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
-            color: white;
-            border: 0.125rem solid #8B4513;
-            width: 12rem !important;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 0.25rem 0.9375rem rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: 2rem;
-        }
+.botonjugar {
+    background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
+    color: white;
+    border: 0.125rem solid #8B4513;
+    width: 12rem !important;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 3rem;
+}
 
-        #botonranking:hover {
-            background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
-            transform: translateY(-0.1rem);
-            box-shadow: 0 0.4rem 1.25rem rgba(0,0,0,0.3);
-        }
+.botonjugar:hover {
+    background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.3);
+}
 
-        /* Decoración del select */
-        #cantidad {
-            margin-bottom: 3rem !important;
-            background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
-            color: white;
-            border: 0.1875rem solid #8B4513;
-            border-radius: 0.9375rem;
-            padding: 0.75rem;
-            font-weight: bold;
-            box-shadow: 0 0.25rem 0.9375rem rgba(139, 69, 19, 0.3);
-            transition: all 0.3s ease;
-            width: 17.5rem;
-            font-size: 1rem;
-            margin-top: 2rem;
-        }
+.botonreglas {
+    background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
+    color: white;
+    border: 0.125rem solid #8B4513;
+    width: 12rem !important;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
 
-        #cantidad:hover {
-            background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
-            transform: translateY(-0.1rem);
-            box-shadow: 0 0.4rem 1.25rem rgba(0,0,0,0.3);
-            border-color: #A0522D;
-        }
+.botonreglas:hover {
+    background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.3);
+}
 
-        #cantidad:focus {
-            outline: none;
-            border-color: #FF6B35;
-            box-shadow: 0 0 0 0.1875rem rgba(255, 107, 53, 0.3);
-        }
+.botonranking {
+    background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
+    color: white;
+    border: 0.125rem solid #8B4513;
+    width: 12rem !important;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
 
-        #cantidad option {
-            background-color: #DC5A2F;
-            color: white;
-        }
+.botonranking:hover {
+    background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.3);
+}
 
-        /* Contenedores para cada jugador */
-        .jugador2,
-        .jugador3,
-        .jugador4 {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 0;
-            margin-bottom: 2rem;
-        }
-        
-        /* Decoración de los inputs */
-        .jugador2 .form-control,
-        .jugador3 .form-control,
-        .jugador4 .form-control {
-            width: 17.5rem;
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            border: 0.125rem solid #A0522D;
-            background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
-            transition: all 0.3s ease;
-            box-shadow: inset 0.125rem 0.125rem 0.3125rem rgba(139, 69, 19, 0.1);
-            color: #5D4037;
-            font-weight: 500;
-            border-radius: 0.5rem;
-        }
+/* Decoración del select */
+#cantidad {
+    margin-bottom: 3rem !important;
+    background: linear-gradient(135deg, #FF6B35 0%, #E55A2B 50%, #CC4A1F 100%);
+    color: white;
+    border: 0.1875rem solid #8B4513;
+    border-radius: 0.9375rem;
+    padding: 0.75rem;
+    font-weight: bold;
+    box-shadow: 0 0.25rem 0.9375rem rgba(139, 69, 19, 0.3);
+    transition: all 0.3s ease;
+    width: 17.5rem;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+   .cantidadjugadores{
+    text-align: center;
+   }
 
-        /* Efectos para inputs */
-        .jugador2 .form-control:hover,
-        .jugador3 .form-control:hover,
-        .jugador4 .form-control:hover {
-            border-color: #FF6B35;
-            background: linear-gradient(145deg, #FFFFFF, #F0E1CE);
-            transform: scale(1.02);
-            box-shadow: 0 0.125rem 0.625rem rgba(255, 107, 53, 0.2);
-        }
+#cantidad:hover {
+    background: linear-gradient(135deg, #FF7B45 0%, #F56A3B 50%, #DC5A2F 100%);
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.3);
+    border-color: #A0522D;
+}
 
-        /* Efectos inputs */
-        .jugador2 .form-control:focus,
-        .jugador3 .form-control:focus,
-        .jugador4 .form-control:focus {
-            outline: none;
-            border-color: #4A90A4;
-            background: linear-gradient(145deg, #FFFFFF, #F8F3E8);
-            box-shadow: 0 0 0 0.1875rem rgba(74, 144, 164, 0.2), inset 0.125rem 0.125rem 0.3125rem rgba(139, 69, 19, 0.1);
-            transform: scale(1.03);
-        }
+#cantidad:focus {
+    outline: none;
+    border-color: #FF6B35;
+    box-shadow: 0 0 0 0.1875rem rgba(255, 107, 53, 0.3);
+}
 
-        .jugador2 .form-control::placeholder,
-        .jugador3 .form-control::placeholder,
-        .jugador4 .form-control::placeholder {
-            color: #8D7053;
-            font-style: italic;
-            opacity: 0.8;
-        }
+#cantidad option {
+    background-color: #DC5A2F;
+    color: white;
+}
+
+/* Contenedores para cada jugador */
+.jugador1,
+.jugador2,
+.jugador3,
+.jugador4,
+.jugador5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 2rem;
+}
+
+/* Decoración de los inputs */
+.jugador1 .form-control,
+.jugador2 .form-control,
+.jugador3 .form-control,
+.jugador4 .form-control,
+.jugador5 .form-control {
+    width: 17.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    border: 0.125rem solid #A0522D;
+    background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
+    transition: all 0.3s ease;
+    box-shadow: inset 0.125rem 0.125rem 0.3125rem rgba(139, 69, 19, 0.1);
+    color: #5D4037;
+    font-weight: 500;
+    border-radius: 0.5rem;
+}
+
+/* Efectos para inputs */
+.jugador1 .form-control:hover,
+.jugador2 .form-control:hover,
+.jugador3 .form-control:hover,
+.jugador4 .form-control:hover,
+.jugador5 .form-control:hover {
+    border-color: #FF6B35;
+    background: linear-gradient(145deg, #FFFFFF, #F0E1CE);
+    transform: scale(1.02);
+    box-shadow: 0 0.125rem 0.625rem rgba(255, 107, 53, 0.2);
+}
+
+/* Efectos inputs */
+.jugador1 .form-control:focus,
+.jugador2 .form-control:focus,
+.jugador3 .form-control:focus,
+.jugador4 .form-control:focus, 
+.jugador5 .form-control:focus{
+    outline: none;
+    border-color: #4A90A4;
+    background: linear-gradient(145deg, #FFFFFF, #F8F3E8);
+    box-shadow: 0 0 0 0.1875rem rgba(74, 144, 164, 0.2), inset 0.125rem 0.125rem 0.3125rem rgba(139, 69, 19, 0.1);
+    transform: scale(1.03);
+}
+.jugador1 .form-control::placeholder,
+.jugador2 .form-control::placeholder,
+.jugador3 .form-control::placeholder,
+.jugador4 .form-control::placeholder,
+.jugador5 .form-control::placeholder {
+    color: #8D7053;
+    font-style: italic;
+    opacity: 0.8;
+}
 
 
 /*reglas.html */
-body{
+body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #553423; 
+    background-color: #553423;
     font-family: sans-serif;
 }
 
@@ -175,7 +223,7 @@ body{
     width: 100%;
     height: 3rem;
     top: 0;
-    background-color: #553423; 
+    background-color: #553423;
     display: flex;
     align-items: center;
     z-index: 10;
@@ -187,25 +235,25 @@ body{
     height: 3rem;
     top: 0 !important;
     left: 0 !important;
-    background-color: #4b3020; 
+    background-color: #4b3020;
     color: #F0E6D2;
     border: none;
-    padding: 0.6rem 1rem; 
+    padding: 0.6rem 1rem;
     font-weight: bold;
     z-index: 20;
-    
+
 }
 
 #boton:hover {
-    background-color: #5C3B27; 
+    background-color: #5C3B27;
 }
 
 .contorno {
-    background-color: #F0E6D2; 
+    background-color: #F0E6D2;
     width: 95%;
     margin: 0 auto;
     padding: 0.9rem;
-    border: 0.3rem solid #8B5E3C; 
+    border: 0.3rem solid #8B5E3C;
     border-radius: 0.5rem;
     box-sizing: border-box;
 }
@@ -215,32 +263,34 @@ body{
     width: 100%;
     margin: 1rem auto 0 auto;
     padding: 1rem;
-    border: 0.3rem solid #8B5E3C; 
+    border: 0.3rem solid #8B5E3C;
     border-radius: 0.5rem;
     box-sizing: border-box;
 }
 
 img {
     width: 100%;
-    max-width: 25rem; 
+    max-width: 25rem;
     height: auto;
     display: block;
     margin: 1rem auto;
     border-radius: 0.5rem;
-    border: 0.0625rem solid #8B5E3C; 
+    border: 0.0625rem solid #8B5E3C;
 }
 
 /*ranking.html */
-.tablabody  {
+.tablabody {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-color: #E6D5B8;
 }
+
 #tablaranking {
-    background-color: white;
+    background-color: #8B4513;
     border-collapse: separate;
     border-spacing: 1;
     border: 0.1rem solid black;
@@ -248,6 +298,7 @@ img {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     min-width: 300px;
 }
+
 #tablaranking th {
     background-color: #007bff;
     color: white;
@@ -258,13 +309,42 @@ img {
     border-right: 0.1rem solid black;
     border: 0.1rem solid black;
 }
+
 #tablaranking td {
     padding: 12px 20px;
     text-align: center;
     font-size: 14px;
     border: 0.1rem solid black;
 }
+
 #tablaranking tr:hover {
     background-color: #e3f2fd;
     transition: background-color 0.3s ease;
+}
+.h1puntuacion {
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #F5E6D3;
+    text-shadow:
+        0 0.125rem 0.25rem rgba(0, 0, 0, 0.5),
+        0 0 1rem rgba(255, 215, 0, 0.3);
+    letter-spacing: 0.125rem;
+    text-transform: uppercase;
+    position: relative;
+    margin: 0;
+    text-align: start;
+}
+.encabezadopuntuacion {
+    position: fixed;
+    width: 100%;
+    height: 9vh;
+    top: 0;
+    background: linear-gradient(90deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+    z-index: 9999;
+    color: #F5E6D3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3);
 }

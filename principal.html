@@ -8,18 +8,19 @@
   <link rel="stylesheet" href="estilo.css">
 </head>
 <body class="paginainicio">
-    <header id="encabezadoprincipal">
-        
+    <header class="encabezadopuntuacion">
+        <h1>DRAFTOSAURUS</h1>
     </header>
 
     <div class="recuadromain">   
         <main>
-            <a href="reglas.html" id="botonreglas" class="btn btn-primary d-block text-center w-50 mx-auto">Jugar</a>
-
-            <a href="ranking.html" id="botonranking" class="btn btn-primary d-block text-center w-50 mx-auto">Ranking</a>
+            <a href="reglas.html" class="btn btn-primary d-block text-center w-50 mx-auto botonjugar">Jugar</a>
+            <a href="reglas.html" class="btn btn-primary d-block text-center w-50 mx-auto botonreglas">reglas</a>
+            <a href="puntuacion.html" class="btn btn-primary d-block text-center w-50 mx-auto botonranking">Ranking</a>
             
             <div class="mb-4">
                 <select name="cantidad" id="cantidad" class="form-select" required>
+                    <option value="1" class="cantidadjugadores">Cantidad de jugadores:</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -27,18 +28,28 @@
                 </select>
             </div>
             
-            <div class="jugador2">
+            <div class="jugador1">
                 <input type="text" class="form-control" id="email1" placeholder="email" required>
                 <input type="password" class="form-control" id="password1" placeholder="password" required>
             </div>
 
-            <div class="jugador3">
+            <div class="jugador2">
                 <input type="text" class="form-control" id="email2" placeholder="email" required>
                 <input type="password" class="form-control" id="password2" placeholder="password" required>
             </div>
 
-            <div class="jugador4">
+            <div class="jugador3">
                 <input type="text" class="form-control" id="email3" placeholder="email" required>
+                <input type="password" class="form-control" id="password3" placeholder="password" required>
+            </div>
+
+            <div class="jugador4">
+                <input type="text" class="form-control" id="email4" placeholder="email" required>
+                <input type="password" class="form-control" id="password3" placeholder="password" required>
+            </div>
+
+            <div class="jugador5">
+                <input type="text" class="form-control" id="email5" placeholder="email" required>
                 <input type="password" class="form-control" id="password3" placeholder="password" required>
             </div>
         </main>
