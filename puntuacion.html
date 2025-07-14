@@ -1,36 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="estilo.css">
+    <title>Puntuacion Jugadores</title>
 </head>
-<body class="tablabody">
-    <header id="encabezadoprincipal">
-        <h1 class="h1puntuacion">Resultados</h1>
+
+<body class="bodypuntuacion">
+    <header class="headerpuntuacion">
+        <a href="principal.html" class="botonpuntuacion">Volver</a>
     </header>
-
-        
-
-    <table id="tablaranking">
-    <tr> <th>top</th> <th>Jugador</th> <th>Puntos</th> </tr>
-    <tr> <td>#1</td> <td>Jugador 1</td> <td>puntos</td> </tr>
-    <tr> <td>#2</td>  <td>Jugador 2</td> <td>puntos</td> </tr>
-    <tr> <td>#3</td> <td>Jugador 3</td> <td>puntos</td> </tr>
-    <tr> <td>#4</td> <td>Jugador 4</td> <td>puntos</td> </tr>
-    <tr> <td>#5</td> <td>Jugador 5</td> <td>puntos</td> </tr>
-    </table>
-
-    
-    
-    
+    <div class="tablacontainer">
+        <table class="tablapuntuacion">
+            <tr>
+                <th>Top</th>
+                <th>Jugadores</th>
+                <th>Puntuación</th>
+            </tr>
+            <tr>
+                <td><span class="numerotop">1</span></td>
+                <td class="nombrejugador">Jugador 1</td>
+                <td class="puntuacionjugador">37</td>
+            </tr>
+            <tr>
+                <td><span class="numerotop">2</span></td>
+                <td class="nombrejugador">Jugador 2</td>
+                <td class="puntuacionjugador">34</td>
+            </tr>
+            <tr>
+                <td><span class="numerotop">3</span></td>
+                <td class="nombrejugador">Jugador 3</td>
+                <td class="puntuacionjugador">30</td>
+            </tr>
+            <tr>
+                <td><span class="numerotop">4</span></td>
+                <td class="nombrejugador">Jugador 4</td>
+                <td class="puntuacionjugador">25</td>
+            </tr>
+            <tr>
+                <td><span class="numerotop">5</span></td>
+                <td class="nombrejugador">Jugador 5</td>
+                <td class="puntuacionjugador">15</td>
+            </tr>
+        </table>
+    </div>
+    <a href="partida.html" class="botonjugardenuevo">Jugar de Nuevo</a>
 </body>
-</html>  
-  
-    
-   
-    
- 
 
+</html>
