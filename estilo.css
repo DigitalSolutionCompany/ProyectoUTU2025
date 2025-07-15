@@ -1953,8 +1953,8 @@ tr:hover td {
     /* T-Rex = Rojo */
 }
 
-.pieza-dinosaurio.stegosaurus {
-    background-color: orange;
+.pieza-dinosaurio.Stegosaurio {
+    background-color: #e79600;
     /* Stegosaurus = Naranja */
 }
 
@@ -1963,12 +1963,12 @@ tr:hover td {
     /* Velociraptor = Rosa */
 }
 
-.pieza-dinosaurio.parasaurolophus {
+.pieza-dinosaurio.parasaurio {
     background-color: yellow;
     /* Parasaurolophus = Amarillo */
 }
 
-.pieza-dinosaurio.brachiosaurus {
+.pieza-dinosaurio.brachiosaurio {
     background-color: blue;
     /* Brachiosaurus = Azul */
 }
