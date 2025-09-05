@@ -2,7 +2,7 @@ CREATE DATABASE bd_juego;
 
 use bd_juego;
 
-CREATE TABLE Usuario (
+REATE TABLE Usuario (
    
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
    
