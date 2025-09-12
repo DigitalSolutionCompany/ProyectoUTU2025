@@ -12,3 +12,4 @@ CREATE TABLE Usuario (
 
     contraseña VARCHAR(20) NOT NULL
 );
+ insert into Usuario(nombre_usuario, partidas_ganadas, contraseña) values("pepe", 2, "pepa");

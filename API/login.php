@@ -11,11 +11,21 @@ class Usuarios {
     }
 
 //agregar usuario
-    public function insertUser($nombreUsuario, $contrasena, $pdo) {
-        $sql = "INSERT INTO {$this->table} (`nombre_usuario`, `contraseña`) VALUES (:nombre_usuario, :contraseña)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':nombre_usuario', $nombreUsuario);
-        $stmt->bindParam(':contrasena', $contrasena);
-        return $stmt->execute();
+    public function insertUser($nombreUsuario, $partidasGanadas, $contrasena) {
+        $sql = "insert into Usuario(nombre_usuario, partidas_ganadas, contraseña) values(:nombre_usuario, :partidas_ganadas, :contrasena);";
+
+        $stmt = $this->conexion->prepare($sql);
+        // Corrección: Usar los nombres de los marcadores de la consulta SQL
+        $stmt->bindParam(':nombre_usuario', $nombreUsuario, PDO::PARAM_STR);
+        $stmt->bindParam(':partidas_ganadas', $partidasGanadas, PDO::PARAM_INT);
+        $stmt->bindParam(':contrasena', $contrasena, PDO::PARAM_STR);
+        
+        //ejecuta si tiene exito la funcion
+        if ($stmt->execute()) {	
+            //retorna el ultimo id de la tabla al insertar
+            return $this->conexion->lastInsertId();
+        }
+        // Si la ejecución falla, retorna false
+        return false;
     }
 }
