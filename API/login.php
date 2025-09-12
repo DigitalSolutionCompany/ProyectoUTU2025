@@ -5,14 +5,17 @@ class Usuarios {
     private $conexion;
     // Propiedad privada que contiene el nombre de la tabla a usar
     private $table = "Usuario";
-
-    $usuario = "jugador1";
-
     // El constructor recibe una conexión a la base de datos y la guarda en la propiedad $conn
-    public function __construct($bd_juego) {
-        $this->conexion = $bd_juego;
+    public function __construct($db) {
+        $this->conexion = $db;
     }
 
-    // Método para validar usuarios
-
+//agregar usuario
+    public function insertUser($nombreUsuario, $contrasena, $pdo) {
+        $sql = "INSERT INTO {$this->table} (`nombre_usuario`, `contraseña`) VALUES (:nombre_usuario, :contraseña)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':nombre_usuario', $nombreUsuario);
+        $stmt->bindParam(':contrasena', $contrasena);
+        return $stmt->execute();
+    }
 }
