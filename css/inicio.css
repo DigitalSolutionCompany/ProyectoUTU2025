@@ -1,0 +1,396 @@
+* {
+    margin: 0;
+    /* Elimina margen por defecto de todos los elementos */
+    padding: 0;
+    /* Elimina padding por defecto de todos los elementos */
+    box-sizing: border-box;
+    /* Incluye padding y border en el ancho/alto total */
+}
+
+.bodyinicio {
+    background-color: #F0E6D2;
+    /* Color de fondo beige claro para toda la página */
+    font-family: Arial, sans-serif;
+    /* Fuente principal de la aplicación */
+    color: #553423;
+    /* Color de texto marrón */
+    padding: 0;
+    /* Sin espaciado interior */
+    margin: 0;
+    /* Sin margen exterior */
+    padding-top: 80px;
+    /* Espacio para el header fijo */
+}
+
+/* TÍTULO PRINCIPAL - Header fijo de la página de inicio */
+.tituloinicio {
+    background-color: #553423;
+    /* Color de fondo marrón */
+    color: #F0E6D2;
+    /* Color de texto beige claro */
+    text-align: left;
+    /* Alineación del texto a la izquierda */
+    padding: 20px;
+    /* Espaciado interior */
+    padding-right: 120px;
+    /* Espacio adicional para el botón */
+    font-size: 26px;
+    /* Tamaño de fuente grande */
+    font-weight: bold;
+    /* Texto en negrita */
+    letter-spacing: 2px;
+    /* Espaciado entre letras */
+    position: fixed;
+    /* Se mantiene fijo en la parte superior */
+    top: 0;
+    /* Posicionado en la parte superior */
+    left: 0;
+    /* Alineado a la izquierda */
+    right: 0;
+    /* Se extiende hasta la derecha */
+    z-index: 1000;
+    /* Mantiene el header por encima de otros elementos */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    /* Sombra para profundidad */
+}
+
+/* BOTÓN JUGAR - Botón en el header de inicio */
+.botonjugar {
+    position: absolute;
+    /* Posicionamiento absoluto dentro del header */
+    top: 0;
+    /* Posicionado en la parte superior */
+    right: 0;
+    /* Alineado a la derecha */
+    background-color: #44281b;
+    /* Color de fondo marrón oscuro */
+    color: #F0E6D2;
+    /* Color de texto beige claro */
+    border: none;
+    /* Sin borde */
+    padding: 20px 25px;
+    /* Espaciado interior */
+    font-size: 16px;
+    /* Tamaño de fuente */
+    font-weight: bold;
+    /* Texto en negrita */
+    cursor: pointer;
+    /* Cursor de mano al pasar sobre el botón */
+    text-decoration: none;
+    /* Sin subrayado en el texto */
+    display: flex;
+    /* Usa flexbox para centrar el texto */
+    align-items: center;
+    /* Centra verticalmente el contenido */
+    justify-content: center;
+    /* Centra horizontalmente el contenido */
+    text-align: center;
+    /* Centra el texto */
+    height: 100%;
+    /* Altura completa del header */
+    border-radius: 0;
+    /* Sin esquinas redondeadas */
+    min-width: 80px;
+    /* Ancho mínimo del botón para mejor legibilidad */
+}
+
+.botonjugar:hover {
+    background-color: #2d1a12;
+    /* Color más oscuro al pasar el mouse */
+    color: #F0E6D2;
+    /* Mantiene el color del texto */
+    text-decoration: none;
+    /* Sin subrayado */
+}
+
+/* CONTENEDOR PRINCIPAL - Container para el contenido */
+.container {
+    max-width: 1200px;
+    /* Ancho máximo del contenedor */
+    margin: 0 auto;
+    /* Centra el contenedor horizontalmente */
+    padding: 20px;
+    /* Espaciado interior */
+}
+
+/* SECCIONES DE CONTENIDO - Cajas de información */
+.contenidoreglas {
+    background-color: white;
+    /* Color de fondo blanco */
+    border-radius: 10px;
+    /* Esquinas redondeadas */
+    padding: 20px;
+    /* Espaciado interior */
+    margin-bottom: 20px;
+    /* Espacio inferior */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
+    border: 2px solid #8B5E3C;
+    /* Borde marrón */
+}
+
+.contenidoreglas h2 {
+    color: #553423;
+    /* Color de texto marrón */
+    font-size: 20px;
+    /* Tamaño de fuente */
+    margin-bottom: 15px;
+    /* Espacio inferior */
+    text-align: center;
+    /* Centra el texto */
+    font-weight: bold;
+    /* Texto en negrita */
+}
+
+.contenidoreglas p {
+    line-height: 1.6;
+    /* Altura de línea para legibilidad */
+    text-align: justify;
+    /* Justifica el texto */
+    color: #553423;
+    /* Color de texto marrón */
+    font-size: 14px;
+    /* Tamaño de fuente */
+}
+
+/* DETALLES ESPECÍFICOS - Elementos de información detallada */
+.detallesreglas {
+    margin-bottom: 12px;
+    /* Espacio inferior */
+    padding: 8px 0;
+    /* Espaciado vertical */
+    border-bottom: 1px solid #E8D5B7;
+    /* Línea divisoria */
+}
+
+.detalleslabel {
+    font-weight: bold;
+    /* Texto en negrita */
+    color: #553423;
+    /* Color de texto marrón */
+    display: inline-block;
+    /* Comportamiento de bloque en línea */
+    min-width: 80px;
+    /* Ancho mínimo */
+}
+
+.detallestexto {
+    color: #553423;
+    /* Color de texto marrón */
+}
+
+.espacio {
+    margin-top: 20px;
+    /* Espacio superior */
+}
+
+/* ========== MEDIA QUERIES RESPONSIVE ========== */
+
+/* MÓVILES - Pantallas muy pequeñas (hasta 480px) */
+@media (max-width: 480px) {
+    .bodyinicio {
+        padding-top: 70px; /* Reduce el espacio superior */
+    }
+    
+    .tituloinicio {
+        padding: 15px 10px; /* Reduce padding general */
+        padding-right: 85px; /* Menos espacio para el botón */
+        font-size: 18px; /* Reduce tamaño de fuente */
+        letter-spacing: 1px; /* Reduce espaciado entre letras */
+        text-align: center; /* Centra el título en móviles */
+    }
+
+    .botonjugar {
+        font-size: 13px; /* Reduce tamaño del texto del botón */
+        padding: 15px 15px; /* Reduce padding */
+        min-width: 60px; /* Reduce ancho mínimo */
+    }
+
+    .container {
+        padding: 15px 10px; /* Reduce padding del container */
+    }
+
+    .contenidoreglas {
+        padding: 15px; /* Reduce padding interno */
+        margin-bottom: 15px; /* Reduce espacio inferior */
+    }
+
+    .contenidoreglas h2 {
+        font-size: 18px; /* Reduce tamaño del título */
+        margin-bottom: 12px; /* Reduce margen inferior */
+    }
+
+    .contenidoreglas p {
+        font-size: 13px; /* Reduce tamaño del texto */
+        line-height: 1.5; /* Ajusta altura de línea */
+    }
+
+    .detallesreglas {
+        margin-bottom: 10px; /* Reduce espacio entre detalles */
+        padding: 6px 0; /* Reduce padding vertical */
+    }
+
+    .detalleslabel {
+        min-width: 70px; /* Reduce ancho mínimo */
+        font-size: 13px; /* Reduce tamaño de fuente */
+        display: block; /* Cambia a bloque para que ocupe toda la línea */
+        margin-bottom: 4px; /* Añade espacio inferior */
+    }
+
+    .detallestexto {
+        font-size: 13px; /* Reduce tamaño de fuente */
+    }
+}
+
+/* MÓVILES MEDIANOS - Pantallas pequeñas (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .bodyinicio {
+        padding-top: 75px; /* Ajusta espacio superior */
+    }
+    
+    .tituloinicio {
+        padding: 18px 15px; /* Ajusta padding */
+        padding-right: 100px; /* Espacio para el botón */
+        font-size: 22px; /* Tamaño de fuente intermedio */
+        letter-spacing: 1.5px; /* Ajusta espaciado */
+        text-align: center; /* Centra el título */
+    }
+
+    .botonjugar {
+        font-size: 15px; /* Tamaño de fuente intermedio */
+        padding: 18px 20px; /* Padding intermedio */
+        min-width: 70px; /* Ancho mínimo intermedio */
+    }
+
+    .container {
+        padding: 20px 15px; /* Ajusta padding */
+        max-width: 600px; /* Limita ancho máximo */
+    }
+
+    .contenidoreglas {
+        padding: 18px; /* Padding intermedio */
+    }
+
+    .contenidoreglas h2 {
+        font-size: 19px; /* Tamaño intermedio */
+    }
+
+    .contenidoreglas p {
+        font-size: 13.5px; /* Tamaño intermedio */
+    }
+
+    .detalleslabel {
+        min-width: 75px; /* Ancho intermedio */
+        font-size: 13.5px; /* Tamaño intermedio */
+    }
+
+    .detallestexto {
+        font-size: 13.5px; /* Tamaño intermedio */
+    }
+}
+
+/* TABLETS - Pantallas medianas (769px - 991px) */
+@media (min-width: 769px) and (max-width: 991px) {
+    .tituloinicio {
+        padding-right: 120px; /* Mantiene espacio para el botón */
+        font-size: 24px; /* Tamaño ligeramente reducido */
+        text-align: left; /* Vuelve a alineación izquierda */
+    }
+
+    .botonjugar {
+        font-size: 16px; /* Mantiene tamaño estándar */
+        padding: 20px 22px; /* Ajusta padding */
+        min-width: 75px; /* Ajusta ancho mínimo */
+    }
+
+    .container {
+        max-width: 800px; /* Aumenta ancho máximo */
+        padding: 20px; /* Mantiene padding estándar */
+    }
+
+    .contenidoreglas h2 {
+        font-size: 20px; /* Mantiene tamaño estándar */
+    }
+
+    .contenidoreglas p {
+        font-size: 14px; /* Mantiene tamaño estándar */
+    }
+
+    .detalleslabel {
+        font-size: 14px; /* Mantiene tamaño estándar */
+    }
+
+    .detallestexto {
+        font-size: 14px; /* Mantiene tamaño estándar */
+    }
+}
+
+/* LAPTOPS - Pantallas grandes (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .tituloinicio {
+        padding-right: 130px; /* Más espacio para el botón */
+        font-size: 26px; /* Tamaño estándar */
+    }
+
+    .botonjugar {
+        font-size: 16px; /* Tamaño estándar */
+        padding: 20px 25px; /* Padding estándar */
+        min-width: 80px; /* Ancho estándar */
+    }
+
+    .container {
+        max-width: 1000px; /* Aumenta ancho máximo */
+    }
+}
+
+/* DESKTOP - Pantallas extra grandes (1200px+) */
+@media (min-width: 1200px) {
+    .tituloinicio {
+        padding-right: 140px; /* Máximo espacio para el botón */
+        font-size: 28px; /* Tamaño más grande */
+    }
+
+    .botonjugar {
+        font-size: 18px; /* Tamaño más grande */
+        padding: 22px 30px; /* Padding más grande */
+        min-width: 90px; /* Ancho más grande */
+    }
+
+    .container {
+        max-width: 900px; /* Ancho máximo optimizado */
+    }
+
+    .contenidoreglas h2 {
+        font-size: 22px; /* Tamaño más grande */
+    }
+
+    .contenidoreglas p {
+        font-size: 15px; /* Tamaño más grande */
+    }
+
+    .detalleslabel {
+        font-size: 15px; /* Tamaño más grande */
+        min-width: 90px; /* Ancho más grande */
+    }
+
+    .detallestexto {
+        font-size: 15px; /* Tamaño más grande */
+    }
+}
+
+/* AJUSTES PARA ORIENTACIÓN HORIZONTAL EN MÓVILES */
+@media (max-width: 768px) and (orientation: landscape) {
+    .bodyinicio {
+        padding-top: 65px; /* Reduce espacio superior en landscape */
+    }
+    
+    .tituloinicio {
+        padding: 12px 15px; /* Reduce padding vertical */
+        font-size: 20px; /* Ajusta tamaño de fuente */
+    }
+
+    .botonjugar {
+        padding: 12px 20px; /* Reduce padding vertical */
+        font-size: 14px; /* Ajusta tamaño de fuente */
+    }
+}

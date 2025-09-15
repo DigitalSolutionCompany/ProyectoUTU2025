@@ -1,0 +1,744 @@
+/* RESET GLOBAL - Elimina márgenes y padding por defecto del navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* CONTENEDOR PRINCIPAL - Pantalla completa de la partida */
+.partidaempezada {
+    background-color: #F0E6D2;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-top: 9vh; /* Espacio para el encabezado fijo */
+}
+
+/* ENCABEZADO PRINCIPAL - Barra superior fija */
+.encabezadoprincipal {
+    position: fixed;
+    width: 100%;
+    height: 9vh;
+    top: 0;
+    background-color: #311f15;
+    z-index: 9999;
+    color: #F0E6D2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3);
+}
+
+/* BOTÓN VOLVER - Esquina superior izquierda */
+.botonpartidavolver {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6rem !important;
+    height: 100%;
+    background-color: #311f15;
+    color: #F0E6D2;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    z-index: 10000;
+}
+
+.botonpartidavolver:hover {
+    background-color: #5C3B27;
+}
+
+/* TÍTULO DEL ENCABEZADO - Texto principal */
+.encabezadoprincipal h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #F0E6D2;
+    text-transform: uppercase;
+    position: relative;
+    margin: 0;
+    margin-left: 7vh;
+}
+
+/* GRID DE TABLEROS - Organización de tarjetas de jugadores */
+.tableros-cuadrados {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
+    grid-template-rows: 1fr 1fr auto; /* 2 filas iguales + 1 automática */
+    gap: 15px;
+    padding: 15px;
+    flex: 1;
+    height: calc(100vh - 9vh); /* Altura total menos encabezado */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* POSICIONAMIENTO ESPECÍFICO DE TARJETAS */
+.tarjeta-jugador:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.tarjeta-jugador:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.tarjeta-jugador:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.tarjeta-jugador:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.tarjeta-jugador:nth-child(5) {
+    grid-column: 1 / -1; /* Ocupa ambas columnas */
+    grid-row: 3; /* Tercera fila */
+    background: linear-gradient(135deg, #006B54, #008B6B);
+    border: 3px solid #311f15;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+/* TARJETAS DE JUGADORES - Cada tablero individual */
+.tarjeta-jugador {
+    background: linear-gradient(135deg, #004136, #006B54);
+    border: 2px solid #555;
+    border-radius: 10px;
+    text-align: center;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column-reverse; /* Imagen arriba, nombre abajo */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    font-weight: bold;
+    overflow: hidden;
+    min-height: 120px; /* Altura mínima */
+}
+
+.tarjeta-jugador:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* IMÁGENES DE TABLEROS - Fotos dentro de las tarjetas */
+.imagen-tablero {
+    width: 100%;
+    flex: 1; /* Ocupa el espacio restante */
+    object-fit: cover;
+    border-radius: 0;
+}
+
+/* NOMBRES EN TARJETAS - Etiquetas de los jugadores */
+.nombre-jugador-tarjeta {
+    height: 40px; /* Altura fija */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* VISTA TABLERO COMPLETO - Pantalla completa para ver un tablero */
+.vista-tablero-completo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0F4100;
+    padding: 20px;
+    padding-top: 11vh;
+    display: none;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+/* BOTÓN CERRAR - Para cerrar la vista completa */
+.boton-cerrar {
+    position: sticky;
+    top: 0;
+    background: #8B4513;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* BOTONES DE NAVEGACIÓN - Controles en vista completa */
+.botones-navegacion {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    top: 10px;
+    margin-bottom: 20px;
+    z-index: 100;
+}
+
+.boton-navegacion {
+    background: #8B4513;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.boton-navegacion:hover {
+    background: #A0522D;
+    transform: translateY(-2px);
+}
+
+.boton-navegacion.volver {
+    background: #4CAF50;
+}
+
+.boton-navegacion.volver:hover {
+    background: #45a049;
+}
+
+/* ZONAS DE RECINTOS - Áreas donde se colocan los dinosaurios */
+.zona-recinto {
+    background: rgb(250, 199, 58);
+    padding: 15px;
+    margin: 15px 0;
+    border: 3px solid #52005C;
+    border-radius: 8px;
+    color: #000;
+    font-weight: bold;
+}
+
+.zona-recinto-especial {
+    background-color: darkkhaki;
+    border: 3px solid #3F2A00;
+}
+
+/* PIEZAS DE DINOSAURIOS - Representación visual de cada dinosaurio */
+.pieza-dinosaurio {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    margin: 5px;
+    border-radius: 50%;
+    border: 2px solid #333;
+}
+
+/* Colores específicos para cada especie de dinosaurio */
+.pieza-dinosaurio.t-rex { background-color: red; }
+.pieza-dinosaurio.stegosaurio { background-color: #e79600; }
+.pieza-dinosaurio.velociraptor { background-color: hotpink; }
+.pieza-dinosaurio.parasaurio { background-color: yellow; }
+.pieza-dinosaurio.brachiosaurio { background-color: blue; }
+.pieza-dinosaurio.triceratops { background-color: green; }
+
+/* PANEL DE SELECCIÓN - Área para elegir dinosaurios */
+.panel-seleccion {
+    background: rgba(139, 69, 19, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    position: relative;
+    top: 0px;
+    z-index: 10;
+}
+
+.panel-seleccion p {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* GRID DE ESPECIES - Organización de botones de dinosaurios */
+.especies-dinosaurio {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+/* BOTONES DE ESPECIES - Botones para seleccionar dinosaurios */
+.boton-especie {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 8px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.boton-especie:active {
+    transform: scale(0.95);
+}
+
+.boton-especie.activo {
+    background: #ff6b6b;
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+/* NOMBRE DE JUGADOR - Título en vista completa */
+.nombre-jugador {
+    background: linear-gradient(135deg, #8B4513, #D2691E);
+    color: #FFF8DC;
+    padding: 15px;
+    margin: 0 0 20px 0;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================ */
+/* MEDIA QUERIES PARA RESPONSIVE DESIGN */
+/* ============================================ */
+
+/* PANTALLAS GRANDES (Desktop) - 1200px y más */
+@media (min-width: 1200px) {
+    .encabezadoprincipal h1 {
+        font-size: 2.5rem;
+        margin-left: 8vh;
+    }
+    
+    .botonpartidavolver {
+        width: 7rem !important;
+        font-size: 1rem;
+    }
+    
+    .tableros-cuadrados {
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        grid-template-rows: 1fr 1fr 0.6fr; /* Fila inferior más pequeña */
+    }
+    
+    .tarjeta-jugador {
+        font-size: 1em;
+        min-height: 200px;
+    }
+    
+    .tarjeta-jugador:nth-child(5) {
+        min-height: 120px;
+        font-size: 1.1em;
+    }
+    
+    .vista-tablero-completo {
+        padding: 25px;
+        padding-top: 12vh;
+    }
+    
+    .boton-navegacion {
+        padding: 14px 22px;
+        font-size: 1.1em;
+    }
+    
+    .zona-recinto {
+        padding: 18px;
+        margin: 18px 0;
+    }
+    
+    .panel-seleccion {
+        padding: 25px;
+        margin: 25px 0;
+    }
+    
+    .panel-seleccion p {
+        font-size: 1.3em;
+    }
+    
+    .especies-dinosaurio {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    
+    .boton-especie {
+        padding: 14px 10px;
+        font-size: 1em;
+    }
+    
+    .nombre-jugador {
+        font-size: 1.7em;
+        padding: 18px;
+    }
+    
+    .pieza-dinosaurio {
+        width: 50px;
+        height: 50px;
+        margin: 6px;
+    }
+}
+
+/* PANTALLAS MEDIANAS (Tablet) - 768px a 1199px */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .encabezadoprincipal {
+        height: 8vh;
+    }
+    
+    .encabezadoprincipal h1 {
+        font-size: 1.8rem;
+        margin-left: 6vh;
+    }
+    
+    .partidaempezada {
+        padding-top: 8vh;
+    }
+    
+    .botonpartidavolver {
+        width: 5.5rem !important;
+        font-size: 0.85rem;
+    }
+    
+    .tableros-cuadrados {
+        height: calc(100vh - 8vh);
+        gap: 12px;
+        padding: 12px;
+        grid-template-rows: 1fr 1fr 0.7fr;
+    }
+    
+    .tarjeta-jugador {
+        font-size: 0.85em;
+        min-height: 150px;
+    }
+    
+    .tarjeta-jugador:nth-child(5) {
+        min-height: 100px;
+    }
+    
+    .vista-tablero-completo {
+        padding: 15px;
+        padding-top: 9vh;
+    }
+    
+    .boton-navegacion {
+        padding: 10px 16px;
+        font-size: 0.95em;
+    }
+    
+    .zona-recinto {
+        padding: 12px;
+        margin: 12px 0;
+    }
+    
+    .panel-seleccion {
+        padding: 16px;
+        margin: 16px 0;
+    }
+    
+    .panel-seleccion p {
+        font-size: 1.1em;
+    }
+    
+    .especies-dinosaurio {
+        gap: 8px;
+    }
+    
+    .boton-especie {
+        padding: 10px 6px;
+        font-size: 0.85em;
+    }
+    
+    .nombre-jugador {
+        font-size: 1.3em;
+        padding: 12px;
+    }
+    
+    .pieza-dinosaurio {
+        width: 40px;
+        height: 40px;
+        margin: 4px;
+    }
+}
+
+/* PANTALLAS PEQUEÑAS (Mobile) - 767px y menos */
+@media (max-width: 767px) {
+    .encabezadoprincipal {
+        height: 7vh;
+    }
+    
+    .encabezadoprincipal h1 {
+        font-size: 1.4rem;
+        margin-left: 0;
+        text-align: center;
+        padding-left: 5rem;
+    }
+    
+    .partidaempezada {
+        padding-top: 7vh;
+        overflow-x: hidden;
+        width: 100vw;
+        box-sizing: border-box;
+    }
+    
+    .botonpartidavolver {
+        width: 4.5rem !important;
+        font-size: 0.75rem;
+    }
+    
+    .tableros-cuadrados {
+        height: calc(100vh - 7vh);
+        gap: 8px;
+        padding: 8px;
+        grid-template-rows: 1fr 1fr 0.8fr;
+    }
+    
+    .tarjeta-jugador {
+        font-size: 0.75em;
+        border-radius: 8px;
+        min-height: 100px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .tarjeta-jugador:nth-child(5) {
+        min-height: 80px;
+        font-size: 1em;
+    }
+    
+    .nombre-jugador-tarjeta {
+        height: 30px;
+        min-height: 30px;
+        font-size: 0.75em;
+        padding: 5px;
+    }
+    
+    .vista-tablero-completo {
+        padding: 10px;
+        padding-top: 8vh;
+        width: 100vw;
+        box-sizing: border-box;
+    }
+    
+    .botones-navegacion {
+        flex-direction: column;
+        gap: 8px;
+        top: 5px;
+        margin-bottom: 15px;
+    }
+    
+    .boton-navegacion {
+        padding: 8px 12px;
+        font-size: 0.85em;
+        flex: none;
+    }
+    
+    .zona-recinto {
+        padding: 10px;
+        margin: 10px 0;
+        border-width: 2px;
+    }
+    
+    .panel-seleccion {
+        padding: 12px;
+        margin: 12px 0;
+    }
+    
+    .panel-seleccion p {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+    
+    .especies-dinosaurio {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+    
+    .boton-especie {
+        padding: 10px 8px;
+        font-size: 0.8em;
+    }
+    
+    .nombre-jugador {
+        font-size: 1.1em;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .pieza-dinosaurio {
+        width: 35px;
+        height: 35px;
+        margin: 3px;
+    }
+    
+    /* Desactivar efectos hover en móviles */
+    .tarjeta-jugador:hover {
+        transform: none;
+    }
+    
+    .boton-navegacion:hover {
+        transform: none;
+    }
+}
+
+/* PANTALLAS MUY PEQUEÑAS (Mobile pequeño) - 480px y menos */
+@media (max-width: 480px) {
+    .encabezadoprincipal {
+        height: 6vh;
+    }
+    
+    .encabezadoprincipal h1 {
+        font-size: 1.2rem;
+        padding-left: 4rem;
+    }
+    
+    .partidaempezada {
+        padding-top: 6vh;
+    }
+    
+    .botonpartidavolver {
+        width: 4rem !important;
+        font-size: 0.7rem;
+    }
+    
+    .tableros-cuadrados {
+        height: calc(100vh - 6vh);
+        gap: 6px;
+        padding: 6px;
+        grid-template-rows: 1fr 1fr 0.9fr;
+    }
+    
+    .tarjeta-jugador {
+        font-size: 0.7em;
+        border-radius: 6px;
+        border-width: 1px;
+        min-height: 80px;
+    }
+    
+    .tarjeta-jugador:nth-child(5) {
+        font-size: 0.9em;
+        border-width: 2px;
+        min-height: 70px;
+    }
+    
+    .nombre-jugador-tarjeta {
+        height: 25px;
+        min-height: 25px;
+        font-size: 0.7em;
+    }
+    
+    .vista-tablero-completo {
+        padding: 8px;
+        padding-top: 7vh;
+    }
+    
+    .botones-navegacion {
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+    
+    .boton-navegacion {
+        padding: 6px 10px;
+        font-size: 0.75em;
+        border-radius: 6px;
+    }
+    
+    .zona-recinto {
+        padding: 8px;
+        margin: 8px 0;
+        border-radius: 6px;
+    }
+    
+    .panel-seleccion {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 8px;
+    }
+    
+    .panel-seleccion p {
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+    
+    .especies-dinosaurio {
+        gap: 5px;
+    }
+    
+    .boton-especie {
+        padding: 8px 6px;
+        font-size: 0.75em;
+        border-radius: 6px;
+    }
+    
+    .nombre-jugador {
+        font-size: 1em;
+        padding: 8px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+    }
+    
+    .pieza-dinosaurio {
+        width: 30px;
+        height: 30px;
+        margin: 2px;
+        border-width: 1px;
+    }
+}
+
+/* PANTALLAS ULTRA ANCHAS - 1920px y más */
+@media (min-width: 1920px) {
+    .encabezadoprincipal h1 {
+        font-size: 3rem;
+    }
+    
+    .tableros-cuadrados {
+        max-width: 1400px;
+        gap: 25px;
+        padding: 30px;
+        grid-template-rows: 1fr 1fr 0.5fr; /* Fila inferior aún más pequeña */
+    }
+    
+    .tarjeta-jugador {
+        min-height: 250px;
+    }
+    
+    .tarjeta-jugador:nth-child(5) {
+        min-height: 125px;
+        font-size: 1.2em;
+    }
+    
+    .vista-tablero-completo {
+        padding: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Evitar overflow horizontal */
+body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+* {
+    max-width: 100%;
+}

@@ -1,0 +1,550 @@
+/*ranking.html */
+
+/* RESET GLOBAL */
+* {
+    box-sizing: border-box;
+    /* Incluye padding y border en el ancho/alto total */
+}
+
+html,
+body {
+    margin: 0;
+    /* Elimina margen por defecto de todos los elementos */
+    padding: 0;
+    /* Elimina padding por defecto de todos los elementos */
+    width: 100%;
+    /* Ancho completo de la ventana del navegador */
+}
+
+/* CONTENEDOR PRINCIPAL */
+.bodyranking {
+    height: 100vh;
+    /* Altura completa de la ventana del navegador */
+    margin: 0;
+    /* Sin margen exterior */
+    padding: 1rem;
+    /* Espaciado interior de 1rem */
+    background-color: #5f3723;
+    /* Color de fondo marrón oscuro para toda la página */
+    font-family: sans-serif;
+    /* Fuente principal de la aplicación */
+    display: flex;
+    /* Usa flexbox para organizar elementos */
+    flex-direction: column;
+    /* Organiza elementos en columna vertical */
+    align-items: center;
+    /* Centra elementos horizontalmente */
+    justify-content: center;
+    /* Centra elementos verticalmente */
+    padding-top: 0.1px;
+    /* Deja espacio arriba para el encabezado fijo */
+}
+
+/* ENCABEZADO PRINCIPAL */
+.headerranking {
+    position: fixed !important;
+    /* Se mantiene fijo en la parte superior */
+    width: 100% !important;
+    /* Ancho completo de la ventana del navegador */
+    height: 9vh !important;
+    /* Altura del 9% de la ventana del navegador */
+    top: 0 !important;
+    /* Posicionado en la parte superior */
+    left: 0 !important;
+    /* Alineado a la izquierda */
+    background-color: #3f2618 !important;
+    /* Color de fondo marrón medio */
+    display: flex !important;
+    /* Usa flexbox para organizar elementos */
+    align-items: center !important;
+    /* Centra elementos verticalmente */
+    justify-content: center !important;
+    /* Centra elementos horizontalmente */
+    z-index: 1000 !important;
+    /* Mantiene el header por encima de otros elementos */
+    padding: 0 !important;
+    /* Sin espaciado interior */
+    margin: 0 !important;
+    /* Sin margen exterior */
+}
+
+.botonranking {
+    position: absolute;
+    /* Posicionamiento absoluto para no afectar el centrado */
+    left: 0;
+    /* Alineado completamente a la izquierda */
+    width: 6rem !important;
+    /* Ancho fijo del botón */
+    height: 100%;
+    /* Altura completa del header */
+    background-color: #311f15;
+    /* Color de fondo marrón muy oscuro */
+    color: #F0E6D2;
+    /* Color de texto beige claro */
+    border: none;
+    /* Sin borde */
+    padding: 0;
+    /* Sin espaciado interior */
+    margin: 0;
+    /* Sin margen exterior */
+    font-weight: bold;
+    /* Texto en negrita */
+    cursor: pointer;
+    /* Cursor de mano al pasar sobre el botón */
+    text-decoration: none;
+    /* Sin subrayado en el texto */
+    display: flex;
+    /* Usa flexbox para centrar el texto */
+    align-items: center;
+    /* Centra texto verticalmente */
+    justify-content: center;
+    /* Centra texto horizontalmente */
+    font-size: 0.9rem;
+    /* Tamaño de fuente pequeño */
+}
+
+.botonranking:hover {
+    background-color: #5C3B27;
+    /* Color más claro al pasar el mouse */
+}
+
+.tituloencabezado {
+    font-family: 'Georgia', serif;
+    /* Fuente elegante tipo serif */
+    font-size: 2rem;
+    /* Tamaño de fuente grande */
+    font-weight: bold;
+    /* Texto en negrita */
+    color: #F0E6D2;
+    /* Color de texto beige claro */
+    text-transform: uppercase;
+    /* Convierte texto a mayúsculas */
+    text-align: center;
+    /* Centra el texto */
+    margin: 0;
+    /* Sin margen */
+    position: absolute;
+    /* Posicionamiento absoluto */
+    left: 50%;
+    /* Mueve al 50% desde la izquierda */
+    transform: translateX(-50%);
+    /* Centra exactamente en el medio */
+    width: calc(100% - 12rem);
+    /* Ancho disponible considerando los botones */
+}
+
+/* TÍTULO PRINCIPAL DEL RANKING - Responsivo optimizado */
+.tituloranking {
+    color: #F0E6D2;
+    /* Color de texto beige claro */
+    font-size: clamp(1.5rem, 5vw, 4rem);
+    /* Tamaño responsivo: mín 1.5rem, ideal 5vw, máx 4rem */
+    margin-bottom: 2rem;
+    /* Espacio inferior */
+    text-align: center;
+    /* Centra el texto */
+    font-weight: bold;
+    /* Texto en negrita */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    /* Sombra para profundidad */
+    letter-spacing: clamp(0.1rem, 0.5vw, 0.3rem);
+    /* Espaciado entre letras responsivo */
+    position: relative;
+    /* Permite posicionar elementos decorativos */
+    text-transform: uppercase;
+    /* Convierte texto a mayúsculas */
+    padding: 0 clamp(2rem, 6vw, 6rem);
+    /* Espaciado horizontal responsivo */
+    width: 100%;
+    /* Ancho completo */
+    max-width: 800px;
+    /* Ancho máximo aumentado */
+    min-height: clamp(2rem, 5vw, 4rem);
+    /* Altura mínima responsiva */
+    display: flex;
+    /* Usa flexbox para mejor control */
+    align-items: center;
+    /* Centra verticalmente */
+    justify-content: center;
+    /* Centra horizontalmente */
+}
+
+/* CONTENEDOR DE RANKING */
+.rankingcontainer {
+    background-color: #F0E6D2;
+    /* Color de fondo beige claro */
+    border: 0.3rem solid #311f15;
+    /* Borde marrón oscuro */
+    border-radius: 0.5rem;
+    /* Esquinas redondeadas */
+    padding: 1rem;
+    /* Espaciado interior */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    /* Sombra para profundidad */
+    width: 100%;
+    /* Ancho completo */
+    max-width: 500px;
+    /* Ancho máximo */
+    margin: 0;
+    /* Sin margen exterior */
+}
+
+/* TABLA DE RANKING */
+.tablaranking {
+    width: 100%;
+    /* Ancho completo del contenedor */
+    border-collapse: collapse;
+    /* Elimina espacios entre bordes */
+    font-family: sans-serif;
+    /* Fuente de la tabla */
+    font-size: 1rem;
+    /* Tamaño de fuente base */
+}
+
+th {
+    background-color: #553423;
+    /* Color de fondo marrón para encabezados */
+    color: #F0E6D2;
+    /* Color de texto beige claro */
+    padding: 0.8rem;
+    /* Espaciado interior */
+    text-align: center;
+    /* Centra el texto */
+    font-weight: bold;
+    /* Texto en negrita */
+    font-size: 1rem;
+    /* Tamaño de fuente */
+    border: 2px solid #311f15;
+    /* Borde marrón oscuro */
+}
+
+td {
+    padding: 0.6rem;
+    /* Espaciado interior */
+    text-align: center;
+    /* Centra el texto */
+    border: 2px solid #311f15;
+    /* Borde marrón oscuro */
+    color: #553423;
+    /* Color de texto marrón */
+    font-weight: bold;
+    /* Texto en negrita */
+    background-color: #F0E6D2;
+    /* Color de fondo beige claro */
+}
+
+tr:hover td {
+    background-color: #e6d5c4;
+    /* Color más oscuro al pasar el mouse */
+}
+
+.numerotop {
+    background-color: #4b3020;
+    /* Color de fondo marrón oscuro */
+    color: #F0E6D2;
+    /* Color de texto beige claro */
+    font-weight: bold;
+    /* Texto en negrita */
+    border-radius: 0.3rem;
+    /* Esquinas redondeadas */
+    padding: 0.3rem 0.6rem;
+    /* Espaciado interior */
+    display: inline-block;
+    /* Comportamiento de bloque en línea */
+}
+
+.rankingjugador {
+    color: #553423;
+    /* Color de texto marrón */
+    font-weight: bold;
+    /* Texto en negrita */
+    font-size: 1.1rem;
+    /* Tamaño de fuente ligeramente mayor */
+}
+
+.nombrejugador {
+    color: #553423;
+    /* Color de texto marrón */
+    font-weight: bold;
+    /* Texto en negrita */
+}
+
+/* RESPONSIVE - Móviles pequeños (hasta 320px) */
+@media (max-width: 320px) {
+    .tituloencabezado {
+        font-size: 1.2rem;
+        /* Tamaño reducido para móviles pequeños */
+    }
+
+    .botonranking {
+        width: 4.5rem !important;
+        /* Botón más pequeño */
+        font-size: 0.7rem;
+    }
+
+    .tituloranking {
+        font-size: clamp(1rem, 4vw, 1.5rem);
+        /* Tamaño más pequeño para móviles muy pequeños */
+        padding: 0 0.5rem;
+        /* Espaciado mínimo */
+        letter-spacing: clamp(0.02rem, 0.2vw, 0.05rem);
+        /* Espaciado mínimo entre letras */
+        margin-bottom: 1rem;
+        /* Margen reducido */
+    }
+}
+
+/* RESPONSIVE - Móviles (321px a 480px) */
+@media (max-width: 480px) and (min-width: 321px) {
+    .tituloencabezado {
+        font-size: 1.4rem;
+        /* Tamaño para móviles estándar */
+        width: calc(100% - 10rem);
+        /* Ancho considerando botón más pequeño */
+    }
+
+    .botonranking {
+        width: 5rem !important;
+        /* Botón adaptado para móviles */
+        font-size: 0.8rem;
+    }
+
+    .tituloranking {
+        font-size: clamp(1.2rem, 5vw, 2rem);
+        /* Tamaño para móviles estándar */
+        padding: 0 1rem;
+        /* Espaciado horizontal moderado */
+        letter-spacing: clamp(0.03rem, 0.3vw, 0.08rem);
+        /* Espaciado entre letras */
+        margin-bottom: 1.2rem;
+        /* Margen moderado */
+    }
+
+    .rankingcontainer {
+        max-width: 95%;
+        /* Aprovecha más el ancho disponible */
+        padding: 0.5rem;
+        /* Espaciado interior reducido */
+    }
+
+    .tablaranking {
+        font-size: 0.9rem;
+        /* Fuente más pequeña para móviles */
+    }
+
+    th,
+    td {
+        padding: 0.4rem;
+        /* Espaciado reducido en celdas */
+    }
+}
+
+/* RESPONSIVE - Tablets (481px a 768px) */
+@media (max-width: 768px) and (min-width: 481px) {
+    .tituloencabezado {
+        font-size: 1.8rem;
+        /* Tamaño para tablets */
+        width: calc(100% - 10rem);
+        /* Ancho considerando botón */
+    }
+
+    .botonranking {
+        width: 5rem !important;
+        /* Ancho reducido del botón */
+        font-size: 0.8rem;
+        /* Tamaño de fuente reducido */
+    }
+
+    .bodyranking {
+        padding-top: 10vh;
+        /* Espaciado superior para el header fijo */
+    }
+
+    .tituloranking {
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        /* Tamaño responsivo para tablets */
+        padding: 0 2rem;
+        /* Espaciado horizontal para tablets */
+        margin-bottom: 1.5rem;
+        /* Margen inferior para tablets */
+        letter-spacing: clamp(0.08rem, 0.3vw, 0.15rem);
+        /* Espaciado entre letras para tablets */
+    }
+
+    .rankingcontainer {
+        max-width: 450px;
+        /* Ancho máximo para tablets */
+        padding: 0.8rem;
+        /* Espaciado interior para tablets */
+    }
+}
+
+/* RESPONSIVE - Pantallas medianas (769px a 991px) */
+@media (min-width: 769px) and (max-width: 991px) {
+    .tituloencabezado {
+        font-size: 2rem;
+        /* Tamaño para pantallas medianas */
+        width: calc(100% - 12rem);
+        /* Ancho considerando botón estándar */
+    }
+
+    .tituloranking {
+        font-size: clamp(2.2rem, 3.5vw, 3rem);
+        /* Tamaño para pantallas medianas */
+        padding: 0 3rem;
+        /* Espaciado horizontal moderado */
+        letter-spacing: clamp(0.1rem, 0.25vw, 0.18rem);
+        /* Espaciado entre letras */
+        margin-bottom: 2rem;
+        /* Margen estándar */
+    }
+
+    .rankingcontainer {
+        max-width: 550px;
+        /* Ancho máximo para pantallas medianas */
+        padding: 1.2rem;
+        /* Espaciado interior */
+    }
+}
+
+/* RESPONSIVE - Pantallas grandes (992px a 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .tituloencabezado {
+        font-size: 2.2rem;
+        /* Tamaño aumentado */
+        width: calc(100% - 14rem);
+        /* Ancho considerando botón más grande */
+    }
+
+    .botonranking {
+        width: 7rem !important;
+        /* Ancho aumentado del botón */
+        font-size: 1rem;
+        /* Tamaño de fuente estándar */
+    }
+
+    .bodyranking {
+        padding-top: 11vh;
+        /* Espaciado superior para el header fijo */
+    }
+
+    .tituloranking {
+        font-size: clamp(2.8rem, 3.2vw, 3.5rem);
+        /* Tamaño responsivo para pantallas grandes */
+        padding: 0 4rem;
+        /* Espaciado horizontal amplio */
+        margin-bottom: 2.5rem;
+        /* Margen inferior amplio */
+        letter-spacing: clamp(0.15rem, 0.2vw, 0.22rem);
+        /* Espaciado entre letras */
+        max-width: 700px;
+        /* Ancho máximo para pantallas grandes */
+    }
+
+    .rankingcontainer {
+        max-width: 600px;
+        /* Ancho máximo para pantallas grandes */
+        padding: 1.5rem;
+        /* Espaciado interior amplio */
+    }
+
+    .tablaranking {
+        font-size: 1.1rem;
+        /* Fuente más grande para pantallas grandes */
+    }
+
+    th {
+        padding: 1rem;
+        /* Espaciado amplio en encabezados */
+        font-size: 1.1rem;
+        /* Fuente más grande en encabezados */
+    }
+
+    td {
+        padding: 0.8rem;
+        /* Espaciado amplio en celdas */
+    }
+}
+
+/* RESPONSIVE - Pantallas muy grandes (1200px a 1599px) */
+@media (min-width: 1200px) and (max-width: 1599px) {
+    .tituloencabezado {
+        font-size: 2.5rem;
+        /* Tamaño para pantallas muy grandes */
+        width: calc(100% - 14rem);
+        /* Ancho considerando botón */
+    }
+
+    .tituloranking {
+        font-size: clamp(3.2rem, 3.5vw, 4rem);
+        /* Tamaño para pantallas muy grandes */
+        padding: 0 5rem;
+        /* Espaciado horizontal muy amplio */
+        letter-spacing: clamp(0.2rem, 0.25vw, 0.28rem);
+        /* Espaciado entre letras amplio */
+        max-width: 800px;
+        /* Ancho máximo para pantallas muy grandes */
+        margin-bottom: 3rem;
+        /* Margen inferior amplio */
+    }
+
+    .rankingcontainer {
+        max-width: 650px;
+        /* Ancho máximo aumentado */
+        padding: 2rem;
+        /* Espaciado interior amplio */
+    }
+}
+
+/* RESPONSIVE - Pantallas extra grandes (1600px en adelante) */
+@media (min-width: 1600px) {
+    .tituloencabezado {
+        font-size: 3rem;
+        /* Tamaño máximo para pantallas extra grandes */
+        width: calc(100% - 16rem);
+        /* Ancho considerando botón más grande */
+    }
+
+    .botonranking {
+        width: 8rem !important;
+        /* Botón más grande para pantallas extra grandes */
+        font-size: 1.1rem;
+    }
+
+    .tituloranking {
+        font-size: clamp(3.5rem, 4vw, 5rem);
+        /* Tamaño máximo para pantallas extra grandes */
+        padding: 0 6rem;
+        /* Espaciado horizontal máximo */
+        letter-spacing: clamp(0.25rem, 0.3vw, 0.35rem);
+        /* Espaciado entre letras máximo */
+        max-width: 900px;
+        /* Ancho máximo para pantallas extra grandes */
+        margin-bottom: 3.5rem;
+        /* Margen inferior máximo */
+    }
+
+    .rankingcontainer {
+        max-width: 700px;
+        /* Ancho máximo para pantallas extra grandes */
+        padding: 2.5rem;
+        /* Espaciado interior máximo */
+    }
+
+    .tablaranking {
+        font-size: 1.2rem;
+        /* Fuente más grande para pantallas extra grandes */
+    }
+
+    th {
+        padding: 1.2rem;
+        /* Espaciado máximo en encabezados */
+        font-size: 1.2rem;
+        /* Fuente máxima en encabezados */
+    }
+
+    td {
+        padding: 1rem;
+        /* Espaciado máximo en celdas */
+    }
+}

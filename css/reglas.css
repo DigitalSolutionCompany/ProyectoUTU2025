@@ -1,0 +1,211 @@
+/* PÁGINA DE REGLAS - Estilos para reglas.html */
+body {
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #553423 !important;
+    font-family: sans-serif !important;
+    padding-top: 4rem !important; /* Añade esto para el header fijo */
+}
+
+/* ENCABEZADO DE REGLAS */
+.encabezado {
+    position: fixed !important;
+    width: 100% !important;
+    height: 3rem !important;
+    top: 0 !important;
+    background-color: #352219 !important;
+    display: flex !important;
+    align-items: center !important;
+    z-index: 10 !important;
+}
+
+/* BOTÓN DE REGLAS */
+#boton {
+    position: fixed !important;
+    width: 6rem !important;
+    height: 3rem !important;
+    top: 0 !important;
+    left: 0 !important;
+    background-color: #4b3020 !important;
+    color: #F0E6D2 !important;
+    border: none !important;
+    padding: 0.6rem 1rem !important;
+    font-weight: bold !important;
+    z-index: 20 !important;
+    margin: 0 !important;
+}
+
+#boton:hover {
+    background-color: #5C3B27 !important;
+    color: #F0E6D2 !important;
+}
+
+/* CONTORNO DE REGLAS */
+.contorno {
+    background-color: #F0E6D2 !important;
+    width: 95% !important;
+    margin: 0 auto !important;
+    padding: 0.9rem !important;
+    border: 0.3rem solid #8B5E3C !important;
+    border-radius: 0.5rem !important;
+    box-sizing: border-box !important;
+}
+
+/* CONTENIDO PRINCIPAL DE REGLAS */
+.principal {
+    background-color: #F0E6D2 !important;
+    width: 100% !important;
+    margin: 1rem auto 0 auto !important;
+    padding: 1rem !important;
+    border: 0.3rem solid #8B5E3C !important;
+    border-radius: 0.5rem !important;
+    box-sizing: border-box !important;
+}
+
+/* IMÁGENES DE REGLAS */
+img {
+    width: 100% !important;
+    max-width: 25rem !important;
+    height: auto !important;
+    display: block !important;
+    margin: 1rem auto !important;
+    border-radius: 0.5rem !important;
+    border: 0.0625rem solid #8B5E3C !important;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVE */
+
+/* Pantallas extra pequeñas (xs) - hasta 575px */
+@media (max-width: 575.98px) {
+    body {
+        padding-top: 3.5rem !important;
+    }
+    
+    .encabezado {
+        height: 3.5rem !important;
+    }
+    
+    #boton {
+        width: 5rem !important;
+        height: 3.5rem !important;
+        font-size: 0.8rem !important;
+        padding: 0.4rem 0.6rem !important;
+    }
+    
+    .contorno {
+        width: 98% !important;
+        padding: 0.5rem !important;
+        border-width: 0.2rem !important;
+    }
+    
+    .principal {
+        padding: 0.8rem !important;
+        border-width: 0.2rem !important;
+        margin: 0.5rem auto 0 auto !important;
+    }
+    
+    img {
+        max-width: 100% !important;
+        margin: 0.5rem auto !important;
+    }
+}
+
+/* Pantallas pequeñas (sm) - 576px a 767px */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    body {
+        padding-top: 3.8rem !important;
+    }
+    
+    .encabezado {
+        height: 3.8rem !important;
+    }
+    
+    #boton {
+        width: 5.5rem !important;
+        height: 3.8rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .contorno {
+        width: 96% !important;
+        padding: 0.7rem !important;
+    }
+    
+    .principal {
+        padding: 0.9rem !important;
+        margin: 0.8rem auto 0 auto !important;
+    }
+    
+    img {
+        max-width: 22rem !important;
+        margin: 0.8rem auto !important;
+    }
+}
+
+/* Pantallas medianas (md) - 768px a 991px */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    body {
+        padding-top: 4rem !important;
+    }
+    
+    .contorno {
+        width: 94% !important;
+        padding: 0.8rem !important;
+    }
+    
+    .principal {
+        padding: 1rem !important;
+    }
+    
+    img {
+        max-width: 20rem !important;
+        margin: 0.9rem auto !important;
+    }
+}
+
+/* Pantallas grandes (lg) - 992px a 1199px */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .contorno {
+        width: 92% !important;
+    }
+    
+    img {
+        max-width: 23rem !important;
+    }
+}
+
+/* Pantallas extra grandes (xl) - 1200px a 1399px */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .contorno {
+        width: 90% !important;
+        padding: 1rem !important;
+    }
+    
+    .principal {
+        padding: 1.2rem !important;
+    }
+    
+    img {
+        max-width: 24rem !important;
+    }
+}
+
+/* Pantallas extra extra grandes (xxl) - 1400px en adelante */
+@media (min-width: 1400px) {
+    .contorno {
+        width: 85% !important;
+        max-width: 1400px !important;
+        padding: 1.2rem !important;
+    }
+    
+    .principal {
+        padding: 1.5rem !important;
+        margin: 1.2rem auto 0 auto !important;
+    }
+    
+    img {
+        max-width: 25rem !important;
+        margin: 1.2rem auto !important;
+    }
+}

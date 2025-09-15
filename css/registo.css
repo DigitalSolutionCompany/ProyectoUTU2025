@@ -1,0 +1,380 @@
+  /* RESET Y BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #F0E6D2 0%, #E8D5B7 50%, #D4C4A8 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #553423;
+            padding: 2rem;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .registro-container {
+            background: linear-gradient(145deg, #F0E6D2, #E8D5B7);
+            padding: 3rem 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 2rem rgba(85, 52, 35, 0.15);
+            border: 0.125rem solid #8B5E3C;
+            width: 100%;
+            max-width: 28rem;
+            position: relative;
+        }
+
+        .registro-container::before {
+            content: '';
+            position: absolute;
+            top: -0.125rem;
+            left: -0.125rem;
+            right: -0.125rem;
+            bottom: -0.125rem;
+            background: linear-gradient(135deg, #553423, #8B5E3C, #553423);
+            border-radius: 1rem;
+            z-index: -1;
+        }
+
+        /* TÍTULO DEL FORMULARIO */
+        .registro-titulo {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #553423;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-shadow: 0 0.125rem 0.25rem rgba(85, 52, 35, 0.2);
+        }
+
+        /* FORMULARIO */
+        #registroForm {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* INPUTS */
+        #username,
+        #password {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            border: 0.125rem solid #8B5E3C;
+            background: linear-gradient(145deg, #F0E6D2, #E8D5B7);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: inset 0.125rem 0.125rem 0.3125rem rgba(85, 52, 35, 0.1);
+            color: #553423;
+            font-weight: 500;
+            font-family: 'Georgia', serif;
+        }
+
+        #username::placeholder,
+        #password::placeholder {
+            color: #8B5E3C;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* EFECTOS HOVER PARA INPUTS */
+        #username:hover,
+        #password:hover {
+            border-color: #553423;
+            background: linear-gradient(145deg, #FFFFFF, #F0E6D2);
+            transform: translateY(-0.125rem);
+            box-shadow: 0 0.25rem 1rem rgba(139, 94, 60, 0.2);
+        }
+
+        /* EFECTOS FOCUS PARA INPUTS */
+        #username:focus,
+        #password:focus {
+            outline: none;
+            border-color: #44281b;
+            background: linear-gradient(145deg, #FFFFFF, #F8F3E8);
+            box-shadow: 0 0 0 0.1875rem rgba(85, 52, 35, 0.2), 
+                        inset 0.125rem 0.125rem 0.3125rem rgba(85, 52, 35, 0.1);
+            transform: translateY(-0.125rem) scale(1.02);
+        }
+
+        /* BOTÓN REGISTRAR */
+        #botonRegistrar {
+            background: linear-gradient(135deg, #44281b 0%, #553423 50%, #44281b 100%);
+            color: #F0E6D2;
+            border: 0.125rem solid #553423;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: 'Georgia', serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #botonRegistrar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(240, 230, 210, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        #botonRegistrar:hover {
+            background: linear-gradient(135deg, #553423 0%, #634533 50%, #553423 100%);
+            transform: translateY(-0.1rem);
+            box-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.3);
+        }
+
+        #botonRegistrar:hover::before {
+            left: 100%;
+        }
+
+        #botonRegistrar:active {
+            transform: translateY(0);
+            box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.2);
+        }
+
+        /* RESULTADO */
+        #resultado {
+            margin-top: 1.5rem;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-1rem);
+            transition: all 0.3s ease;
+        }
+
+        #resultado.mostrar {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #resultado.exito {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border: 0.125rem solid #c3e6cb;
+        }
+
+        #resultado.error {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border: 0.125rem solid #f5c6cb;
+        }
+
+        /* ANIMACIÓN DE ENTRADA */
+        .registro-container {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(2rem);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================ */
+        /* MEDIA QUERIES PARA RESPONSIVE DESIGN */
+        /* ============================================ */
+
+        /* PANTALLAS GRANDES (Desktop) - 1200px y más */
+        @media (min-width: 1200px) {
+            .registro-container {
+                max-width: 32rem;
+                padding: 3.5rem 3rem;
+            }
+            
+            .registro-titulo {
+                font-size: 2.5rem;
+                margin-bottom: 2.5rem;
+            }
+            
+            #username,
+            #password {
+                padding: 1.2rem 1.5rem;
+                font-size: 1.1rem;
+            }
+            
+            #botonRegistrar {
+                padding: 1.2rem 2rem;
+                font-size: 1.1rem;
+                margin-top: 1.5rem;
+            }
+            
+            #registroForm {
+                gap: 2rem;
+            }
+        }
+
+        /* PANTALLAS MEDIANAS (Tablet) - 768px a 1199px */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            body {
+                padding: 1.5rem;
+            }
+            
+            .registro-container {
+                max-width: 30rem;
+                padding: 3rem 2.5rem;
+            }
+            
+            .registro-titulo {
+                font-size: 2.2rem;
+                margin-bottom: 2.2rem;
+            }
+            
+            #username,
+            #password {
+                padding: 1.1rem 1.3rem;
+                font-size: 1.05rem;
+            }
+            
+            #botonRegistrar {
+                padding: 1.1rem 1.8rem;
+                font-size: 1.05rem;
+                margin-top: 1.3rem;
+            }
+            
+            #registroForm {
+                gap: 1.8rem;
+            }
+        }
+
+        /* PANTALLAS PEQUEÑAS (Mobile) - 767px y menos */
+        @media (max-width: 767px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .registro-container {
+                max-width: 26rem;
+                padding: 2.5rem 2rem;
+            }
+            
+            .registro-titulo {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+            
+            #username,
+            #password {
+                padding: 0.9rem 1.1rem;
+                font-size: 0.95rem;
+            }
+            
+            #botonRegistrar {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.95rem;
+                margin-top: 1.2rem;
+            }
+            
+            #registroForm {
+                gap: 1.5rem;
+            }
+            
+            #resultado {
+                margin-top: 1.2rem;
+                padding: 0.6rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* PANTALLAS MUY PEQUEÑAS (Mobile pequeño) - 480px y menos */
+        @media (max-width: 480px) {
+            body {
+                padding: 0.8rem;
+                justify-content: flex-start;
+                padding-top: 2rem;
+            }
+            
+            .registro-container {
+                max-width: 22rem;
+                padding: 2rem 1.5rem;
+            }
+            
+            .registro-titulo {
+                font-size: 1.5rem;
+                margin-bottom: 1.8rem;
+            }
+            
+            #username,
+            #password {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            #botonRegistrar {
+                padding: 0.8rem 1.3rem;
+                font-size: 0.9rem;
+                margin-top: 1rem;
+            }
+            
+            #registroForm {
+                gap: 1.3rem;
+            }
+            
+            #resultado {
+                margin-top: 1rem;
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* PANTALLAS EXTRA PEQUEÑAS - 320px y menos */
+        @media (max-width: 320px) {
+            body {
+                padding: 0.5rem;
+                padding-top: 1.5rem;
+            }
+            
+            .registro-container {
+                max-width: 100%;
+                padding: 1.5rem 1rem;
+            }
+            
+            .registro-titulo {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            #username,
+            #password {
+                padding: 0.7rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            #botonRegistrar {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+                margin-top: 0.8rem;
+            }
+            
+            #registroForm {
+                gap: 1rem;
+            }
+            
+            #resultado {
+                margin-top: 0.8rem;
+                padding: 0.4rem;
+                font-size: 0.8rem;
+            }
+        }

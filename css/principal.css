@@ -1,0 +1,609 @@
+ /*principal.html */
+        /* PÁGINA DE INICIO PRINCIPAL - Estilos para la página principal */
+        .paginainicio {
+            background: linear-gradient(135deg, #F0E6D2 100%, #F0E6D2 50%, #F0E6D2 100%);
+            /* Gradiente beige uniforme */
+        }
+
+        /* ENCABEZADO PRINCIPAL - Header con gradiente y sombra */
+        .encabezadoprincipal {
+            position: fixed;
+            /* Se mantiene fijo en la parte superior */
+            width: 100%;
+            /* Ancho completo de la pantalla */
+            height: 11vh;
+            /* Altura del 11% de la ventana */
+            top: 0;
+            /* Posicionado en la parte superior */
+            background: linear-gradient(90deg, #553423 0%, #4b3020 50%, #553423 100%);
+            /* Gradiente marrón horizontal */
+            z-index: 9999;
+            /* Prioridad máxima sobre otros elementos */
+            color: #F0E6D2;
+            /* Color de texto beige claro */
+            display: flex;
+            /* Usa flexbox para centrar contenido */
+            align-items: center;
+            /* Centra elementos verticalmente */
+            justify-content: center;
+            /* Centra elementos horizontalmente */
+            box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3);
+            /* Sombra sutil */
+        }
+
+        .encabezadoprincipal h1 {
+            font-family: 'Georgia', serif;
+            /* Fuente elegante tipo serif */
+            font-size: 2rem;
+            /* Tamaño de fuente grande */
+            font-weight: bold;
+            /* Texto en negrita */
+            color: #F0E6D2;
+            /* Color de texto beige claro */
+            text-transform: uppercase;
+            /* Convierte texto a mayúsculas */
+            position: relative;
+            /* Posicionamiento relativo */
+            margin: 0;
+            /* Sin margen por defecto */
+            margin-left: 1vh !important;
+            /* Margen izquierdo forzado */
+        }
+
+        /* RECUADRO PRINCIPAL - Contenedor principal con gradiente */
+        .recuadromain {
+            background: linear-gradient(135deg, #F0E6D2 0%, #E8D5B7 50%, #D4C4A8 100%);
+            /* Gradiente beige diagonal */
+            width: 100%;
+            /* Ancho completo */
+            min-height: 100vh;
+            /* Altura completa de la ventana */
+            padding-top: 4rem;
+            /* Espaciado superior */
+            display: flex;
+            /* Usa flexbox para organizar elementos */
+            flex-direction: column;
+            /* Organiza elementos en columna */
+            justify-content: start;
+            /* Alinea elementos al inicio */
+            align-items: center;
+            /* Centra elementos horizontalmente */
+            color: #553423;
+            /* Color de texto marrón */
+        }
+
+        /* BOTÓN IR AL RANKING - Botón para navegar al ranking */
+        .botonirranking {
+            background-color: #44281b;
+            /* Color de fondo marrón oscuro */
+            color: #F0E6D2;
+            /* Color de texto beige claro */
+            border: 0.125rem solid #553423;
+            /* Borde marrón */
+            width: 12rem !important;
+            /* Ancho fijo forzado */
+            padding: 0.75rem 1rem;
+            /* Espaciado interior */
+            border-radius: 0.5rem;
+            /* Esquinas redondeadas */
+            box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
+            /* Sombra suave */
+            transition: all 0.3s ease;
+            /* Transición suave para efectos */
+            font-weight: 600;
+            /* Texto semi-negrita */
+            font-size: 1rem;
+            /* Tamaño de fuente */
+            margin-top: 3rem !important;
+            /* Margen superior forzado */
+        }
+
+        .botonirranking:hover {
+            background-color: #44281b;
+            /* Mantiene el color de fondo */
+            transform: translateY(-0.1rem);
+            /* Eleva el botón ligeramente */
+            box-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.3);
+            /* Sombra más pronunciada */
+        }
+
+        /*BOTÓN PARTIDA - Botón para iniciar partida
+        */
+        .botonpartida {
+            background-color: #44281b;
+            /* Color de fondo marrón oscuro */
+            color: #F0E6D2;
+            /* Color de texto beige claro */
+            border: 0.125rem solid #553423;
+            /* Borde marrón */
+            width: 12rem !important;
+            /* Ancho fijo forzado */
+            padding: 0.75rem 1rem;
+            /* Espaciado interior */
+            border-radius: 0.5rem;
+            /* Esquinas redondeadas */
+            box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
+            /* Sombra suave */
+            transition: all 0.3s ease;
+            /* Transición suave para efectos */
+            font-weight: 600;
+            /* Texto semi-negrita */
+            font-size: 1rem;
+            /* Tamaño de fuente */
+            margin-top: 2rem;
+            /* Margen superior */
+        }
+
+        .botonpartida:hover {
+            background-color: #44281b;
+            /* Mantiene el color de fondo */
+            transform: translateY(-0.1rem);
+            /* Eleva el botón ligeramente */
+            box-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.3);
+            /* Sombra más pronunciada */
+        }
+
+        /* BOTÓN REGLAS - Botón para ver reglas del juego */
+        .botonreglas {
+            background-color: #44281b;
+            /* Color de fondo marrón oscuro */
+            color: #F0E6D2;
+            /* Color de texto beige claro */
+            border: 0.125rem solid #553423;
+            /* Borde marrón */
+            width: 12rem !important;
+            /* Ancho fijo forzado */
+            padding: 0.75rem 1rem;
+            /* Espaciado interior */
+            border-radius: 0.5rem;
+            /* Esquinas redondeadas */
+            box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
+            /* Sombra suave */
+            transition: all 0.3s ease;
+            /* Transición suave para efectos */
+            font-weight: 600;
+            /* Texto semi-negrita */
+            font-size: 1rem;
+            /* Tamaño de fuente */
+            margin-top: 2rem !important;
+            /* Margen superior forzado */
+        }
+
+        .botonreglas:hover {
+            background-color: #44281b;
+            /* Mantiene el color de fondo */
+            transform: translateY(-0.1rem);
+            /* Eleva el botón ligeramente */
+            box-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.3);
+            /* Sombra más pronunciada */
+        }
+
+        /* SELECT DE CANTIDAD - Selector de cantidad de jugadores */
+        #cantidad {
+            margin-bottom: 3rem !important;
+            /* Margen inferior forzado */
+            background-color: #44281b;
+            /* Color de fondo marrón oscuro */
+            color: #F0E6D2;
+            /* Color de texto beige claro */
+            border: 0.1875rem solid #553423;
+            /* Borde marrón grueso */
+            border-radius: 0.9375rem;
+            /* Esquinas muy redondeadas */
+            padding: 0.75rem;
+            /* Espaciado interior */
+            font-weight: bold;
+            /* Texto en negrita */
+            box-shadow: 0 0.25rem 0.9375rem rgba(85, 52, 35, 0.3);
+            /* Sombra marrón */
+            transition: all 0.3s ease;
+            /* Transición suave para efectos */
+            width: 17.5rem;
+            /* Ancho específico */
+            font-size: 1rem;
+            /* Tamaño de fuente */
+            margin-top: 2rem;
+            /* Margen superior */
+        }
+
+        .cantidadjugadores {
+            text-align: center;
+            /* Centra el texto */
+        }
+
+        #cantidad:hover {
+            background: linear-gradient(135deg, #9B6E4C 0%, #634533 50%, #5C3B27 100%);
+            /* Gradiente al pasar el mouse */
+            transform: translateY(-0.1rem);
+            /* Eleva el elemento ligeramente */
+            box-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.3);
+            /* Sombra más pronunciada */
+            border-color: #8B5E3C;
+            /* Cambia el color del borde */
+        }
+
+        #cantidad:focus {
+            outline: none;
+            /* Elimina el outline por defecto */
+            border-color: #8B5E3C;
+            /* Color del borde al enfocar */
+            box-shadow: 0 0 0 0.1875rem rgba(139, 94, 60, 0.3);
+            /* Sombra de enfoque */
+        }
+
+        #cantidad option {
+            background-color: #4b3020;
+            /* Color de fondo de las opciones */
+            color: #F0E6D2;
+            /* Color de texto de las opciones */
+        }
+
+        /* CONTENEDORES DE JUGADORES - Contenedores para cada jugador */
+        .jugador1,
+        .jugador2,
+        .jugador3,
+        .jugador4,
+        .jugador5 {
+            display: flex;
+            /* Usa flexbox para organizar elementos */
+            flex-direction: column;
+            /* Organiza elementos en columna */
+            justify-content: center;
+            /* Centra elementos verticalmente */
+            align-items: center;
+            /* Centra elementos horizontalmente */
+            gap: 0.5rem;
+            /* Espaciado pequeño entre elementos */
+            margin-bottom: 2rem;
+            /* Margen inferior */
+        }
+
+        /* INPUTS DE JUGADORES - Campos de entrada para nombres */
+        .jugador1 .form-control,
+        .jugador2 .form-control,
+        .jugador3 .form-control,
+        .jugador4 .form-control,
+        .jugador5 .form-control {
+            width: 17.5rem;
+            /* Ancho específico */
+            padding: 0.75rem 1rem;
+            /* Espaciado interior */
+            font-size: 0.875rem;
+            /* Tamaño de fuente pequeño */
+            border: 0.125rem solid #8B5E3C;
+            /* Borde marrón claro */
+            background: linear-gradient(145deg, #F0E6D2, #E8D5B7);
+            /* Gradiente beige */
+            transition: all 0.3s ease;
+            /* Transición suave para efectos */
+            box-shadow: inset 0.125rem 0.125rem 0.3125rem rgba(85, 52, 35, 0.1);
+            /* Sombra interior */
+            color: #553423;
+            /* Color de texto marrón */
+            font-weight: 500;
+            /* Texto medio-negrita */
+            border-radius: 0.5rem;
+            /* Esquinas redondeadas */
+        }
+
+        /* EFECTOS HOVER PARA INPUTS - Efectos al pasar el mouse */
+        .jugador1 .form-control:hover,
+        .jugador2 .form-control:hover,
+        .jugador3 .form-control:hover,
+        .jugador4 .form-control:hover,
+        .jugador5 .form-control:hover {
+            border-color: #8B5E3C;
+            /* Color del borde al pasar el mouse */
+            background: linear-gradient(145deg, #FFFFFF, #F0E6D2);
+            /* Gradiente más claro */
+            transform: scale(1.02);
+            /* Escala ligeramente más grande */
+            box-shadow: 0 0.125rem 0.625rem rgba(139, 94, 60, 0.2);
+            /* Sombra exterior */
+        }
+
+        /* EFECTOS FOCUS PARA INPUTS - Efectos al enfocar */
+        .jugador1 .form-control:focus,
+        .jugador2 .form-control:focus,
+        .jugador3 .form-control:focus,
+        .jugador4 .form-control:focus,
+        .jugador5 .form-control:focus {
+            outline: none;
+            /* Elimina el outline por defecto */
+            border-color: #553423;
+            /* Color del borde al enfocar */
+            background: linear-gradient(145deg, #FFFFFF, #F8F3E8);
+            /* Gradiente más claro */
+            box-shadow: 0 0 0 0.1875rem rgba(85, 52, 35, 0.2), inset 0.125rem 0.125rem 0.3125rem rgba(85, 52, 35, 0.1);
+            /* Sombra de enfoque y interior */
+            transform: scale(1.03);
+            /* Escala ligeramente más grande */
+        }
+
+        /* PLACEHOLDER DE INPUTS - Estilo del texto placeholder */
+        .jugador1 .form-control::placeholder,
+        .jugador2 .form-control::placeholder,
+        .jugador3 .form-control::placeholder,
+        .jugador4 .form-control::placeholder,
+        .jugador5 .form-control::placeholder {
+            color: #8B5E3C;
+            /* Color del texto placeholder */
+            font-style: italic;
+            /* Texto en cursiva */
+            opacity: 0.8;
+            /* Opacidad reducida */
+        }
+
+        /* ENLACES DE REGISTRO - Estilos para los enlaces "No tienes cuenta? Regístrate" */
+        .enlace-registro {
+            font-size: 0.75rem;
+            /* Tamaño de fuente pequeño */
+            color: #8B5E3C;
+            /* Color marrón claro */
+            text-decoration: none;
+            /* Sin subrayado por defecto */
+            font-weight: 500;
+            /* Peso de fuente medio */
+            font-style: italic;
+            /* Texto en cursiva */
+            margin-top: 0.25rem;
+            /* Margen superior pequeño */
+            padding: 0.25rem 0.5rem;
+            /* Espaciado interior */
+            border-radius: 0.25rem;
+            /* Esquinas ligeramente redondeadas */
+            transition: all 0.3s ease;
+            /* Transición suave para efectos */
+            display: inline-block;
+            /* Permite aplicar padding y margin */
+        }
+
+        .enlace-registro:hover {
+            color: #553423;
+            /* Color más oscuro al pasar el mouse */
+            background-color: rgba(139, 94, 60, 0.1);
+            /* Fondo sutil al pasar el mouse */
+            text-decoration: underline;
+            /* Subrayado al pasar el mouse */
+            transform: translateY(-0.05rem);
+            /* Elevación sutil */
+        }
+
+        .enlace-registro:active {
+            color: #44281b;
+            /* Color más oscuro al hacer clic */
+            transform: translateY(0);
+            /* Sin elevación al hacer clic */
+        }
+
+        /* ============================================ */
+        /* MEDIA QUERIES PARA RESPONSIVE DESIGN */
+        /* ============================================ */
+
+        /* PANTALLAS GRANDES (Desktop) - 1200px y más */
+        @media (min-width: 1200px) {
+            .encabezadoprincipal h1 {
+                font-size: 2.5rem;
+            }
+            
+            .botonirranking,
+            .botonpartida,
+            .botonreglas {
+                width: 14rem !important;
+                font-size: 1.1rem;
+                padding: 1rem 1.2rem;
+            }
+            
+            #cantidad {
+                width: 20rem;
+                font-size: 1.1rem;
+                padding: 0.9rem;
+            }
+            
+            .jugador1 .form-control,
+            .jugador2 .form-control,
+            .jugador3 .form-control,
+            .jugador4 .form-control,
+            .jugador5 .form-control {
+                width: 20rem;
+                font-size: 1rem;
+                padding: 0.9rem 1.2rem;
+            }
+            
+            .enlace-registro {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* PANTALLAS MEDIANAS (Tablet) - 768px a 1199px */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .encabezadoprincipal {
+                height: 10vh;
+                padding: 0 1rem;
+            }
+            
+            .encabezadoprincipal h1 {
+                font-size: 1.8rem;
+                margin-left: 0 !important;
+            }
+            
+            .recuadromain {
+                padding-top: 3.5rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .botonirranking,
+            .botonpartida,
+            .botonreglas {
+                width: 14rem !important;
+                font-size: 1rem;
+                margin-top: 1.5rem !important;
+            }
+            
+            .botonpartida {
+                margin-top: 1.5rem !important;
+            }
+            
+            #cantidad {
+                width: 18rem;
+                font-size: 1rem;
+                margin-top: 1.5rem;
+                margin-bottom: 2rem !important;
+            }
+            
+            .jugador1,
+            .jugador2,
+            .jugador3,
+            .jugador4,
+            .jugador5 {
+                margin-bottom: 1.5rem;
+            }
+            
+            .jugador1 .form-control,
+            .jugador2 .form-control,
+            .jugador3 .form-control,
+            .jugador4 .form-control,
+            .jugador5 .form-control {
+                width: 18rem;
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .enlace-registro {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* PANTALLAS PEQUEÑAS (Mobile) - 767px y menos */
+        @media (max-width: 767px) {
+            .encabezadoprincipal {
+                height: 9vh;
+                padding: 0 0.5rem;
+            }
+            
+            .encabezadoprincipal h1 {
+                font-size: 1.4rem;
+                margin-left: 0 !important;
+                text-align: center;
+            }
+            
+            .recuadromain {
+                padding-top: 3rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .botonirranking,
+            .botonpartida,
+            .botonreglas {
+                width: 90% !important;
+                max-width: 16rem !important;
+                font-size: 0.95rem;
+                margin-top: 1rem !important;
+                padding: 0.8rem 1rem;
+            }
+            
+            .botonpartida {
+                margin-top: 1rem !important;
+            }
+            
+            #cantidad {
+                width: 90%;
+                max-width: 18rem;
+                font-size: 0.95rem;
+                margin-top: 1rem;
+                margin-bottom: 1.5rem !important;
+                padding: 0.8rem;
+            }
+            
+            .jugador1,
+            .jugador2,
+            .jugador3,
+            .jugador4,
+            .jugador5 {
+                margin-bottom: 1rem;
+                width: 100%;
+            }
+            
+            .jugador1 .form-control,
+            .jugador2 .form-control,
+            .jugador3 .form-control,
+            .jugador4 .form-control,
+            .jugador5 .form-control {
+                width: 90%;
+                max-width: 18rem;
+                padding: 0.75rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .enlace-registro {
+                font-size: 0.7rem;
+                margin-top: 0.3rem;
+            }
+        }
+
+        /* PANTALLAS MUY PEQUEÑAS (Mobile pequeño) - 480px y menos */
+        @media (max-width: 480px) {
+            .encabezadoprincipal {
+                height: 8vh;
+                padding: 0 0.3rem;
+            }
+            
+            .encabezadoprincipal h1 {
+                font-size: 1.2rem;
+            }
+            
+            .recuadromain {
+                padding-top: 2.5rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            
+            .botonirranking,
+            .botonpartida,
+            .botonreglas {
+                width: 95% !important;
+                max-width: 14rem !important;
+                font-size: 0.9rem;
+                margin-top: 0.8rem !important;
+                padding: 0.7rem 0.8rem;
+            }
+            
+            .botonpartida {
+                margin-top: 0.8rem !important;
+            }
+            
+            #cantidad {
+                width: 95%;
+                max-width: 16rem;
+                font-size: 0.9rem;
+                margin-top: 0.8rem;
+                margin-bottom: 1rem !important;
+                padding: 0.7rem;
+            }
+            
+            .jugador1,
+            .jugador2,
+            .jugador3,
+            .jugador4,
+            .jugador5 {
+                margin-bottom: 0.8rem;
+            }
+            
+            .jugador1 .form-control,
+            .jugador2 .form-control,
+            .jugador3 .form-control,
+            .jugador4 .form-control,
+            .jugador5 .form-control {
+                width: 95%;
+                max-width: 16rem;
+                padding: 0.6rem 0.7rem;
+                font-size: 0.8rem;
+            }
+            
+            .enlace-registro {
+                font-size: 0.65rem;
+                margin-top: 0.35rem;
+            }
+        }
