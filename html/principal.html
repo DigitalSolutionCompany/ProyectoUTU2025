@@ -20,8 +20,7 @@
         <main>
             <a href="ranking.html" class="btn btn-primary d-block text-center w-50 mx-auto botonirranking">Ranking</a>
             <a href="reglas.html" class="btn btn-primary d-block text-center w-50 mx-auto botonreglas">Reglas</a>
-            <a href="partida.html" class="btn btn-primary d-block text-center w-50 mx-auto botonpartida">Iniciar
-                partida</a>
+            <button type="button" id="btnIniciarPartida" class="btn btn-primary d-block text-center w-50 mx-auto botonpartida">Iniciar partida</button>
 
             <div class="mb-4">
                 <select name="cantidad" id="cantidad" class="form-select" required>
@@ -33,7 +32,7 @@
                 </select>
             </div>
 
-            <form action="../../API/login.php">
+            <form id="formLogin" onsubmit="return false;">
                 <div class="jugador1">
                     <input type="text" class="form-control" id="email1"  name="jugador1"  placeholder="nombre de usuario" required>
                     <input type="password" class="form-control" id="password1" placeholder="password" required>
@@ -111,6 +110,42 @@
                     bloque_3.style.display = "flex";
                     bloque_4.style.display = "flex";
                     bloque_5.style.display = "flex";
+                }
+            });
+            // Validación de usuarios y redirección
+            document.getElementById("btnIniciarPartida").addEventListener("click", async () => {
+                const cantidad = parseInt(document.getElementById("cantidad").value);
+                let validos = 0;
+                let errores = [];
+                for (let i = 1; i <= cantidad; i++) {
+                    const usuario = document.getElementById(`email${i}`).value;
+                    const password = document.getElementById(`password${i}`).value;
+                    if (!usuario || !password) {
+                        errores.push(`Jugador ${i}: campos vacíos.`);
+                        continue;
+                    }
+                    // Enviar petición al backend index.php
+                    try {
+                        const res = await fetch("http://localhost/ProyectoUTU2025/API/index.php", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ accion: "login", nombre_usuario: usuario, contrasena: password })
+                        });
+                        const data = await res.json();
+                        if (data && data.success) {
+                            validos++;
+                        } else {
+                            errores.push(`Jugador ${i}: usuario o contraseña incorrectos.`);
+                        }
+                    } catch (e) {
+                        console.log('Error de conexión jugador', i, e);
+                        errores.push(`Jugador ${i}: error de conexión.`);
+                    }
+                }
+                if (validos === cantidad) {
+                    window.location.href = "partida.html";
+                } else {
+                    alert("Error en login:\n" + errores.join("\n"));
                 }
             });
         });
