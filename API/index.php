@@ -23,24 +23,29 @@ $usuarios = new Usuarios($db);
 // Obtener método HTTP
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Manejar diferentes métodos
-// switch ($method) {
-//     // case 'GET':
-//     //     funcGet($usuarios);
-//     //     break;
-
-//     case 'POST':
-//         funcPost($usuarios);
-//         break;
-
-//     default:
-//         http_response_code(405);
-//         echo json_encode(["mensaje" => "Método no permitido"]);
-//         break;
-// }
-
+// Endpoint para login: POST con campo 'accion' = 'login'
 if ($method == 'POST') {
-    funcPost($usuarios);
+    $json = file_get_contents('php://input');
+    $data = json_decode($json, true);
+
+    if ($data && isset($data['accion']) && $data['accion'] === 'login') {
+        // Validar login
+        if (!isset($data['nombre_usuario']) || !isset($data['contrasena'])) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
+            exit();
+        }
+        $usuario = $usuarios->validarUser($data['nombre_usuario'], $data['contrasena']);
+        if ($usuario) {
+            echo json_encode(['success' => true, 'message' => 'Login correcto']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Usuario o contraseña incorrectos']);
+        }
+        exit();
+    } else {
+        // Registro de usuario (POST sin accion o accion diferente)
+        funcPost($usuarios);
+    }
 } else {
     http_response_code(405);
     echo json_encode(["mensaje" => "Método no permitido"]);
