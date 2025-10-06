@@ -40,22 +40,28 @@
     <div id="tablero-grande" class="vista-tablero-completo"></div>
 
     <script>
-        const jugadores = [
+        // Inicializar jugadores desde localStorage o usar valores predeterminados
+        const jugadores = JSON.parse(localStorage.getItem('jugadores')) || [
             { nombre: "Jugador 1", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
             { nombre: "Jugador 2", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
             { nombre: "Jugador 3", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
             { nombre: "Jugador 4", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
             { nombre: "Jugador 5", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
         ];
-
+    
         const especies = ['T-rex', 'Stegosaurio', 'Parasaurio', 'Velociraptor', 'Brachiosaurio', 'Triceratops'];
         let especieSeleccionada = null;
-
+    
+        // Guardar jugadores en localStorage
+        function guardarEnLocalStorage() {
+            localStorage.setItem('jugadores', JSON.stringify(jugadores));
+        }
+    
         function abrirTablero(indice) {
             const jugador = jugadores[indice];
             const div = document.getElementById("tablero-grande");
             div.style.display = "block";
-
+    
             div.innerHTML = `
                 <div class="botones-navegacion">
                     <button class="boton-navegacion volver" onclick="cerrarTablero()">← Volver a Partida</button>
@@ -73,7 +79,7 @@
                     </div>
                 </div>
             `;
-
+    
             for (const recinto in jugador.recintos) {
                 const nombreRecinto = {
                     'semejanza': 'Semejanza',
@@ -83,7 +89,7 @@
                     'bosqueParejas': 'Bosque Parejas',
                     'solitario': 'Solitario'
                 }[recinto] || recinto;
-
+    
                 div.innerHTML += `
                     <div class="zona-recinto ${['semejanza', 'trios', 'rey'].includes(recinto) ? 'zona-recinto-especial' : ''}" 
                          onclick="colocarDino(${indice}, '${recinto}')">
@@ -95,10 +101,10 @@
                 `;
             }
         }
-
+    
         function mostrarOtrosTableros(indiceActual) {
             const div = document.getElementById("tablero-grande");
-
+    
             div.innerHTML = `
                 <div class="botones-navegacion">
                     <button class="boton-navegacion volver" onclick="cerrarTablero()">← Volver a Partida</button>
@@ -116,11 +122,11 @@
                 </div>
             `;
         }
-
+    
         function cerrarTablero() {
             document.getElementById("tablero-grande").style.display = "none";
         }
-
+    
         function setEspecieSeleccionada(especie) {
             especieSeleccionada = especie;
             // Actualizar botones
@@ -129,22 +135,23 @@
             });
             event.target.classList.add('activo');
         }
-
+    
         function colocarDino(jugadorIndex, recinto) {
             if (!especieSeleccionada) {
                 alert("Selecciona un dinosaurio primero");
                 return;
             }
-
+    
             const jugador = jugadores[jugadorIndex];
             const especiesEnRecinto = jugador.recintos[recinto];
-
+    
             if (recinto === "diferencia" && especiesEnRecinto.includes(especieSeleccionada)) {
                 alert("No se puede repetir especie en este recinto");
                 return;
             }
-
+    
             especiesEnRecinto.push(especieSeleccionada);
+            guardarEnLocalStorage(); // Guardar cambios en localStorage
             abrirTablero(jugadorIndex);
         }
     </script>
