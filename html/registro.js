@@ -2,17 +2,58 @@ class api {
     constructor(url) {
         this.baseUrl = url;
     }
-    insertarUser(nombre_usuario, partidas_ganadas, contrasena){
-         return fetch(this.baseUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                nombre_usuario: nombre_usuario,
-                partidas_ganadas: partidas_ganadas,
-                contrasena: contrasena
-            }),
+
+    insertarUser(nombre_usuario, partidas_ganadas, contrasena) {
+        // Use native fetch when available, otherwise fall back to XMLHttpRequest
+        if (typeof fetch === 'function') {
+            return fetch(this.baseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre_usuario: nombre_usuario,
+                    partidas_ganadas: partidas_ganadas,
+                    contrasena: contrasena
+                })
+            });
+        }
+
+        // Fallback for older browsers (no fetch): return a Promise that resolves
+        // to an object similar to the Fetch Response (ok, status, json()).
+        return new Promise((resolve, reject) => {
+            try {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', this.baseUrl, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState !== 4) return;
+                    const status = xhr.status;
+                    const ok = status >= 200 && status < 300;
+                    let parsed = null;
+                    try {
+                        parsed = xhr.responseText ? JSON.parse(xhr.responseText) : null;
+                    } catch (e) {
+                        // If response isn't JSON, keep parsed as null
+                        return reject(e);
+                    }
+                    resolve({
+                        ok: ok,
+                        status: status,
+                        json: () => Promise.resolve(parsed)
+                    });
+                };
+                xhr.onerror = function() {
+                    reject(new Error('Network error'));
+                };
+                xhr.send(JSON.stringify({
+                    nombre_usuario: nombre_usuario,
+                    partidas_ganadas: partidas_ganadas,
+                    contrasena: contrasena
+                }));
+            } catch (err) {
+                reject(err);
+            }
         });
     }
 }
@@ -27,32 +68,29 @@ document.getElementById("botonRegistrar").addEventListener("click", function() {
         alert("Por favor, completa todos los campos.");
         return;
     }
-    
-    setTimeout(() => {
+
+   setTimeout(() => {
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
         window.location.href = 'principal.html';
-    }, 1500);
-
+    }, 1500)
 
     Api.insertarUser(username, 5, password)
-
-    .then ((res) => {
-        if (!res.ok ) {
-            throw new Error(`Error del server: ${res.status}`);
-        }
-        return res.json();
-    })
-
-    
-    .then(data => {
-        if (data.success) {
-            document.getElementById("resultado").innerHTML = "Usuario registrado con éxito.";
-        } else {
-            document.getElementById("resultado").innerHTML = "Error: " + data.message;
-        }
-    })
-    .catch(err => {
-        console.error("Error en la solicitud:", err);
-    });
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error(`Error del server: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(data => {
+            if (data && data.success) {
+                document.getElementById("resultado").innerHTML = "Usuario registrado con éxito.";
+            } else {
+                document.getElementById("resultado").innerHTML = "Error: " + (data && data.message ? data.message : 'Respuesta inválida');
+            }
+        })
+        .catch(err => {
+            console.error("Error en la solicitud:", err);
+            document.getElementById("resultado").innerHTML = "Error en la solicitud: " + err.message;
+        });
 });
