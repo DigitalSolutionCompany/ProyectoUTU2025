@@ -1,10 +1,10 @@
 // Leer parámetros de la URL
 const params = new URLSearchParams(window.location.search);
 const total = parseInt(params.get("total"));
-const current = parseInt(params.get("current"));
+const UserActual = parseInt(params.get("UserActual"));
 
 // Mostrar en qué jugador estamos
-document.getElementById("titulo").textContent = `Login jugador ${current} de ${total}`;
+document.getElementById("titulo").textContent = `Login jugador ${UserActual} de ${total}`;
 
 // API
 class API {
@@ -46,18 +46,27 @@ document.getElementById("btn-iniciar").addEventListener("click", async function(
     });
     sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
 
-            if (current < total) {
+            if (UserActual < total) {
                 // pasa al siguiente jugador
-                window.location.href = `login.html?total=${total}&current=${current + 1}`;
+                window.location.href = `login.html?total=${total}&UserActual=${UserActual + 1}`;
             } else {
                 // último jugador, volver a principal
                 window.location.href = "principal.html";
             }
-        } else {
+
+            
+        } 
+
+        else {
             alert(result.message); // Usuario o contraseña incorrectos
         }
+
     } catch (error) {
         console.error("Error en la petición:", error);
         alert("Hubo un problema con la conexión al servidor.");
     }
+    //si el ultimo login es correcto el UserActual se pone en 7 
+     if (!result.success && UserActual === total) {
+            UserActual = 7;
+        }
 });
