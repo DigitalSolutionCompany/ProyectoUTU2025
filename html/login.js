@@ -23,7 +23,7 @@ class API {
 const Api = new API("http://localhost/ProyectoUTU2025/API/puertaLogin.php");
 
 // Evento al hacer clic en el botón
-document.getElementById("btn-iniciar").addEventListener("click", async function() {
+document.getElementById("btn-loguear").addEventListener("click", async function() {
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("contraseña").value.trim();
 
@@ -66,7 +66,14 @@ document.getElementById("btn-iniciar").addEventListener("click", async function(
         alert("Hubo un problema con la conexión al servidor.");
     }
     //si el ultimo login es correcto el UserActual se pone en 7 
-     if (!result.success && UserActual === total) {
-            UserActual = 7;
-        }
+    
 });
+
+/*
+ if (!result.success && UserActual === total) {
+            UserActual = 7;
+            document.getElementById("btn-jugar").addEventListener("click", () => {
+                const total = document.getElementById("cantidad").value;
+                window.location.href = "partida.html";
+            }); 
+        };*/
