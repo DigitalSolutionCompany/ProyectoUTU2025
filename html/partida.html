@@ -145,15 +145,53 @@
             const jugador = jugadores[jugadorIndex];
             const especiesEnRecinto = jugador.recintos[recinto];
     
-            if (recinto === "diferencia" && especiesEnRecinto.includes(especieSeleccionada)) {
-                alert("No se puede repetir especie en este recinto");
+            switch(recinto) {
+                case "semejanza":
+                    if (!especiesEnRecinto.includes(especieSeleccionada)) {
+                alert("debes poner dinosaurios de la misma especie");
                 return;
             }
+            break;
+
+            case "trios": 
+            if(especiesEnRecinto.length >=3) {
+                alert("este recinto solo puede albergar 3 dinosaurios");
+                return;
+            }
+            break;
+
+            case "rey":
+                if(especiesEnRecinto.length >=1) {
+                    alert("solo puede albergar 1 dinosaurio");
+                    return;
+                }
+                break;
+
+            case "diferencia":
+                    if(especiesEnRecinto.includes(especieSeleccionada)) {
+                        alert("no se pueden repetir especies")
+                    return;
+                }
+                break;
+
+            case "bosquePaejas":
+
+                break;
+
+            case "solitario":
+                    if(especiesEnRecinto >=1) {
+                        alert("el recinto solitario solo puede tener un dinosaurio");
+                    return
+                        }
+                break;
+            }
+            
     
             especiesEnRecinto.push(especieSeleccionada);
             guardarEnLocalStorage(); // Guardar cambios en localStorage
             abrirTablero(jugadorIndex);
         }
+
     </script>
 </body>
 
