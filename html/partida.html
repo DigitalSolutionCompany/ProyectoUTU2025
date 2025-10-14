@@ -147,7 +147,8 @@
     
             switch(recinto) {
                 case "semejanza":
-                    if (!especiesEnRecinto.includes(especieSeleccionada)) {
+                    //si esta vacio deja colocar a cualquier especie && si la especie que ya esta en el recinto es distinta que la seleccionada no te deja.
+                    if (especiesEnRecinto.length >0 && !especiesEnRecinto.includes(especieSeleccionada)) {
                 alert("debes poner dinosaurios de la misma especie");
                 return;
             }
