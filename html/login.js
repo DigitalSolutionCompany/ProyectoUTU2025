@@ -37,43 +37,45 @@ document.getElementById("btn-loguear").addEventListener("click", async function(
         const result = await response.json();
 
         if (result.success) {
-            // Guardar jugador logueado en sessionStorage
-             // Guardar jugador en sessionStorage
-    const jugadores = JSON.parse(sessionStorage.getItem("jugadores")) || [];
-    jugadores.push({
-        nombre: result.usuario.nombre,
-        partidas_ganadas: result.usuario.partidas_ganadas
-    });
-    sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
+            // Obtener la lista de jugadores logueados desde sessionStorage
+            const jugadores = JSON.parse(sessionStorage.getItem("jugadores")) || [];
 
-            if (UserActual < total) {
-                // pasa al siguiente jugador
-                window.location.href = `login.html?total=${total}&UserActual=${UserActual + 1}`;
-            } else {
-                // último jugador, volver a principal
-                window.location.href = "principal.html";
+            // Verificar si el jugador ya está en la lista
+            const jugadorExiste = jugadores.some(jugador => jugador.nombre === result.usuario.nombre);
+
+            if (!jugadorExiste) {
+                // Agregar el jugador al array si no existe
+                jugadores.push({
+                    nombre: result.usuario.nombre,
+                    partidas_ganadas: result.usuario.partidas_ganadas
+                });
+                sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
             }
 
-            
-        } 
-
-        else {
+            if (UserActual < total) {
+                // Pasar al siguiente jugador
+                window.location.href = `login.html?total=${total}&UserActual=${UserActual + 1}`;
+            }
+        } else {
             alert(result.message); // Usuario o contraseña incorrectos
         }
-
     } catch (error) {
         console.error("Error en la petición:", error);
         alert("Hubo un problema con la conexión al servidor.");
     }
-    //si el ultimo login es correcto el UserActual se pone en 7 
-    
 });
 
-/*
- if (!result.success && UserActual === total) {
-            UserActual = 7;
-            document.getElementById("btn-jugar").addEventListener("click", () => {
-                const total = document.getElementById("cantidad").value;
-                window.location.href = "partida.html";
-            }); 
-        };*/
+// Evento al hacer clic en el botón "Jugar"
+document.getElementById("btn-jugar").addEventListener("click", () => {
+    // Obtener la lista de jugadores logueados desde sessionStorage
+    const jugadores = JSON.parse(sessionStorage.getItem("jugadores")) || [];
+
+    // Verificar si el número de jugadores logueados coincide con el total esperado
+    if (jugadores.length === total) {
+        // Redirigir a partida.html si todos los jugadores están logueados
+        window.location.href = "partida.html";
+    } else {
+        // Mostrar un mensaje indicando que faltan jugadores por loguear
+        alert(`Faltan jugadores por loguear. Jugadores logueados: ${jugadores.length}/${total}`);
+    }
+});
