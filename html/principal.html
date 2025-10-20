@@ -20,7 +20,7 @@
         <main>
             <a href="ranking.html" class="btn btn-primary d-block text-center w-50 mx-auto botonirranking">Ranking</a>
             <a href="reglas.html" class="btn btn-primary d-block text-center w-50 mx-auto botonreglas">Reglas</a>
-            <a href="partida.html" class="btn btn-primary d-block text-center w-50 mx-auto botonpartida">Iniciar partida</a>
+            
 
             <div class="mb-4">
                 <select name="cantidad" id="cantidad" class="form-select" required>
@@ -39,19 +39,8 @@ document.getElementById("empezarBtn").addEventListener("click", () => {
   window.location.href = `login.html?total=${total}&UserActual=1`;
 }); 
 
-// Traer jugadores logueados de sessionStorage
-    const jugadores = JSON.parse(sessionStorage.getItem("jugadores")) || [];
-const lista = document.getElementById("lista-jugadores");
 
-jugadores.forEach(j => {
-    const li = document.createElement("li");
-    li.textContent = `${j.nombre} - Partidas ganadas: ${j.partidas_ganadas}`;
-    lista.appendChild(li);
-});
    </script>
- <h2>Jugadores logueados:</h2>
-<ul id="lista-jugadores"></ul>
-
         </main>
     </div>
 
