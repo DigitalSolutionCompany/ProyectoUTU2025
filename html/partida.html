@@ -13,50 +13,38 @@
         <a href="principal.html" class="botonpartidavolver">Volver</a>
         <h1>🦕Partida🦕</h1>
     </div>
+     <!-- Contenedor para los tableros -->
+     <div class="tableros-cuadrados"></div>
 
-    <div class="tableros-cuadrados">
-        <div class="tarjeta-jugador" onclick="abrirTablero(0)">
-            <div class="nombre-jugador-tarjeta">Jugador 1</div>
-            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug1">
-        </div>
-        <div class="tarjeta-jugador" onclick="abrirTablero(1)">
-            <div class="nombre-jugador-tarjeta">Jugador 2</div>
-            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug2">
-        </div>
-        <div class="tarjeta-jugador" onclick="abrirTablero(2)">
-            <div class="nombre-jugador-tarjeta">Jugador 3</div>
-            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug3">
-        </div>
-        <div class="tarjeta-jugador" onclick="abrirTablero(3)">
-            <div class="nombre-jugador-tarjeta">Jugador 4</div>
-            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug4">
-        </div>
-        <div class="tarjeta-jugador" onclick="abrirTablero(4)">
-            <div class="nombre-jugador-tarjeta">Jugador 5</div>
-            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug5">
-        </div>
-    </div>
+
+  
 
     <div id="tablero-grande" class="vista-tablero-completo"></div>
 
     <script>
-        // Inicializar jugadores desde localStorage o usar valores predeterminados
-        const jugadores = JSON.parse(localStorage.getItem('jugadores')) || [
-            { nombre: "Jugador 1", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
-            { nombre: "Jugador 2", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
-            { nombre: "Jugador 3", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
-            { nombre: "Jugador 4", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
-            { nombre: "Jugador 5", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
-        ];
-    
-        const especies = ['T-rex', 'Stegosaurio', 'Parasaurio', 'Velociraptor', 'Brachiosaurio', 'Triceratops'];
-        let especieSeleccionada = null;
-    
-        // Guardar jugadores en localStorage
-        function guardarEnLocalStorage() {
-            localStorage.setItem('jugadores', JSON.stringify(jugadores));
-        }
-    
+         // Obtener jugadores logueados desde sessionStorage
+    const jugadores = JSON.parse(sessionStorage.getItem('jugadores')) || [];
+
+// Verificar si hay jugadores logueados
+if (jugadores.length === 0) {
+    alert("No hay jugadores logueados. Redirigiendo al inicio...");
+    window.location.href = "login.html";
+}
+
+// Generar dinámicamente los tableros en función de los jugadores logueados
+const tablerosContainer = document.querySelector('.tableros-cuadrados');
+tablerosContainer.innerHTML = ''; // Limpiar contenido estático
+
+jugadores.forEach((jugador, index) => {
+    const tableroHTML = `
+        <div class="tarjeta-jugador" onclick="abrirTablero(${index})">
+            <div class="nombre-jugador-tarjeta">${jugador.nombre}</div>
+            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero ${jugador.nombre}">
+        </div>
+    `;
+    tablerosContainer.innerHTML += tableroHTML;
+});
+
         function abrirTablero(indice) {
             const jugador = jugadores[indice];
             const div = document.getElementById("tablero-grande");
