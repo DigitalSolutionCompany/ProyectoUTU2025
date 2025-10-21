@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/partida.css">
+    <title>Seguimiento de Partida</title>
+</head>
+
+<body class="partidaempezada">
+    <div class="encabezadoprincipal">
+        <a href="principal.html" class="botonpartidavolver">Volver</a>
+        <h1>🦕Partida🦕</h1>
+    </div>
+
+    <div class="tableros-cuadrados">
+        <div class="tarjeta-jugador" onclick="abrirTablero(0)">
+            <div class="nombre-jugador-tarjeta">Jugador 1</div>
+            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug1">
+        </div>
+        <div class="tarjeta-jugador" onclick="abrirTablero(1)">
+            <div class="nombre-jugador-tarjeta">Jugador 2</div>
+            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug2">
+        </div>
+        <div class="tarjeta-jugador" onclick="abrirTablero(2)">
+            <div class="nombre-jugador-tarjeta">Jugador 3</div>
+            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug3">
+        </div>
+        <div class="tarjeta-jugador" onclick="abrirTablero(3)">
+            <div class="nombre-jugador-tarjeta">Jugador 4</div>
+            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug4">
+        </div>
+        <div class="tarjeta-jugador" onclick="abrirTablero(4)">
+            <div class="nombre-jugador-tarjeta">Jugador 5</div>
+            <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero jug5">
+        </div>
+    </div>
+
+    <div id="tablero-grande" class="vista-tablero-completo"></div>
+
+    <script>
+        // Inicializar jugadores desde localStorage o usar valores predeterminados
+        const jugadores = JSON.parse(localStorage.getItem('jugadores')) || [
+            { nombre: "Jugador 1", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+            { nombre: "Jugador 2", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+            { nombre: "Jugador 3", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+            { nombre: "Jugador 4", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+            { nombre: "Jugador 5", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+        ];
+        if(sessionStorage.getItem('numJugadores')) {
+            jugadores.length = parseInt(sessionStorage.getItem('numJugadores'));
+        }
+    
+        const especies = ['T-rex', 'Stegosaurio', 'Parasaurio', 'Velociraptor', 'Brachiosaurio', 'Triceratops'];
+        let especieSeleccionada = null;
+    
+        // Guardar jugadores en localStorage
+        function guardarEnLocalStorage() {
+            localStorage.setItem('jugadores', JSON.stringify(jugadores));
+        }
+    
+        function abrirTablero(indice) {
+            const jugador = jugadores[indice];
+            const div = document.getElementById("tablero-grande");
+            div.style.display = "block";
+    
+            div.innerHTML = `
+                <div class="botones-navegacion">
+                    <button class="boton-navegacion volver" onclick="cerrarTablero()">← Volver a Partida</button>
+                    <button class="boton-navegacion" onclick="mostrarOtrosTableros(${indice})">Ver Otros Jugadores</button>
+                </div>
+                <div class="nombre-jugador">${jugador.nombre}</div>
+                
+                <div class="panel-seleccion">
+                    <p>Selecciona un dinosaurio:</p>
+                    <div class="especies-dinosaurio">
+                        ${especies.map(e => `
+                            <button class="boton-especie ${especieSeleccionada === e.toLowerCase() ? 'activo' : ''}" 
+                                    onclick="setEspecieSeleccionada('${e.toLowerCase()}')">${e}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+    
+            for (const recinto in jugador.recintos) {
+                const nombreRecinto = {
+                    'semejanza': 'Semejanza',
+                    'trios': 'Tríos',
+                    'rey': 'Rey',
+                    'diferencia': 'Diferencia',
+                    'bosqueParejas': 'Bosque Parejas',
+                    'solitario': 'Solitario'
+                }[recinto] || recinto;
+    
+                div.innerHTML += `
+                    <div class="zona-recinto ${['semejanza', 'trios', 'rey'].includes(recinto) ? 'zona-recinto-especial' : ''}" 
+                         onclick="colocarDino(${indice}, '${recinto}')">
+                        <strong>${nombreRecinto}</strong><br>
+                        <div style="margin-top: 10px;">
+                            ${jugador.recintos[recinto].map(especie => `<div class='pieza-dinosaurio ${especie}'></div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    
+        function mostrarOtrosTableros(indiceActual) {
+            const div = document.getElementById("tablero-grande");
+    
+            div.innerHTML = `
+                <div class="botones-navegacion">
+                    <button class="boton-navegacion volver" onclick="cerrarTablero()">← Volver a Partida</button>
+                    <button class="boton-navegacion" onclick="abrirTablero(${indiceActual})">Volver a ${jugadores[indiceActual].nombre}</button>
+                </div>
+                <div class="nombre-jugador">Selecciona un Jugador</div>
+                
+                <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px;">
+                    ${jugadores.map((jugador, indice) => `
+                        <div class="zona-recinto" onclick="abrirTablero(${indice})" style="cursor: pointer; text-align: center; font-size: 1.2em;">
+                            <strong>${jugador.nombre}</strong>
+                            ${indice === indiceActual ? ' (Actual)' : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    
+        function cerrarTablero() {
+            document.getElementById("tablero-grande").style.display = "none";
+        }
+    
+        function setEspecieSeleccionada(especie) {
+            especieSeleccionada = especie;
+            // Actualizar botones
+            document.querySelectorAll('.boton-especie').forEach(btn => {
+                btn.classList.remove('activo');
+            });
+            event.target.classList.add('activo');
+        }
+    
+        function colocarDino(jugadorIndex, recinto) {
+            if (!especieSeleccionada) {
+                alert("Selecciona un dinosaurio primero");
+                return;
+            }
+    
+            const jugador = jugadores[jugadorIndex];
+            const especiesEnRecinto = jugador.recintos[recinto];
+    
+            switch(recinto) {
+                case "semejanza":
+                    //si esta vacio deja colocar a cualquier especie && si la especie que ya esta en el recinto es distinta que la seleccionada no te deja.
+                    if (especiesEnRecinto.length >0 && !especiesEnRecinto.includes(especieSeleccionada)) {
+                alert("debes poner dinosaurios de la misma especie");
+                return;
+            }
+            break;
+
+            case "trios": 
+            if(especiesEnRecinto.length >=3) {
+                alert("este recinto solo puede albergar 3 dinosaurios");
+                return;
+            }
+            break;
+
+            case "rey":
+                if(especiesEnRecinto.length >=1) {
+                    alert("solo puede albergar 1 dinosaurio");
+                    return;
+                }
+                break;
+
+            case "diferencia":
+                    if(especiesEnRecinto.includes(especieSeleccionada)) {
+                        alert("no se pueden repetir especies")
+                    return;
+                }
+                break;
+
+            case "bosquePaejas":
+
+                break;
+
+            case "solitario":
+                    if(especiesEnRecinto >=1) {
+                        alert("el recinto solitario solo puede tener un dinosaurio");
+                    return
+                        }
+                break;
+            }
+            
+    
+            especiesEnRecinto.push(especieSeleccionada);
+            guardarEnLocalStorage(); // Guardar cambios en localStorage
+            abrirTablero(jugadorIndex);
+        }
+
+    </script>
+</body>
+
+</html>
