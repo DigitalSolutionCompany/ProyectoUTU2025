@@ -42,6 +42,11 @@ document.getElementById("btn-loguear").addEventListener("click", async function(
 
             // Verificar si el jugador ya está en la lista
             const jugadorExiste = jugadores.some(jugador => jugador.nombre === result.usuario.nombre);
+            if(jugadorExiste){
+                alert("El usuario ya ha sido logueado anteriormente.");
+                return;
+            }
+
 
             if (!jugadorExiste) {
                 // Agregar el jugador al array si no existe
@@ -66,10 +71,19 @@ document.getElementById("btn-loguear").addEventListener("click", async function(
 });
 
 // Evento al hacer clic en el botón "Jugar"
-document.getElementById("btn-jugar").addEventListener("click", () => {
+document.getElementById("btn-jugar").addEventListener("click", async function() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("contraseña").value.trim();
+
+    if (!username || !password) {
+        alert("Por favor, completa todos los campos.");
+        return;
+    }
+
+    
     // Obtener la lista de jugadores logueados desde sessionStorage
     const jugadores = JSON.parse(sessionStorage.getItem("jugadores")) || [];
-
+     
     // Verificar si el número de jugadores logueados coincide con el total esperado
     if (jugadores.length === total) {
         // Redirigir a partida.html si todos los jugadores están logueados
