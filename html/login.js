@@ -50,10 +50,18 @@ document.getElementById("btn-loguear").addEventListener("click", async function(
 
             if (!jugadorExiste) {
                 // Agregar el jugador al array si no existe
-                jugadores.push({
-                    nombre: result.usuario.nombre,
-                    partidas_ganadas: result.usuario.partidas_ganadas
-                });
+               jugadores.push({
+         nombre: result.usuario.nombre,
+         partidas_ganadas: result.usuario.partidas_ganadas,
+         recintos: {
+          semejanza: [],
+          trios: [],
+          rey: [],
+          diferencia: [],
+          bosqueParejas: [],
+          solitario: []
+    }
+});
                 sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
             }
 
