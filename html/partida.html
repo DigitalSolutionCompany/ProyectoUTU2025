@@ -10,7 +10,7 @@
 
 <body class="partidaempezada">
     <div class="encabezadoprincipal">
-        <a href="principal.html" class="botonpartidavolver">Volver</a>
+       
         <h1>🦕Partida🦕</h1>
     </div>
 
@@ -21,6 +21,7 @@
     <div id="tablero-grande" class="vista-tablero-completo" style="display:none;"></div>
 
     <script>
+        
         // Variables globales
         const jugadores = JSON.parse(sessionStorage.getItem('jugadores')) || JSON.parse(localStorage.getItem('jugadores')) || [
             { nombre: "Jugador 1", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
@@ -187,6 +188,208 @@
             localStorage.setItem('jugadores', JSON.stringify(jugadores));
             sessionStorage.setItem('jugadores', JSON.stringify(jugadores));
         }
+        // Asegura que cada jugador tenga el campo 'puntos'
+        function asegurarEstructuraPuntos(jugador) {
+            if (!jugador.puntos) {
+                jugador.puntos = {
+                    semejanza: 0,
+                    trios: 0,
+                    rey: 0,
+                    diferencia: 0,
+                    bosqueParejas: 0,
+                    solitario: 0,
+                    total: 0
+                };
+            }
+        }
+
+        // Calcula los puntos del recinto Semejanza
+        function calcularPuntosSemejanza(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.semejanza || [];
+            const cantidad = recinto.length;
+
+            // Sin dinosaurios
+            if (cantidad === 0) {
+                jugador.puntos.semejanza = 0;
+                return;
+            }
+
+            // Verificar que todos sean de la misma especie
+            const mismaEspecie = recinto.every(e => e === recinto[0]);
+            if (!mismaEspecie) {
+                jugador.puntos.semejanza = 0;
+                return;
+            }
+
+            // Escala de puntuación
+            const puntosTabla = [0, 2, 4, 8, 12, 18, 24];
+            jugador.puntos.semejanza = puntosTabla[Math.min(cantidad, 6)];
+        }
+
+        function calcularPuntosTrios(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.trios || [];
+            const cantidad = recinto.length;
+
+            // Si tiene exactamente 3 dinosaurios → 7 puntos
+            if (cantidad === 3) {
+                jugador.puntos.trios = 7;
+            } else {
+                jugador.puntos.trios = 0;
+            }
+        }
+
+        function calcularPuntosRey(jugadorActual, todosLosJugadores) {
+            asegurarEstructuraPuntos(jugadorActual);
+
+            const recinto = jugadorActual.recintos?.rey || [];
+
+            // Si no hay dinosaurio en el recinto, no suma nada
+            if (recinto.length === 0) {
+                jugadorActual.puntos.rey = 0;
+                return;
+            }
+
+            const especie = recinto[0]; // solo puede haber 1
+            let maxCantidad = 0;
+            const cantidades = [];
+
+            // Contar cuántos dinosaurios de esa especie tiene cada jugador en total
+            todosLosJugadores.forEach(j => {
+                let totalDeEsaEspecie = 0;
+
+                Object.values(j.recintos).forEach(lista => {
+                    totalDeEsaEspecie += lista.filter(dino => dino === especie).length;
+                });
+
+                cantidades.push(totalDeEsaEspecie);
+                if (totalDeEsaEspecie > maxCantidad) {
+                    maxCantidad = totalDeEsaEspecie;
+                }
+            });
+
+            // Cuántos jugadores empataron con la cantidad máxima
+            const jugadoresConMax = cantidades.filter(c => c === maxCantidad).length;
+
+            // Cuántos tiene este jugador
+            let totalJugadorActual = 0;
+            Object.values(jugadorActual.recintos).forEach(lista => {
+                totalJugadorActual += lista.filter(dino => dino === especie).length;
+            });
+
+            // Gana puntos si tiene la máxima cantidad (empate o líder)
+            if (totalJugadorActual === maxCantidad) {
+                jugadorActual.puntos.rey = 7;
+            } else {
+                jugadorActual.puntos.rey = 0;
+            }
+        }
+
+        function calcularPuntosDiferencia(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.diferencia || [];
+            if (recinto.length === 0) {
+                jugador.puntos.diferencia = 0;
+                return;
+            }
+
+            // Contar cuántas especies diferentes hay
+            const especiesUnicas = [...new Set(recinto)];
+            const cantidad = especiesUnicas.length;
+
+            // Mapeo de puntos según cantidad
+            const tablaPuntos = {
+                1: 1,
+                2: 3,
+                3: 6,
+                4: 10,
+                5: 15,
+                6: 21
+            };
+
+            jugador.puntos.diferencia = tablaPuntos[cantidad] || 0;
+        }
+
+        function calcularPuntosBosqueParejas(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.bosqueParejas || [];
+            if (recinto.length === 0) {
+                jugador.puntos.bosqueParejas = 0;
+                return;
+            }
+
+            const conteo = {};
+            recinto.forEach(e => conteo[e] = (conteo[e] || 0) + 1);
+
+            let puntos = 0;
+            for (const especie in conteo) {
+                const parejas = Math.floor(conteo[especie] / 2);
+                puntos += parejas * 5;
+            }
+
+            jugador.puntos.bosqueParejas = puntos;
+        }
+
+        function calcularPuntosSolitario(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.solitario || [];
+            if (recinto.length === 0) {
+                jugador.puntos.solitario = 0;
+                return;
+            }
+
+            const especieSolitario = recinto[0]; // solo puede haber 1
+
+            // Reunir todas las especies del parque (excepto el solitario)
+            const todasLasEspecies = Object.entries(jugador.recintos)
+                .filter(([nombre]) => nombre !== "solitario")
+                .flatMap(([_, dinos]) => dinos);
+
+            // Ver si esa especie está repetida
+            const esUnico = !todasLasEspecies.includes(especieSolitario);
+
+            jugador.puntos.solitario = esUnico ? 7 : 0;
+        }
+
+        function calcularPuntosDeTodosLosJugadores() {
+            jugadores.forEach(jugador => {
+                calcularPuntosSemejanza(jugador);
+                calcularPuntosTrios(jugador);
+                calcularPuntosRey(jugador, jugadores);
+                calcularPuntosDiferencia(jugador);
+                calcularPuntosBosqueParejas(jugador);
+                calcularPuntosSolitario(jugador);
+
+                jugador.puntos.total =
+                    jugador.puntos.semejanza +
+                    jugador.puntos.trios +
+                    jugador.puntos.rey +
+                    jugador.puntos.diferencia +
+                    jugador.puntos.bosqueParejas +
+                    jugador.puntos.solitario;
+            });
+
+            localStorage.setItem('jugadores', JSON.stringify(jugadores));
+            sessionStorage.setItem('jugadores', JSON.stringify(jugadores));
+        }
+
+        calcularPuntosDeTodosLosJugadores();
+
+
+
+
+
+
+
+
+
+
 
     </script>
 </body>
