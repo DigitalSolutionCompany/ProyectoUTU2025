@@ -50,6 +50,7 @@
 
         // Función para mostrar tablero detallado de un jugador
         function abrirTablero(indice) {
+            calcularPuntosDeTodosLosJugadores(); // recalcula todo antes de mostrar
             const jugador = jugadores[indice];
             const div = document.getElementById("tablero-grande");
             div.style.display = "block";
@@ -59,7 +60,11 @@
                     <button class="boton-navegacion volver" onclick="cerrarTablero()">← Volver a Partida</button>
                     <button class="boton-navegacion" onclick="mostrarOtrosTableros(${indice})">Ver Otros Jugadores</button>
                 </div>
-                <div class="nombre-jugador">${jugador.nombre}</div>
+                <div class="nombre-jugador">
+    ${jugador.nombre} 
+    <span class="puntos-jugador">(${jugador.puntos.total} pts)</span>
+</div>
+
 
                 <div class="panel-seleccion">
                     <p>Selecciona un dinosaurio:</p>
