@@ -30,4 +30,3 @@ class Usuarios {
         return false; // Usuario no encontrado o contraseña incorrecta
     }
     }
-?>
