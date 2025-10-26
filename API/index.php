@@ -1,149 +1,84 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Max-Age: 3600");
 
-require_once 'registro.php';
-require_once 'database.php';
-// Manejar preflight OPTIONS
+// Manejo de preflight OPTIONS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
+require_once 'registro.php';
+require_once 'database.php';
 
-// Crear instancias
+// Crear instancia de base de datos
 $database = new Database();
 $db = $database->connect();
 $usuarios = new Usuarios($db);
 
-// Obtener método HTTP
-$method = $_SERVER['REQUEST_METHOD'];
-
-// Endpoint para login: POST con campo 'accion' = 'login'
-if ($method == 'POST') {
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
-
-    if ($data && isset($data['accion']) && $data['accion'] === 'login') {
-        // Validar login
-        if (!isset($data['nombre_usuario']) || !isset($data['contrasena'])) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
-            exit();
-        }
-        $usuario = $usuarios->validarUser($data['nombre_usuario'], $data['contrasena']);
-        if ($usuario) {
-            echo json_encode(['success' => true, 'message' => 'Login correcto']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Usuario o contraseña incorrectos']);
-        }
-        exit();
-    } else {
-        // Registro de usuario (POST sin accion o accion diferente)
-        funcPost($usuarios);
-    }
-} else {
+// Solo aceptar POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(["mensaje" => "Método no permitido"]);
+    exit();
 }
 
+// Leer y decodificar el JSON recibido
+$json = file_get_contents('php://input');
+$data = json_decode($json, true);
 
+if ($data === null) {
+    http_response_code(400);
+    echo json_encode(["mensaje" => "JSON inválido"]);
+    exit();
+}
 
-// Función para manejar GET
-// function funcGet($usuarios)
-// {
-//     if (isset($_GET['nombre'])) {
-//         // Validar y sanitizar input
-//         $nombre = filter_input(INPUT_GET, 'nombre', FILTER_SANITIZE_STRING);
-//         if (empty($nombre)) {
-//             http_response_code(400);
-//             echo json_encode(["mensaje" => "Nombre inválido"]);
-//             return;
-//         }
-
-//         $data = $usuarios->getByName($nombre);
-//         echo json_encode($data ? $data : ["mensaje" => "Usuario no encontrado"]);
-//     } else {
-//         $data = $usuarios->getAll();
-//         echo json_encode($data);
-//     }
-// }
-
-// Función para manejar POST
-function funcPost($usuarios)
-{
-    // Lee el cuerpo de la solicitud POST, que se espera que sea un JSON
-    $json = file_get_contents('php://input');
-    // Decodifica el JSON en un array asociativo de PHP (el 'true' es para que sea asociativo)
-    $data = json_decode($json, true);
-
-    // Validaciones exhaustivas
-    if ($data === null) {
+// Validar campos requeridos
+$requiredFields = ["nombre_usuario", "partidas_ganadas", "contrasena"];
+foreach ($requiredFields as $field) {
+    if (empty($data[$field])) {
         http_response_code(400);
-        echo json_encode(["mensaje" => "JSON inválido"]);
-        return;
+        echo json_encode(["mensaje" => "Campo '$field' es requerido"]);
+        exit();
     }
+}
 
-    // Campos requeridos
-    $requiredFields = ["nombre_usuario", "partidas_ganadas", "contrasena"];
-    foreach ($requiredFields as $field) {
-        if (!isset($data[$field])) {
-            http_response_code(400);
-            echo json_encode(["mensaje" => "Campo '$field' es requerido"]);
-            return;
-        }
-    }
+// Validar tipos
+if (!is_numeric($data["partidas_ganadas"])) {
+    http_response_code(400);
+    echo json_encode(["mensaje" => "Campo numérico inválido"]);
+    exit();
+}
 
-    // Validar tipos de datos
-    if (!is_numeric($data["partidas_ganadas"])) {
-        http_response_code(400);
-        echo json_encode(["mensaje" => "Campo numérico inválido"]);
-        return;
-    }
+// Sanitizar e insertar
+$nombreJug = $data["nombre_usuario"];
+$partidasGanadas = intval($data["partidas_ganadas"]);
+$contra = $data["contrasena"];
 
-    // Sanitizar datos
+try {
+    $result = $usuarios->insertUser($nombreJug, $partidasGanadas, $contra);
 
-    /*prevenir ataques de Cross-Site Scripting (XSS) al evitar que se inyectara código HTML o JavaScript malicioso*/ 
-    
-    $nombreJug = $data["nombre_usuario"];
-    $partidasGanadas = intval($data["partidas_ganadas"]);
-    $contra = $data["contrasena"];
-
-    /* Validar fecha
-    if (!DateTime::createFromFormat('Y-m-d H:i:s', $fecha)) {
-        http_response_code(400);
-        echo json_encode(["mensaje" => "Formato de fecha inválido. Use Y-m-d H:i:s"]);
-        return;
-    }*/
-
-    // Insertar con manejo de errores
-    try {
-        $result = $usuarios->insertUser($nombreJug, $partidasGanadas, $contra);
-
-        if ($result) {
-            http_response_code(201);
-            echo json_encode([
-                "success" => true,
-                "message" => "Usuario ingresado exitosamente",
-                "id" => $result
-            ]);
-        } else {
-            http_response_code(500);
-            echo json_encode([
-                "success" => false,
-                "message" => "Error al ingresar usuario"
-            ]);
-        }
-    } catch (Exception $e) {
+    if ($result) {
+        http_response_code(201);
+        echo json_encode([
+            "success" => true,
+            "message" => "Usuario registrado exitosamente",
+            "id" => $result
+        ]);
+    } else {
         http_response_code(500);
         echo json_encode([
             "success" => false,
-            "message" => "Error interno del servidor",
-            // "error" => $e->getMessage() // Solo en desarrollo, quitar en producción
+            "message" => "Error al registrar usuario"
         ]);
     }
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        "success" => false,
+        "message" => "Error interno del servidor"
+    ]);
 }
