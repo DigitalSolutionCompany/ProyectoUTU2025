@@ -25,10 +25,6 @@
         // Variables globales
         const jugadores = JSON.parse(sessionStorage.getItem('jugadores')) || JSON.parse(localStorage.getItem('jugadores')) || [
             { nombre: "Jugador 1", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
-            { nombre: "Jugador 2", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
-            { nombre: "Jugador 3", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
-            { nombre: "Jugador 4", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
-            { nombre: "Jugador 5", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
         ];
 
         // Lista de especies para botones de selección
@@ -247,6 +243,7 @@
             }
         }
 
+        //fijarme como dar los 7 puntos 
         function calcularPuntosRey(jugadorActual, todosLosJugadores) {
             asegurarEstructuraPuntos(jugadorActual);
 
