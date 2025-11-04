@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="../css/partida.css" />
+    <title>Seguimiento de Partida</title>
+</head>
+
+<body class="partidaempezada">
+    <div class="encabezadoprincipal">
+       
+        <h1>🦕Partida🦕</h1>
+    </div>
+
+    <!-- Contenedor dinámico para los tableros según jugadores logueados -->
+    <div class="tableros-cuadrados"></div>
+
+    <!-- Tablero grande oculto inicialmente -->
+    <div id="tablero-grande" class="vista-tablero-completo" style="display:none;"></div>
+
+    <script>
+        
+        // Variables globales
+        const jugadores = JSON.parse(sessionStorage.getItem('jugadores')) || JSON.parse(localStorage.getItem('jugadores')) || [
+            { nombre: "Jugador 1", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+            { nombre: "Jugador 2", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+            { nombre: "Jugador 3", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+            { nombre: "Jugador 4", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+            { nombre: "Jugador 5", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
+        ];
+
+        // Lista de especies para botones de selección
+        const especies = ['T-rex', 'Stegosaurio', 'Parasaurio', 'Velociraptor', 'Brachiosaurio', 'Triceratops'];
+        let especieSeleccionada = null;
+
+        // Mostrar tableros dinámicamente según jugadores
+        const tablerosContainer = document.querySelector('.tableros-cuadrados');
+        tablerosContainer.innerHTML = ''; // limpiar si hay algo
+
+        jugadores.forEach((jugador, index) => {
+            tablerosContainer.innerHTML += `
+                <div class="tarjeta-jugador" onclick="abrirTablero(${index})">
+                    <div class="nombre-jugador-tarjeta">${jugador.nombre}</div>
+                    <img src="../imagenes/tablero.jpg" class="imagen-tablero" alt="tablero ${jugador.nombre}">
+                </div>
+            `;
+        });
+
+        // Función para mostrar tablero detallado de un jugador
+        function abrirTablero(indice) {
+            calcularPuntosDeTodosLosJugadores(); // recalcula todo antes de mostrar
+            const jugador = jugadores[indice];
+            const div = document.getElementById("tablero-grande");
+            div.style.display = "block";
+
+            div.innerHTML = `
+                <div class="botones-navegacion">
+                    <button class="boton-navegacion volver" onclick="cerrarTablero()">← Volver a Partida</button>
+                    <button class="boton-navegacion" onclick="mostrarOtrosTableros(${indice})">Ver Otros Jugadores</button>
+                </div>
+                <div class="nombre-jugador">
+    ${jugador.nombre} 
+    <span class="puntos-jugador">(${jugador.puntos.total} pts)</span>
+</div>
+
+
+                <div class="panel-seleccion">
+                    <p>Selecciona un dinosaurio:</p>
+                    <div class="especies-dinosaurio">
+                        ${especies.map(e => `
+                            <button class="boton-especie ${especieSeleccionada === e.toLowerCase() ? 'activo' : ''}"
+                                onclick="setEspecieSeleccionada('${e.toLowerCase()}')">${e}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Añadir los recintos con dinosaurios
+            for (const recinto in jugador.recintos) {
+                const nombreRecinto = {
+                    'semejanza': 'Semejanza',
+                    'trios': 'Tríos',
+                    'rey': 'Rey',
+                    'diferencia': 'Diferencia',
+                    'bosqueParejas': 'Bosque Parejas',
+                    'solitario': 'Solitario'
+                }[recinto] || recinto;
+
+                div.innerHTML += `
+                    <div class="zona-recinto ${['semejanza', 'trios', 'rey'].includes(recinto) ? 'zona-recinto-especial' : ''}"
+                        onclick="colocarDino(${indice}, '${recinto}')">
+                        <strong>${nombreRecinto}</strong><br>
+                        <div style="margin-top: 10px;">
+                            ${jugador.recintos[recinto].map(especie => `<div class='pieza-dinosaurio ${especie}'></div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Mostrar lista de jugadores para elegir otro tablero
+        function mostrarOtrosTableros(indiceActual) {
+            const div = document.getElementById("tablero-grande");
+            div.innerHTML = `
+                <div class="botones-navegacion">
+                    <button class="boton-navegacion volver" onclick="cerrarTablero()">← Volver a Partida</button>
+                    <button class="boton-navegacion" onclick="abrirTablero(${indiceActual})">Volver a ${jugadores[indiceActual].nombre}</button>
+                </div>
+                <div class="nombre-jugador">Selecciona un Jugador</div>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px;">
+                    ${jugadores.map((jugador, i) => `
+                        <div class="zona-recinto" onclick="abrirTablero(${i})" style="cursor: pointer; text-align: center; font-size: 1.2em;">
+                            <strong>${jugador.nombre}</strong>${i === indiceActual ? ' (Actual)' : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Ocultar el tablero grande
+        function cerrarTablero() {
+            document.getElementById("tablero-grande").style.display = "none";
+        }
+
+        // Selección de especie de dinosaurio
+        function setEspecieSeleccionada(especie) {
+            especieSeleccionada = especie;
+            // Actualizar botones activos
+            document.querySelectorAll('.boton-especie').forEach(btn => btn.classList.remove('activo'));
+            event.target.classList.add('activo');
+        }
+
+        // Colocar dinosaurio en un recinto
+        function colocarDino(jugadorIndex, recinto) {
+            if (!especieSeleccionada) {
+                alert("Selecciona un dinosaurio primero");
+                return;
+            }
+
+            const jugador = jugadores[jugadorIndex];
+            const especiesEnRecinto = jugador.recintos[recinto];
+
+            switch (recinto) {
+                case "semejanza":
+                    if (especiesEnRecinto.length > 0 && !especiesEnRecinto.includes(especieSeleccionada)) {
+                        alert("Debes poner dinosaurios de la misma especie");
+                        return;
+                    }
+                    break;
+
+                case "trios":
+                    if (especiesEnRecinto.length >= 3) {
+                        alert("Este recinto solo puede albergar 3 dinosaurios");
+                        return;
+                    }
+                    break;
+
+                case "rey":
+                    if (especiesEnRecinto.length >= 1) {
+                        alert("Solo puede albergar 1 dinosaurio");
+                        return;
+                    }
+                    break;
+
+                case "diferencia":
+                    if (especiesEnRecinto.includes(especieSeleccionada)) {
+                        alert("No se pueden repetir especies");
+                        return;
+                    }
+                    break;
+
+                case "bosqueParejas":
+                    // Lógica pendiente (no definida)
+                    break;
+
+                case "solitario":
+                    if (especiesEnRecinto.length >= 1) {
+                        alert("El recinto solitario solo puede tener un dinosaurio");
+                        return;
+                    }
+                    break;
+            }
+
+            especiesEnRecinto.push(especieSeleccionada);
+            guardarEnLocalStorage();
+            abrirTablero(jugadorIndex);
+        }
+
+        // Guardar jugadores actualizados en localStorage y sessionStorage
+        function guardarEnLocalStorage() {
+            localStorage.setItem('jugadores', JSON.stringify(jugadores));
+            sessionStorage.setItem('jugadores', JSON.stringify(jugadores));
+        }
+        // Asegura que cada jugador tenga el campo 'puntos'
+        function asegurarEstructuraPuntos(jugador) {
+            if (!jugador.puntos) {
+                jugador.puntos = {
+                    semejanza: 0,
+                    trios: 0,
+                    rey: 0,
+                    diferencia: 0,
+                    bosqueParejas: 0,
+                    solitario: 0,
+                    total: 0
+                };
+            }
+        }
+
+        // Calcula los puntos del recinto Semejanza
+        function calcularPuntosSemejanza(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.semejanza || [];
+            const cantidad = recinto.length;
+
+            // Sin dinosaurios
+            if (cantidad === 0) {
+                jugador.puntos.semejanza = 0;
+                return;
+            }
+
+            // Verificar que todos sean de la misma especie
+            const mismaEspecie = recinto.every(e => e === recinto[0]);
+            if (!mismaEspecie) {
+                jugador.puntos.semejanza = 0;
+                return;
+            }
+
+            // Escala de puntuación
+            const puntosTabla = [0, 2, 4, 8, 12, 18, 24];
+            jugador.puntos.semejanza = puntosTabla[Math.min(cantidad, 6)];
+        }
+
+        function calcularPuntosTrios(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.trios || [];
+            const cantidad = recinto.length;
+
+            // Si tiene exactamente 3 dinosaurios → 7 puntos
+            if (cantidad === 3) {
+                jugador.puntos.trios = 7;
+            } else {
+                jugador.puntos.trios = 0;
+            }
+        }
+
+        function calcularPuntosRey(jugadorActual, todosLosJugadores) {
+            asegurarEstructuraPuntos(jugadorActual);
+
+            const recinto = jugadorActual.recintos?.rey || [];
+
+            // Si no hay dinosaurio en el recinto, no suma nada
+            if (recinto.length === 0) {
+                jugadorActual.puntos.rey = 0;
+                return;
+            }
+
+            const especie = recinto[0]; // solo puede haber 1
+            let maxCantidad = 0;
+            const cantidades = [];
+
+            // Contar cuántos dinosaurios de esa especie tiene cada jugador en total
+            todosLosJugadores.forEach(j => {
+                let totalDeEsaEspecie = 0;
+
+                Object.values(j.recintos).forEach(lista => {
+                    totalDeEsaEspecie += lista.filter(dino => dino === especie).length;
+                });
+
+                cantidades.push(totalDeEsaEspecie);
+                if (totalDeEsaEspecie > maxCantidad) {
+                    maxCantidad = totalDeEsaEspecie;
+                }
+            });
+
+            // Cuántos jugadores empataron con la cantidad máxima
+            const jugadoresConMax = cantidades.filter(c => c === maxCantidad).length;
+
+            // Cuántos tiene este jugador
+            let totalJugadorActual = 0;
+            Object.values(jugadorActual.recintos).forEach(lista => {
+                totalJugadorActual += lista.filter(dino => dino === especie).length;
+            });
+
+            // Gana puntos si tiene la máxima cantidad (empate o líder)
+            if (totalJugadorActual === maxCantidad) {
+                jugadorActual.puntos.rey = 7;
+            } else {
+                jugadorActual.puntos.rey = 0;
+            }
+        }
+
+        function calcularPuntosDiferencia(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.diferencia || [];
+            if (recinto.length === 0) {
+                jugador.puntos.diferencia = 0;
+                return;
+            }
+
+            // Contar cuántas especies diferentes hay
+            const especiesUnicas = [...new Set(recinto)];
+            const cantidad = especiesUnicas.length;
+
+            // Mapeo de puntos según cantidad
+            const tablaPuntos = {
+                1: 1,
+                2: 3,
+                3: 6,
+                4: 10,
+                5: 15,
+                6: 21
+            };
+
+            jugador.puntos.diferencia = tablaPuntos[cantidad] || 0;
+        }
+
+        function calcularPuntosBosqueParejas(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.bosqueParejas || [];
+            if (recinto.length === 0) {
+                jugador.puntos.bosqueParejas = 0;
+                return;
+            }
+
+            const conteo = {};
+            recinto.forEach(e => conteo[e] = (conteo[e] || 0) + 1);
+
+            let puntos = 0;
+            for (const especie in conteo) {
+                const parejas = Math.floor(conteo[especie] / 2);
+                puntos += parejas * 5;
+            }
+
+            jugador.puntos.bosqueParejas = puntos;
+        }
+
+        function calcularPuntosSolitario(jugador) {
+            asegurarEstructuraPuntos(jugador);
+
+            const recinto = jugador.recintos?.solitario || [];
+            if (recinto.length === 0) {
+                jugador.puntos.solitario = 0;
+                return;
+            }
+
+            const especieSolitario = recinto[0]; // solo puede haber 1
+
+            // Reunir todas las especies del parque (excepto el solitario)
+            const todasLasEspecies = Object.entries(jugador.recintos)
+                .filter(([nombre]) => nombre !== "solitario")
+                .flatMap(([_, dinos]) => dinos);
+
+            // Ver si esa especie está repetida
+            const esUnico = !todasLasEspecies.includes(especieSolitario);
+
+            jugador.puntos.solitario = esUnico ? 7 : 0;
+        }
+
+        function calcularPuntosDeTodosLosJugadores() {
+            jugadores.forEach(jugador => {
+                calcularPuntosSemejanza(jugador);
+                calcularPuntosTrios(jugador);
+                calcularPuntosRey(jugador, jugadores);
+                calcularPuntosDiferencia(jugador);
+                calcularPuntosBosqueParejas(jugador);
+                calcularPuntosSolitario(jugador);
+
+                jugador.puntos.total =
+                    jugador.puntos.semejanza +
+                    jugador.puntos.trios +
+                    jugador.puntos.rey +
+                    jugador.puntos.diferencia +
+                    jugador.puntos.bosqueParejas +
+                    jugador.puntos.solitario;
+            });
+
+            localStorage.setItem('jugadores', JSON.stringify(jugadores));
+            sessionStorage.setItem('jugadores', JSON.stringify(jugadores));
+        }
+
+        calcularPuntosDeTodosLosJugadores();
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
