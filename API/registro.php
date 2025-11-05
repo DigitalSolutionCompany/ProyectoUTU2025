@@ -12,7 +12,7 @@ class Usuarios {
 
 //agregar usuario
     public function insertUser($nombreUsuario, $partidasGanadas, $contrasena) {
-        $sql = "insert into Usuario(nombre_usuario, partidas_ganadas, contraseña) values(:nombre_usuario, :partidas_ganadas, :contrasena);";
+        $sql = "insert into Usuario(nombre_usuario, partidas_ganadas, contrasena) values(:nombre_usuario, :partidas_ganadas, :contrasena);";
 
         $stmt = $this->conexion->prepare($sql);
         // Corrección: Usar los nombres de los marcadores de la consulta SQL
