@@ -1,33 +1,35 @@
 <?php
-// Definimos la clase usuario, que nos permitirá interactuar con la tabla 'usuario' de la base de datos
 class Partida {
-    // Propiedad privada para almacenar la conexión a la base de datos
     private $conexion;
-    // Propiedad privada que contiene el nombre de la tabla a usar
     private $table = "Partida";
-    // El constructor recibe una conexión a la base de datos y la guarda en la propiedad $conn
+
     public function __construct($db) {
         $this->conexion = $db;
     }
 
-//agregar usuario 
-    public function crearPartida($cantidadJugadores, $jugadores, $fechaInicio, $fechaFin) {
-        $jugadores = is_array($jugadores) ? json_encode($jugadores) : $jugadores;
-        $sql = "insert into Partida(cantidad_jugadores, jugadores, fecha_inicio, fecha_fin) values(:cantidad_jugadores, :jugadores, :fecha_inicio, :fecha_fin);";
+    // Crear una partida para un solo usuario
+    public function crearPartida($id_usuario) {
+        try {
+            // Insertar la partida 
+            $sql = "INSERT INTO Partida (id_usuario, fecha_inicio, fecha_fin)
+                    VALUES (:id_usuario, NOW(), '0000-00-00 00:00:00')";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $stmt->execute();
 
-        $stmt = $this->conexion->prepare($sql);
-        // Corrección: Usar los nombres de los marcadores de la consulta SQL
-        $stmt->bindParam(':cantidad_jugadores', $cantidadJugadores, PDO::PARAM_INT);
-        $stmt->bindParam(':jugadores', $jugadores, PDO::PARAM_STR);
-        $stmt->bindParam(':fecha_inicio', $fechaInicio, PDO::PARAM_STR);
-        $stmt->bindParam(':fecha_fin', $fechaFin, PDO::PARAM_STR);
-    
-        //ejecuta si tiene exito la funcion
-        if ($stmt->execute()) {	
-            //retorna el ultimo id de la tabla al insertar
-            return $this->conexion->lastInsertId();
+            $id_partida = $this->conexion->lastInsertId();
+
+            // Registrar en tabla Juega
+            $sql = "INSERT INTO Juega (id_usuario, id_partida) VALUES (:id_usuario, :id_partida)";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $stmt->bindParam(':id_partida', $id_partida, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $id_partida;
+        } catch (PDOException $e) {
+            error_log("Error al crear partida: " . $e->getMessage());
+            return false;
         }
-        // Si la ejecución falla, retorna false
-        return false;
     }
 }
