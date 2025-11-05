@@ -13,12 +13,15 @@
        
         <h1>🦕Partida🦕</h1>
     </div>
+    <button id="btn-finalizar" class="boton-finalizar">Finalizar Partida</button>
 
     <!-- Contenedor dinámico para los tableros según jugadores logueados -->
     <div class="tableros-cuadrados"></div>
 
     <!-- Tablero grande oculto inicialmente -->
     <div id="tablero-grande" class="vista-tablero-completo" style="display:none;"></div>
+
+    
 
     <script>
         
@@ -382,6 +385,35 @@
         }
 
         calcularPuntosDeTodosLosJugadores();
+
+        document.getElementById("btn-finalizar").addEventListener("click", async () => {
+    const id_tablero = sessionStorage.getItem("id_tablero");
+    const jugadores = JSON.parse(sessionStorage.getItem("jugadores"));
+    const jugadorActual = jugadores[0]; // si hay un solo jugador
+
+    try {
+        const response = await fetch("http://localhost/ProyectoUTU2025/API/puertaFinalizarPartida.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id_tablero: id_tablero,
+                recintos: jugadorActual.recintos
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Partida finalizada y puntos guardados correctamente 🎉");
+        } else {
+            alert("Error al guardar puntos: " + result.message);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("No se pudo conectar al servidor.");
+    }
+});
+
 
 
 
