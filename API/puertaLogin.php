@@ -29,10 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             "success" => true,
             "message" => "Login correcto",
             "usuario" => [
-                "id" => $usuario["id_usuario"],
-                "nombre" => $usuario["nombre_usuario"],
-                "partidas_ganadas" => $usuario["partidas_ganadas"]
-            ]
+               "id_usuario" => $usuario["id_usuario"],
+               "nombre" => $usuario["nombre_usuario"],
+               "partidas_ganadas" => $usuario["partidas_ganadas"]
+               ]
+
         ]);
     } else {
         http_response_code(401);
