@@ -22,7 +22,7 @@ class API {
 }
 const Api = new API("http://localhost/ProyectoUTU2025/API/puertaLogin.php");
 
-// Evento al hacer clic en el botón
+// Evento al hacer clic en el botón LOGIN
 document.getElementById("btn-loguear").addEventListener("click", async function () {
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("contraseña").value.trim();
@@ -37,40 +37,40 @@ document.getElementById("btn-loguear").addEventListener("click", async function 
         const result = await response.json();
 
         if (result.success) {
-            // Obtener la lista de jugadores logueados desde sessionStorage
+            // Guardar el id del usuario logueado
+            sessionStorage.setItem("id_usuario", result.usuario.id_usuario);
+
+            // Obtener lista de jugadores logueados
             const jugadores = JSON.parse(sessionStorage.getItem("jugadores")) || [];
 
-            // Verificar si el jugador ya está en la lista
-            const jugadorExiste = jugadores.some(jugador => jugador.nombre === result.usuario.nombre);
+            // Verificar si ya está logueado
+            const jugadorExiste = jugadores.some(j => j.nombre === result.usuario.nombre);
             if (jugadorExiste) {
                 alert("El usuario ya ha sido logueado anteriormente.");
                 return;
             }
 
-
-            if (!jugadorExiste) {
-                // Agregar el jugador al array si no existe
-                jugadores.push({
-                    nombre: result.usuario.nombre,
-                    partidas_ganadas: result.usuario.partidas_ganadas,
-                    recintos: {
-                        semejanza: [],
-                        trios: [],
-                        rey: [],
-                        diferencia: [],
-                        bosqueParejas: [],
-                        solitario: []
-                    }
-                });
-                sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
-            }
+            // Agregar jugador
+            jugadores.push({
+                nombre: result.usuario.nombre,
+                partidas_ganadas: result.usuario.partidas_ganadas,
+                recintos: {
+                    semejanza: [],
+                    trios: [],
+                    rey: [],
+                    diferencia: [],
+                    bosqueParejas: [],
+                    solitario: []
+                }
+            });
+            sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
 
             if (UserActual < total) {
-                // Pasar al siguiente jugador
+                // Ir al siguiente login si hay más jugadores
                 window.location.href = `login.html?total=${total}&UserActual=${UserActual + 1}`;
             }
         } else {
-            alert(result.message); // Usuario o contraseña incorrectos
+            alert(result.message);
         }
     } catch (error) {
         console.error("Error en la petición:", error);
@@ -78,46 +78,34 @@ document.getElementById("btn-loguear").addEventListener("click", async function 
     }
 });
 
-// Evento al hacer clic en el botón "Jugar"
+// Evento al hacer clic en el botón JUGAR
 document.getElementById("btn-jugar").addEventListener("click", async function () {
-    // Obtener la lista de jugadores logueados desde sessionStorage
-    const jugadores = JSON.parse(sessionStorage.getItem("jugadores")) || [];
+    const id_usuario = sessionStorage.getItem("id_usuario");
 
-    // Verificar si el número de jugadores logueados coincide con el total esperado
-    if (jugadores.length === total) {
-        const cantidad_jugadores = jugadores.length;
-        const nombresJugadores = jugadores.map(j => j.nombre);
-        const fecha_inicio = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        const fecha_fin = '0000-00-00 00:00:00'; // o null
+    if (!id_usuario) {
+        alert("Debes iniciar sesión antes de jugar.");
+        return;
+    }
 
-        try {
-            const response = await fetch("http://localhost/ProyectoUTU2025/API/puertaPartida.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    cantidad_jugadores,
-                    jugadores: JSON.stringify(nombresJugadores),
-                    fecha_inicio,
-                    fecha_fin
-                })
-            });
+    try {
+        const response = await fetch("http://localhost/ProyectoUTU2025/API/crearPartidaYTablero.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id_usuario })
+        });
 
-            const result = await response.json();
+        const result = await response.json();
 
-            if (result.success) {
-                sessionStorage.setItem("id_partida", result.id_partida);
-                window.location.href = "partida.html";
-            } else {
-                alert("Error al registrar la partida: " + (result.message || "Desconocido"));
-            }
-
-        } catch (error) {
-            console.error("Error al conectar con el servidor:", error);
-            alert("No se pudo conectar con el servidor.");
+        if (result.success) {
+            sessionStorage.setItem("id_partida", result.id_partida);
+            sessionStorage.setItem("id_tablero", result.id_tablero);
+            window.location.href = "partida.html";
+        } else {
+            alert("Error al registrar la partida: " + (result.message || "Desconocido"));
         }
 
-    } else {
-        alert(`Faltan jugadores por loguear. Jugadores logueados: ${jugadores.length}/${total}`);
+    } catch (error) {
+        console.error("Error al conectar con el servidor:", error);
+        alert("No se pudo conectar con el servidor.");
     }
 });
-
