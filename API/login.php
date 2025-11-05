@@ -19,7 +19,7 @@ class Usuarios {
 
         if ($usuario) {
             //para trabajar con contraseñas planas (por el momento)
-            if ($usuario['contraseña'] === $contrasena) {
+            if ($usuario['contrasena'] === $contrasena) {
                 return $usuario; // retorna los datos del usuario
             }
             // para mas adelante cuando usemos hasheadas
