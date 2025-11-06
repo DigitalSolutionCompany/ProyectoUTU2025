@@ -391,6 +391,11 @@
     const jugadores = JSON.parse(sessionStorage.getItem("jugadores"));
     const jugadorActual = jugadores[0]; // si hay un solo jugador
 
+    console.log("Datos enviados al servidor:", {
+        id_tablero: id_tablero,
+        recintos: jugadorActual.recintos
+    });
+
     try {
         const response = await fetch("http://localhost/ProyectoUTU2025/API/puertaFinalizarPartida.php", {
             method: "POST",
