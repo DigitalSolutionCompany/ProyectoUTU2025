@@ -22,6 +22,7 @@
     /* Espacio para el header fijo */
 }
 
+
 /* TÍTULO PRINCIPAL - Header fijo de la página de inicio */
 .tituloinicio {
     background-color: #553423;
@@ -52,6 +53,9 @@
     /* Mantiene el header por encima de otros elementos */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     /* Sombra para profundidad */
+    display: flex;
+    justify-content: center;
+    text-indent: 80px;
 }
 
 /* BOTÓN JUGAR - Botón en el header de inicio */
@@ -92,6 +96,7 @@
     /* Sin esquinas redondeadas */
     min-width: 80px;
     /* Ancho mínimo del botón para mejor legibilidad */
+    text-indent: 10px;
 }
 
 .botonjugar:hover {
@@ -357,7 +362,7 @@
     }
 
     .container {
-        max-width: 900px; /* Ancho máximo optimizado */
+        max-width: 1200px; /* Ancho máximo optimizado */
     }
 
     .contenidoreglas h2 {
