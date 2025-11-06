@@ -18,16 +18,28 @@ if (!$id_tablero || empty($recintos)) {
 try {
     $db = new Database();
     $conn = $db->connect();
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Actualizar los puntos en cada recinto
     $stmt = $conn->prepare("UPDATE Recinto SET puntos = :puntos WHERE id_tablero = :id_tablero AND nombre = :nombre");
 
     foreach ($recintos as $nombre => $puntos) {
+        if (is_array($puntos)) {
+            $puntos = array_sum($puntos);
+        }
+
         $stmt->execute([
             ":puntos" => $puntos,
             ":id_tablero" => $id_tablero,
             ":nombre" => $nombre
         ]);
+
+         // Verificar si la consulta afectó filas
+    if ($stmt->rowCount() === 0) {
+        echo json_encode(["success" => false, "message" => "No se actualizó ningún registro para el recinto: $nombre"]);
+        exit;
+    }
+
     }
 
     echo json_encode(["success" => true, "message" => "Puntos actualizados correctamente."]);
