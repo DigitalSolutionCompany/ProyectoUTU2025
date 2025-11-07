@@ -39,6 +39,7 @@ document.getElementById("btn-loguear").addEventListener("click", async function 
         if (result.success) {
             // Guardar el id del usuario logueado
             sessionStorage.setItem("id_usuario", result.usuario.id_usuario);
+            sessionStorage.setItem("nombre_usuario", result.usuario.nombre);
 
             // Obtener lista de jugadores logueados
             const jugadores = JSON.parse(sessionStorage.getItem("jugadores")) || [];
