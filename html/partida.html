@@ -133,59 +133,73 @@
 
         // Colocar dinosaurio en un recinto
         function colocarDino(jugadorIndex, recinto) {
-            if (!especieSeleccionada) {
-                alert("Selecciona un dinosaurio primero");
+    if (!especieSeleccionada) {
+        alert("Selecciona un dinosaurio primero");
+        return;
+    }
+
+    const jugador = jugadores[jugadorIndex];
+
+    // 🔹 Contar cuántos dinosaurios hay en total (en todos los recintos)
+    const totalDinosaurios = Object.values(jugador.recintos)
+        .reduce((sum, lista) => sum + lista.length, 0);
+
+    // 🔸 Límite máximo de 12 dinosaurios
+    if (totalDinosaurios >= 12) {
+        alert("Ya colocaste los 12 dinosaurios permitidos 🦕");
+        return;
+    }
+
+    const especiesEnRecinto = jugador.recintos[recinto];
+
+    // 🧠 Lógica original de restricciones por recinto
+    switch (recinto) {
+        case "semejanza":
+            if (especiesEnRecinto.length > 0 && !especiesEnRecinto.includes(especieSeleccionada)) {
+                alert("Debes poner dinosaurios de la misma especie");
                 return;
             }
+            break;
 
-            const jugador = jugadores[jugadorIndex];
-            const especiesEnRecinto = jugador.recintos[recinto];
-
-            switch (recinto) {
-                case "semejanza":
-                    if (especiesEnRecinto.length > 0 && !especiesEnRecinto.includes(especieSeleccionada)) {
-                        alert("Debes poner dinosaurios de la misma especie");
-                        return;
-                    }
-                    break;
-
-                case "trios":
-                    if (especiesEnRecinto.length >= 3) {
-                        alert("Este recinto solo puede albergar 3 dinosaurios");
-                        return;
-                    }
-                    break;
-
-                case "rey":
-                    if (especiesEnRecinto.length >= 1) {
-                        alert("Solo puede albergar 1 dinosaurio");
-                        return;
-                    }
-                    break;
-
-                case "diferencia":
-                    if (especiesEnRecinto.includes(especieSeleccionada)) {
-                        alert("No se pueden repetir especies");
-                        return;
-                    }
-                    break;
-
-                case "bosqueParejas":
-                    // Lógica pendiente (no definida)
-                    break;
-
-                case "solitario":
-                    if (especiesEnRecinto.length >= 1) {
-                        alert("El recinto solitario solo puede tener un dinosaurio");
-                        return;
-                    }
-                    break;
+        case "trios":
+            if (especiesEnRecinto.length >= 3) {
+                alert("Este recinto solo puede albergar 3 dinosaurios");
+                return;
             }
+            break;
 
-            especiesEnRecinto.push(especieSeleccionada);
-            guardarEnLocalStorage();
-            abrirTablero(jugadorIndex);
-        }
+        case "rey":
+            if (especiesEnRecinto.length >= 1) {
+                alert("Solo puede albergar 1 dinosaurio");
+                return;
+            }
+            break;
+
+        case "diferencia":
+            if (especiesEnRecinto.includes(especieSeleccionada)) {
+                alert("No se pueden repetir especies");
+                return;
+            }
+            break;
+
+        case "bosqueParejas":
+            // Lógica pendiente (no definida)
+            break;
+
+        case "solitario":
+            if (especiesEnRecinto.length >= 1) {
+                alert("El recinto solitario solo puede tener un dinosaurio");
+                return;
+            }
+            break;
+    }
+
+    // ✅ Si pasa todas las verificaciones, se agrega el dinosaurio
+    especiesEnRecinto.push(especieSeleccionada);
+    guardarEnLocalStorage();
+    abrirTablero(jugadorIndex);
+}
+
 
         // Guardar jugadores actualizados en localStorage y sessionStorage
         function guardarEnLocalStorage() {
@@ -391,33 +405,45 @@
     const jugadores = JSON.parse(sessionStorage.getItem("jugadores"));
     const jugadorActual = jugadores[0]; // si hay un solo jugador
 
-    console.log("Datos enviados al servidor:", {
+    const datos = {
         id_tablero: id_tablero,
+        puntos: jugadorActual.puntos,   // 👈 agregamos los puntos
         recintos: jugadorActual.recintos
-    });
+    };
+
+    console.log("📤 Datos enviados al servidor:", datos);
 
     try {
         const response = await fetch("http://localhost/ProyectoUTU2025/API/puertaFinalizarPartida.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                id_tablero: id_tablero,
-                recintos: jugadorActual.recintos
-            })
+            body: JSON.stringify(datos)
         });
 
         const result = await response.json();
 
         if (result.success) {
             alert("Partida finalizada y puntos guardados correctamente 🎉");
+
+             // 🧹 Limpiar todo el almacenamiento temporal y permanente del jugador
+            sessionStorage.clear();
+            localStorage.clear();
+
+            // esperar un momento antes de redirigir
+            setTimeout(() => {
+                // Redirigir a la página principal
+                window.location.href = "principal.html";
+            }, 1500); // espera 1.5 segundos antes de ir al inicio
+
         } else {
-            alert("Error al guardar puntos: " + result.message);
+            alert("⚠️ Error al guardar puntos: " + result.message);
         }
     } catch (error) {
-        console.error("Error:", error);
+        console.error("❌ Error:", error);
         alert("No se pudo conectar al servidor.");
     }
 });
+
 
 
 
