@@ -7,11 +7,13 @@ header("Access-Control-Allow-Headers: Content-Type");
 require_once "database.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
+
 $id_tablero = $data["id_tablero"] ?? null;
+$puntos = $data["puntos"] ?? [];
 $recintos = $data["recintos"] ?? [];
 
-if (!$id_tablero || empty($recintos)) {
-    echo json_encode(["success" => false, "message" => "Faltan datos"]);
+if (!$id_tablero || empty($puntos)) {
+    echo json_encode(["success" => false, "message" => "Faltan datos para actualizar los puntos"]);
     exit;
 }
 
@@ -20,27 +22,32 @@ try {
     $conn = $db->connect();
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Actualizar los puntos en cada recinto
-    $stmt = $conn->prepare("UPDATE Recinto SET puntos = :puntos WHERE id_tablero = :id_tablero AND nombre = :nombre");
+    // ✅ 1. Actualizar los puntos por recinto
+    $stmtRecinto = $conn->prepare("
+        UPDATE Recinto 
+        SET puntos = :puntos 
+        WHERE id_tablero = :id_tablero AND nombre = :nombre
+    ");
 
-    foreach ($recintos as $nombre => $puntos) {
-        if (is_array($puntos)) {
-            $puntos = array_sum($puntos);
-        }
-
-        $stmt->execute([
-            ":puntos" => $puntos,
+    foreach ($puntos as $nombre => $valor) {
+        if ($nombre === "total") continue; // Saltar el total
+        $stmtRecinto->execute([
+            ":puntos" => $valor,
             ":id_tablero" => $id_tablero,
             ":nombre" => $nombre
         ]);
-
-         // Verificar si la consulta afectó filas
-    if ($stmt->rowCount() === 0) {
-        echo json_encode(["success" => false, "message" => "No se actualizó ningún registro para el recinto: $nombre"]);
-        exit;
     }
 
-    }
+    // ✅ 2. Actualizar puntos totales en la tabla Tablero
+    $stmtTablero = $conn->prepare("
+        UPDATE Tablero 
+        SET puntos_totales = :puntos_totales 
+        WHERE id_tablero = :id_tablero
+    ");
+    $stmtTablero->execute([
+        ":puntos_totales" => $puntos["total"] ?? 0,
+        ":id_tablero" => $id_tablero
+    ]);
 
     echo json_encode(["success" => true, "message" => "Puntos actualizados correctamente."]);
 } catch (PDOException $e) {
