@@ -31,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             "usuario" => [
                "id_usuario" => $usuario["id_usuario"],
                "nombre" => $usuario["nombre_usuario"],
-               "partidas_ganadas" => $usuario["partidas_ganadas"]
                ]
 
         ]);
