@@ -22,7 +22,7 @@ try {
     $conn = $db->connect();
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // ✅ 1. Actualizar los puntos por recinto
+    // Actualizar los puntos por recinto
     $stmtRecinto = $conn->prepare("
         UPDATE Recinto 
         SET puntos = :puntos 
@@ -38,7 +38,7 @@ try {
         ]);
     }
 
-    // ✅ 2. Actualizar puntos totales en la tabla Tablero
+    //  Actualizar puntos totales en la tabla Tablero
     $stmtTablero = $conn->prepare("
         UPDATE Tablero 
         SET puntos_totales = :puntos_totales 
