@@ -8,7 +8,6 @@ CREATE TABLE Usuario (
 
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre_usuario VARCHAR(100) NOT NULL UNIQUE,
-    partidas_ganadas INT DEFAULT 0,
     contrasena VARCHAR(255) NOT NULL
 );
 

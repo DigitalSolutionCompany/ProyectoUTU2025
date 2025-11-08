@@ -3,7 +3,7 @@ class api {
         this.baseUrl = url;
     }
 
-    insertarUser(nombre_usuario, partidas_ganadas, contrasena) {
+    insertarUser(nombre_usuario, contrasena) {
        
         if (typeof fetch === 'function') {
             return fetch(this.baseUrl, {
@@ -13,7 +13,6 @@ class api {
                 },
                 body: JSON.stringify({
                     nombre_usuario: nombre_usuario,
-                    partidas_ganadas: partidas_ganadas,
                     contrasena: contrasena
                 })
             });
@@ -47,7 +46,6 @@ class api {
                 };
                 xhr.send(JSON.stringify({
                     nombre_usuario: nombre_usuario,
-                    partidas_ganadas: partidas_ganadas,
                     contrasena: contrasena
                 }));
             } catch (err) {
@@ -74,7 +72,7 @@ document.getElementById("botonRegistrar").addEventListener("click", function() {
         window.location.href = 'principal.html';
     }, 1500)
 
-    Api.insertarUser(username, 5, password)
+    Api.insertarUser(username, password)
         .then((res) => {
             if (!res.ok) {
                 throw new Error(`Error del server: ${res.status}`);

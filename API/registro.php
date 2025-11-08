@@ -11,13 +11,12 @@ class Usuarios {
     }
 
 //agregar usuario
-    public function insertUser($nombreUsuario, $partidasGanadas, $contrasena) {
-        $sql = "insert into Usuario(nombre_usuario, partidas_ganadas, contrasena) values(:nombre_usuario, :partidas_ganadas, :contrasena);";
+    public function insertUser($nombreUsuario, $contrasena) {
+        $sql = "insert into Usuario(nombre_usuario, contrasena) values(:nombre_usuario, :contrasena);";
 
         $stmt = $this->conexion->prepare($sql);
         // Corrección: Usar los nombres de los marcadores de la consulta SQL
         $stmt->bindParam(':nombre_usuario', $nombreUsuario, PDO::PARAM_STR);
-        $stmt->bindParam(':partidas_ganadas', $partidasGanadas, PDO::PARAM_INT);
         $stmt->bindParam(':contrasena', $contrasena, PDO::PARAM_STR);
         
         //ejecuta si tiene exito la funcion

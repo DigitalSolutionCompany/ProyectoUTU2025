@@ -37,7 +37,7 @@ if ($data === null) {
 }
 
 // Validar campos requeridos
-$requiredFields = ["nombre_usuario", "partidas_ganadas", "contrasena"];
+$requiredFields = ["nombre_usuario", "contrasena"];
 foreach ($requiredFields as $field) {
     if (empty($data[$field])) {
         http_response_code(400);
@@ -46,20 +46,14 @@ foreach ($requiredFields as $field) {
     }
 }
 
-// Validar tipos
-if (!is_numeric($data["partidas_ganadas"])) {
-    http_response_code(400);
-    echo json_encode(["mensaje" => "Campo numérico inválido"]);
-    exit();
-}
+
 
 // Sanitizar e insertar
 $nombreJug = $data["nombre_usuario"];
-$partidasGanadas = intval($data["partidas_ganadas"]);
 $contra = $data["contrasena"];
 
 try {
-    $result = $usuarios->insertUser($nombreJug, $partidasGanadas, $contra);
+    $result = $usuarios->insertUser($nombreJug, $contra);
 
     if ($result) {
         http_response_code(201);
