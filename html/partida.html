@@ -30,13 +30,13 @@
             { nombre: "Jugador 1", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
         ];
 
-        // Lista de especies para botones de selección
+        // Lista de especies para botones de seleccion
         const especies = ['T-rex', 'Stegosaurio', 'Parasaurio', 'Velociraptor', 'Brachiosaurio', 'Triceratops'];
         let especieSeleccionada = null;
 
-        // Mostrar tableros dinámicamente según jugadores
+        // Mostrar tableros dinamicamente según jugadores
         const tablerosContainer = document.querySelector('.tableros-cuadrados');
-        tablerosContainer.innerHTML = ''; // limpiar si hay algo
+        tablerosContainer.innerHTML = ''; // limpiamo si hay algo
 
         jugadores.forEach((jugador, index) => {
             tablerosContainer.innerHTML += `
@@ -140,11 +140,11 @@
 
     const jugador = jugadores[jugadorIndex];
 
-    // 🔹 Contar cuántos dinosaurios hay en total (en todos los recintos)
+    //  Contar cuanto dinosaurios hay en total (en todos los recintos)
     const totalDinosaurios = Object.values(jugador.recintos)
         .reduce((sum, lista) => sum + lista.length, 0);
 
-    // 🔸 Límite máximo de 12 dinosaurios
+    // Limite máximo de 12 dinosaurios
     if (totalDinosaurios >= 12) {
         alert("Ya colocaste los 12 dinosaurios permitidos 🦕");
         return;
@@ -152,7 +152,7 @@
 
     const especiesEnRecinto = jugador.recintos[recinto];
 
-    // 🧠 Lógica original de restricciones por recinto
+    //  Lógica de restricciones por recinto
     switch (recinto) {
         case "semejanza":
             if (especiesEnRecinto.length > 0 && !especiesEnRecinto.includes(especieSeleccionada)) {
@@ -183,7 +183,7 @@
             break;
 
         case "bosqueParejas":
-            // Lógica pendiente (no definida)
+            // no hay restricciones especiales aca
             break;
 
         case "solitario":
@@ -194,7 +194,7 @@
             break;
     }
 
-    // ✅ Si pasa todas las verificaciones, se agrega el dinosaurio
+    // Si pasa todas las verificaciones, se agrega el dinosaurio
     especiesEnRecinto.push(especieSeleccionada);
     guardarEnLocalStorage();
     abrirTablero(jugadorIndex);
@@ -407,11 +407,11 @@
 
     const datos = {
         id_tablero: id_tablero,
-        puntos: jugadorActual.puntos,   // 👈 agregamos los puntos
+        puntos: jugadorActual.puntos,   //  agregamos los puntos
         recintos: jugadorActual.recintos
     };
 
-    console.log("📤 Datos enviados al servidor:", datos);
+    console.log(" Datos enviados al servidor:", datos);
 
     try {
         const response = await fetch("http://localhost/ProyectoUTU2025/API/puertaFinalizarPartida.php", {
@@ -436,10 +436,10 @@
             }, 1500); // espera 1.5 segundos antes de ir al inicio
 
         } else {
-            alert("⚠️ Error al guardar puntos: " + result.message);
+            alert("Error al guardar puntos: " + result.message);
         }
     } catch (error) {
-        console.error("❌ Error:", error);
+        console.error("Error:", error);
         alert("No se pudo conectar al servidor.");
     }
 });
