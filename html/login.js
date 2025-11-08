@@ -48,7 +48,7 @@ document.getElementById("btn-loguear").addEventListener("click", async function 
             // Agregar jugador
             jugadores.push({
                 nombre: result.usuario.nombre,
-                partidas_ganadas: result.usuario.partidas_ganadas,
+                id_usuario: result.usuario.id_usuario,
                 recintos: {
                     semejanza: [],
                     trios: [],
@@ -60,10 +60,11 @@ document.getElementById("btn-loguear").addEventListener("click", async function 
             });
             sessionStorage.setItem("jugadores", JSON.stringify(jugadores));
 
-            if (UserActual < total) {
-                // Ir al siguiente login si hay más jugadores
-                window.location.href = `login.html?total=${total}&UserActual=${UserActual + 1}`;
-            }
+            alert("¡Inicio de sesión exitoso! preciona JUGAR para comenzar.");
+
+           
+
+
         } else {
             alert(result.message);
         }
