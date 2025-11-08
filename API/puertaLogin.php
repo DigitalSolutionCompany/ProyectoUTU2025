@@ -7,7 +7,7 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 
 require_once 'database.php';
-require_once 'login.php'; // Aquí está la clase Usuarios con validarUser()
+require_once 'login.php'; 
 
 $database = new Database();
 $db = $database->connect();

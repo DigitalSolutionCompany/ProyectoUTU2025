@@ -1,10 +1,4 @@
-// Leer parámetros de la URL
-const params = new URLSearchParams(window.location.search);
-const total = parseInt(params.get("total"));
-const UserActual = parseInt(params.get("UserActual"));
 
-// Mostrar en qué jugador estamos
-document.getElementById("titulo").textContent = `Login jugador ${UserActual} de ${total}`;
 
 // API
 class API {
