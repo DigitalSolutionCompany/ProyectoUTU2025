@@ -4,7 +4,7 @@ class api {
     }
 
     insertarUser(nombre_usuario, partidas_ganadas, contrasena) {
-        // Use native fetch when available, otherwise fall back to XMLHttpRequest
+       
         if (typeof fetch === 'function') {
             return fetch(this.baseUrl, {
                 method: 'POST',
@@ -19,8 +19,7 @@ class api {
             });
         }
 
-        // Fallback for older browsers (no fetch): return a Promise that resolves
-        // to an object similar to the Fetch Response (ok, status, json()).
+        
         return new Promise((resolve, reject) => {
             try {
                 const xhr = new XMLHttpRequest();
@@ -34,7 +33,7 @@ class api {
                     try {
                         parsed = xhr.responseText ? JSON.parse(xhr.responseText) : null;
                     } catch (e) {
-                        // If response isn't JSON, keep parsed as null
+                        
                         return reject(e);
                     }
                     resolve({
