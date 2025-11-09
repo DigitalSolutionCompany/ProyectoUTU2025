@@ -12,7 +12,7 @@ body {
 .encabezado {
     position: fixed !important;
     width: 100% !important;
-    height: 3rem !important;
+    height: 7vh !important;
     top: 0 !important;
     background-color: #352219 !important;
     display: flex !important;

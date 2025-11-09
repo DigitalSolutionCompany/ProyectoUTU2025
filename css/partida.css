@@ -3,51 +3,28 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-#boton-finalizar {
-    display: block;
-    color: rgb(188, 10, 10);
+    max-width: 100%;
 }
 
-
-/* CONTENEDOR PRINCIPAL - Pantalla completa de la partida */
-.partidaempezada {
-    background-color: #F0E6D2;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    padding-top: 9vh; /* Espacio para el encabezado fijo */
+/* Evitar overflow horizontal */
+body {
+    overflow-x: hidden;
+    max-width: 100vw;
 }
 
-/* ENCABEZADO PRINCIPAL - Barra superior fija */
-.encabezadoprincipal {
-    position: fixed;
-    width: 100%;
-    height: 9vh;
-    top: 0;
-    background-color: #311f15;
-    z-index: 9999;
-    color: #F0E6D2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3);
-}
-
-/* BOTÓN VOLVER - Esquina superior izquierda */
-.botonpartidavolver {
+/* BOTÓN FINALIZAR - Esquina superior izquierda */
+.boton-finalizar {
     position: absolute;
     left: 0;
     top: 0;
-    width: 6rem !important;
-    height: 100%;
-    background-color: #311f15;
-    color: #F0E6D2;
-    border: none;
+    width: 8rem !important;
+    height: 6vh;
+    background-image: url(../imagenes/imagengameover.png);
+    background-size: cover;
+    background-position: center;
+    color: #FFE600;
+    border: 4px solid #2f3542;
+    border-radius: 0;
     padding: 0;
     margin: 0;
     font-weight: bold;
@@ -57,65 +34,96 @@
     align-items: center;
     justify-content: center;
     font-size: 0.9rem;
+    font-family: 'Courier New', monospace;
     z-index: 10000;
+    transition: all 0.1s ease;
+    box-shadow: 
+        4px 4px 0 #2f3542,
+        8px 8px 0 rgba(0, 0, 0, 0.3);
+    text-shadow: 
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+        
 }
 
-.botonpartidavolver:hover {
-    background-color: #5C3B27;
+.boton-finalizar::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.4);
 }
 
-/* TÍTULO DEL ENCABEZADO - Texto principal */
-.encabezadoprincipal h1 {
-    font-family: 'Georgia', serif;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #F0E6D2;
-    text-transform: uppercase;
-    position: relative;
+.boton-finalizar::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.boton-finalizar:hover {
+    background-image: url(../imagenes/imagengameover.png);
+    filter: brightness(1.2);
+    color: #FFF;
+}
+
+.boton-finalizar:active {
+    box-shadow: 
+        2px 2px 0 #2f3542,
+        4px 4px 0 rgba(0, 0, 0, 0.3);
+    transform: translate(2px, 2px);
+}
+
+/* CONTENEDOR PRINCIPAL - Pantalla completa de la partida */
+.partidaempezada {
     margin: 0;
-    margin-left: 7vh;
+    padding: 0;
+    height: 100vh;
+    background-image: url(../imagenes/imagenfondopre.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /* GRID DE TABLEROS - Organización de tarjetas de jugadores */
 .tableros-cuadrados {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
-    grid-template-rows: 1fr 1fr auto; /* 2 filas iguales + 1 automática */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr auto;
     gap: 15px;
     padding: 15px;
     flex: 1;
-    height: calc(100vh - 9vh); /* Altura total menos encabezado */
+    height: 100vh;
     width: 100%;
     box-sizing: border-box;
+    border: solid 0.5px black !important;
+}
+
+/* Cuando hay solo un jugador, ocupa toda la pantalla */
+.tableros-cuadrados:has(.tarjeta-jugador:only-child) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    padding: 0;
+    gap: 0;
+}
+
+.tableros-cuadrados:has(.tarjeta-jugador:only-child) .tarjeta-jugador {
+    border-radius: 0;
+    border: none;
+    margin: 0;
 }
 
 /* POSICIONAMIENTO ESPECÍFICO DE TARJETAS */
 .tarjeta-jugador:nth-child(1) {
     grid-column: 1;
     grid-row: 1;
-}
-
-.tarjeta-jugador:nth-child(2) {
-    grid-column: 2;
-    grid-row: 1;
-}
-
-.tarjeta-jugador:nth-child(3) {
-    grid-column: 1;
-    grid-row: 2;
-}
-
-.tarjeta-jugador:nth-child(4) {
-    grid-column: 2;
-    grid-row: 2;
-}
-
-.tarjeta-jugador:nth-child(5) {
-    grid-column: 1 / -1; /* Ocupa ambas columnas */
-    grid-row: 3; /* Tercera fila */
-    background: linear-gradient(135deg, #006B54, #008B6B);
-    border: 3px solid #311f15;
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
 }
 
 /* TARJETAS DE JUGADORES - Cada tablero individual */
@@ -127,13 +135,13 @@
     padding: 0;
     cursor: pointer;
     display: flex;
-    flex-direction: column-reverse; /* Imagen arriba, nombre abajo */
+    flex-direction: column-reverse;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     font-size: 0.9em;
     font-weight: bold;
     overflow: hidden;
-    min-height: 120px; /* Altura mínima */
+    min-height: 120px;
 }
 
 .tarjeta-jugador:hover {
@@ -144,14 +152,14 @@
 /* IMÁGENES DE TABLEROS - Fotos dentro de las tarjetas */
 .imagen-tablero {
     width: 100%;
-    flex: 1; /* Ocupa el espacio restante */
+    flex: 1;
     object-fit: cover;
     border-radius: 0;
 }
 
 /* NOMBRES EN TARJETAS - Etiquetas de los jugadores */
 .nombre-jugador-tarjeta {
-    height: 40px; /* Altura fija */
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -167,8 +175,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100vw !important;
+    height: 100vh !important;
     background: #0F4100;
     padding: 20px;
     padding-top: 11vh;
@@ -322,12 +330,74 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+.puntos-jugador {
+    font-size: 0.8em;
+    color: #FFD700;
+    margin-left: 8px;
+}
+
 /* ============================================ */
 /* MEDIA QUERIES PARA RESPONSIVE DESIGN */
 /* ============================================ */
 
-/* PANTALLAS GRANDES (Desktop) - 1200px y más */
-@media (min-width: 1200px) {
+/* PANTALLAS ULTRA ANCHAS - 1920px y más */
+@media (min-width: 1920px) {
+    .boton-finalizar {
+        width: 10rem !important;
+        height: 8vh;
+        font-size: 1.2rem;
+        border-width: 6px;
+        box-shadow: 
+            6px 6px 0 #2f3542,
+            12px 12px 0 rgba(0, 0, 0, 0.3);
+    }
+    
+    .boton-finalizar::before,
+    .boton-finalizar::after {
+        height: 3px;
+    }
+    
+    .encabezadoprincipal h1 {
+        font-size: 3rem;
+    }
+    
+    .tableros-cuadrados {
+        max-width: 1400px;
+        gap: 25px;
+        padding: 30px;
+        grid-template-rows: 1fr 1fr 0.5fr;
+    }
+    
+    .tarjeta-jugador {
+        min-height: 250px;
+    }
+    
+    .tarjeta-jugador:nth-child(5) {
+        min-height: 125px;
+        font-size: 1.2em;
+    }
+    
+    .vista-tablero-completo {
+        padding: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* PANTALLAS GRANDES (Desktop) - 1200px a 1919px */
+@media (min-width: 1200px) and (max-width: 1919px) {
+    .boton-finalizar {
+        width: 9rem !important;
+        height: 7vh;
+        font-size: 1rem;
+        border-width: 5px;
+        box-shadow: 
+            5px 5px 0 #2f3542,
+            10px 10px 0 rgba(0, 0, 0, 0.3);
+    }
+    
     .encabezadoprincipal h1 {
         font-size: 2.5rem;
         margin-left: 8vh;
@@ -343,7 +413,7 @@
         padding: 20px;
         max-width: 1200px;
         margin: 0 auto;
-        grid-template-rows: 1fr 1fr 0.6fr; /* Fila inferior más pequeña */
+        grid-template-rows: 1fr 1fr 0.6fr;
     }
     
     .tarjeta-jugador {
@@ -404,6 +474,13 @@
 
 /* PANTALLAS MEDIANAS (Tablet) - 768px a 1199px */
 @media (min-width: 768px) and (max-width: 1199px) {
+    .boton-finalizar {
+        width: 7rem !important;
+        height: 6vh;
+        font-size: 0.85rem;
+        border-width: 3px;
+    }
+    
     .encabezadoprincipal {
         height: 8vh;
     }
@@ -483,8 +560,24 @@
     }
 }
 
-/* PANTALLAS PEQUEÑAS (Mobile) - 767px y menos */
-@media (max-width: 767px) {
+/* PANTALLAS PEQUEÑAS (Mobile) - 481px a 767px */
+@media (min-width: 481px) and (max-width: 767px) {
+    .boton-finalizar {
+        width: 5.5rem !important;
+        height: 5vh;
+        font-size: 0.7rem;
+        border-width: 3px;
+        box-shadow: 
+            3px 3px 0 #2f3542,
+            6px 6px 0 rgba(0, 0, 0, 0.3);
+    }
+    
+    .boton-finalizar:active {
+        box-shadow: 
+            1px 1px 0 #2f3542,
+            2px 2px 0 rgba(0, 0, 0, 0.3);
+    }
+    
     .encabezadoprincipal {
         height: 7vh;
     }
@@ -605,6 +698,27 @@
 
 /* PANTALLAS MUY PEQUEÑAS (Mobile pequeño) - 480px y menos */
 @media (max-width: 480px) {
+    .boton-finalizar {
+        width: 4.5rem !important;
+        height: 4.5vh;
+        font-size: 0.6rem;
+        border-width: 2px;
+        box-shadow: 
+            2px 2px 0 #2f3542,
+            4px 4px 0 rgba(0, 0, 0, 0.3);
+    }
+    
+    .boton-finalizar::before,
+    .boton-finalizar::after {
+        height: 1px;
+    }
+    
+    .boton-finalizar:active {
+        box-shadow: 
+            1px 1px 0 #2f3542,
+            2px 2px 0 rgba(0, 0, 0, 0.3);
+    }
+    
     .encabezadoprincipal {
         height: 6vh;
     }
@@ -657,12 +771,14 @@
     .botones-navegacion {
         gap: 6px;
         margin-bottom: 10px;
+        flex-direction: column;
     }
     
     .boton-navegacion {
         padding: 6px 10px;
         font-size: 0.75em;
         border-radius: 6px;
+        flex: none;
     }
     
     .zona-recinto {
@@ -684,6 +800,7 @@
     
     .especies-dinosaurio {
         gap: 5px;
+        grid-template-columns: 1fr;
     }
     
     .boton-especie {
@@ -705,56 +822,19 @@
         margin: 2px;
         border-width: 1px;
     }
-}
-
-/* PANTALLAS ULTRA ANCHAS - 1920px y más */
-@media (min-width: 1920px) {
-    .encabezadoprincipal h1 {
-        font-size: 3rem;
+    
+    /* Desactivar efectos hover en móviles */
+    .tarjeta-jugador:hover {
+        transform: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     
-    .tableros-cuadrados {
-        max-width: 1400px;
-        gap: 25px;
-        padding: 30px;
-        grid-template-rows: 1fr 1fr 0.5fr; /* Fila inferior aún más pequeña */
+    .boton-navegacion:hover {
+        transform: none;
+        background: #8B4513;
     }
     
-    .tarjeta-jugador {
-        min-height: 250px;
+    .boton-navegacion.volver:hover {
+        background: #4CAF50;
     }
-    
-    .tarjeta-jugador:nth-child(5) {
-        min-height: 125px;
-        font-size: 1.2em;
-    }
-    
-    .vista-tablero-completo {
-        padding: 40px;
-        max-width: 1400px;
-        margin: 0 auto;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-/* Evitar overflow horizontal */
-body {
-    overflow-x: hidden;
-    max-width: 100vw;
-}
-
-* {
-    max-width: 100%;
-}
-.nombre-jugador {
-    font-size: 1.8em;
-    margin-bottom: 10px;
-    color: white;
-}
-
-.puntos-jugador {
-    font-size: 0.8em;
-    color: #FFD700; /* dorado */
-    margin-left: 8px;
 }
