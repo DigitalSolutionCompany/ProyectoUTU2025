@@ -100,7 +100,7 @@ body {
     gap: 15px;
     padding: 15px;
     flex: 1;
-    height: 80vh;
+    height: 70vh;
     width: 100%;
     box-sizing: border-box;
     border: solid 0.5px black !important;
@@ -155,14 +155,13 @@ body {
 .imagen-tablero {
     width: 100%;
     flex: 1;
-    object-fit: contain; /* Cambiado de cover a contain */
-    object-position: center;
+    object-fit: cover;
     border-radius: 0;
 }
 
 /* NOMBRES EN TARJETAS - Etiquetas de los jugadores */
 .nombre-jugador-tarjeta {
-    height: 40px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -741,7 +740,7 @@ body {
     }
     
     .tableros-cuadrados {
-        height: calc(100vh - 6vh);
+        height: 95vh;
         gap: 6px;
         padding: 6px;
         grid-template-rows: 1fr 1fr 0.9fr;
@@ -761,9 +760,9 @@ body {
     }
     
     .nombre-jugador-tarjeta {
-        height: 25px;
+        height: 40px;
         min-height: 25px;
-        font-size: 0.7em;
+        font-size: 1rem;
     }
     
     .vista-tablero-completo {
