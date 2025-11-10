@@ -1,7 +1,7 @@
 /*principal.html */
 /* PÁGINA DE INICIO PRINCIPAL - Estilos para la página principal */
 .paginainicio {
-    background: linear-gradient(135deg, #F0E6D2 100%, #F0E6D2 50%, #F0E6D2 100%);
+    background-image: url(../imagenes/imagenamanecer.jpg);
     /* Gradiente beige uniforme */
 }
 
@@ -52,7 +52,7 @@
 
 /* RECUADRO PRINCIPAL - Contenedor principal con gradiente */
 .recuadromain {
-    background: linear-gradient(135deg, #F0E6D2 0%, #E8D5B7 50%, #D4C4A8 100%);
+    background-image: url(../imagenes/imagenamanecer.jpg);
     /* Gradiente beige diagonal */
     width: 100%;
     /* Ancho completo */

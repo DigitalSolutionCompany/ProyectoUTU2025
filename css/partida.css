@@ -100,11 +100,12 @@ body {
     gap: 15px;
     padding: 15px;
     flex: 1;
-    height: 100vh;
+    height: 80vh;
     width: 100%;
     box-sizing: border-box;
     border: solid 0.5px black !important;
 }
+
 
 /* Cuando hay solo un jugador, ocupa toda la pantalla */
 .tableros-cuadrados:has(.tarjeta-jugador:only-child) {
@@ -142,6 +143,7 @@ body {
     font-weight: bold;
     overflow: hidden;
     min-height: 120px;
+    background-size: cover;
 }
 
 .tarjeta-jugador:hover {
@@ -153,7 +155,8 @@ body {
 .imagen-tablero {
     width: 100%;
     flex: 1;
-    object-fit: cover;
+    object-fit: contain; /* Cambiado de cover a contain */
+    object-position: center;
     border-radius: 0;
 }
 

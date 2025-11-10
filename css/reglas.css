@@ -3,9 +3,10 @@ body {
     height: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    background-color: #553423 !important;
+    background-image: url(../imagenes/fondodino.png) !important;
     font-family: sans-serif !important;
     padding-top: 4rem !important; /* Añade esto para el header fijo */
+    background-size: cover !important;
 }
 
 /* ENCABEZADO DE REGLAS */
@@ -24,7 +25,7 @@ body {
 #boton {
     position: fixed !important;
     width: 6rem !important;
-    height: 3rem !important;
+    height: 7vh !important;
     top: 0 !important;
     left: 0 !important;
     background-color: #4b3020 !important;
@@ -66,7 +67,7 @@ body {
 /* IMÁGENES DE REGLAS */
 img {
     width: 100% !important;
-    max-width: 25rem !important;
+    max-width: 40.25rem !important;
     height: auto !important;
     display: block !important;
     margin: 1rem auto !important;
@@ -138,7 +139,7 @@ img {
     }
     
     img {
-        max-width: 22rem !important;
+        max-width: 24.2rem !important;
         margin: 0.8rem auto !important;
     }
 }
@@ -159,7 +160,7 @@ img {
     }
     
     img {
-        max-width: 20rem !important;
+        max-width: 22rem !important;
         margin: 0.9rem auto !important;
     }
 }
@@ -171,7 +172,7 @@ img {
     }
     
     img {
-        max-width: 23rem !important;
+        max-width: 30.3rem !important;
     }
 }
 
@@ -187,7 +188,7 @@ img {
     }
     
     img {
-        max-width: 24rem !important;
+        max-width: 40rem !important;
     }
 }
 
@@ -205,7 +206,7 @@ img {
     }
     
     img {
-        max-width: 25rem !important;
+        max-width: 40.5rem !important;
         margin: 1.2rem auto !important;
     }
 }

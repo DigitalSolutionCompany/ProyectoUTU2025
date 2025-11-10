@@ -6,12 +6,13 @@
 
 body {
     font-family: sans-serif;
-    background-color: #553423;
+    background-image: url(../imagenes/imagenfondopre.png);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 1.1rem;
+    background-size: cover;
 }
 
 .login-container {
