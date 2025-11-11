@@ -13,17 +13,19 @@ $database = new Database();
 $db = $database->connect();
 $usuarios = new Usuarios($db);
 
+//verifico que sea una solicitud POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $data = json_decode(file_get_contents("php://input"), true);
 
+    //verifico que vengan los campos necesarios
     if (!isset($data["nombre_usuario"]) || !isset($data["contrasena"])) {
         http_response_code(400);
         echo json_encode(["success" => false, "message" => "Faltan campos"]);
         exit();
     }
 
-    $usuario = $usuarios->validarUser($data["nombre_usuario"], $data["contrasena"]);
-
+    $usuario = $usuarios->validarUser($data["nombre_usuario"], $data["contrasena"]);//llamo a la funcion validarUser del archivo login.php
+     //si la validacion es exitosa devuelve los datos del usuario
     if ($usuario) {
         echo json_encode([
             "success" => true,

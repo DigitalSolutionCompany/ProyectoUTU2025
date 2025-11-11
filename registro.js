@@ -18,7 +18,7 @@ class api {
             });
         }
 
-        
+        // Fallback a XMLHttpRequest si fetch no está disponible
         return new Promise((resolve, reject) => {
             try {
                 const xhr = new XMLHttpRequest();

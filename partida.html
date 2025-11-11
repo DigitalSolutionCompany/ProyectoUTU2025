@@ -30,10 +30,29 @@
         const jugadores = JSON.parse(sessionStorage.getItem('jugadores')) || JSON.parse(localStorage.getItem('jugadores')) || [
             { nombre: "Jugador 1", recintos: { semejanza: [], trios: [], rey: [], diferencia: [], bosqueParejas: [], solitario: [] } },
         ];
+        //aca se obtuvo el jugador desde el sessionStorage o localStorage
+        //cada elemento tiene nombre y recintos con listas vacias
+        //luego tendra un objeto puntos agregado dinamicamente
+
+        //ejemplo:
+        /*{
+  nombre: "Juan",
+  recintos: {
+   semejanza: ["t-rex","t-rex"],
+   trios: ["stegosaurio","stegosaurio","stegosaurio"],
+   rey: ["velociraptor"],
+   diferencia: ["brachiosaurio","triceratops"],
+   bosqueParejas: ["t-rex","t-rex","velociraptor","velociraptor"],
+   solitario: ["parasaurio"]
+           },
+  puntos: { semejanza:0, trios:7, rey:7, ... , total: ... }
+       }*/
 
         // Lista de especies para botones de seleccion
-        const especies = ['T-rex', 'Stegosaurio', 'Parasaurio', 'Velociraptor', 'Brachiosaurio', 'Triceratops'];
-        let especieSeleccionada = null;
+        const especies = ['T-rex', 'Stegosaurio', 'Parasaurio', 'Velociraptor', 'Brachiosaurio', 'Triceratops'];//aca se creo una lista fija de especies de dinosaurios disponibles
+        let especieSeleccionada = null; //aca se guarda la especie seleccionada por el jugador
+        
+
 
         // Mostrar tableros dinamicamente según jugadores
         const tablerosContainer = document.querySelector('.tableros-cuadrados');
@@ -41,7 +60,7 @@
 
         jugadores.forEach((jugador, index) => {
             tablerosContainer.innerHTML += `
-                <div class="tarjeta-jugador" onclick="abrirTablero(${index})">
+                <div class="tarjeta-jugador" onclick="abrirTablero(${index})"> // al hacer click se abre el tablero detallado llamando a la funcion abrirTablero con el indice del jugador
                     <div class="nombre-jugador-tarjeta">${jugador.nombre}</div>
                     <img src="imagenes/tablero.jpg" class="imagen-tablero" alt="tablero ${jugador.nombre}">
                 </div>
@@ -207,6 +226,8 @@
             localStorage.setItem('jugadores', JSON.stringify(jugadores));
             sessionStorage.setItem('jugadores', JSON.stringify(jugadores));
         }
+
+        
         // Asegura que cada jugador tenga el campo 'puntos'
         function asegurarEstructuraPuntos(jugador) {
             if (!jugador.puntos) {
@@ -402,15 +423,37 @@
         calcularPuntosDeTodosLosJugadores();
 
         document.getElementById("btn-finalizar").addEventListener("click", async () => {
-    const id_tablero = sessionStorage.getItem("id_tablero");
-    const jugadores = JSON.parse(sessionStorage.getItem("jugadores"));
-    const jugadorActual = jugadores[0]; // si hay un solo jugador
+    const id_tablero = sessionStorage.getItem("id_tablero"); // obtener id_tablero de sessionStorage / recuperarlo
+    const jugadores = JSON.parse(sessionStorage.getItem("jugadores")); // obtener jugadores desde sessionStorage
+    const jugadorActual = jugadores[0]; // esto ya que vamo a trabaja con 1 solo jgador entoces toma la posicion 0 del arreglo jugadores y lidto
+    
 
     const datos = {
-        id_tablero: id_tablero,
+        id_tablero: id_tablero, // agregamos el id_tablero
         puntos: jugadorActual.puntos,   //  agregamos los puntos
-        recintos: jugadorActual.recintos
-    };
+        recintos: jugadorActual.recintos //guardamos los recintos con los dinosaurios colocados
+    }; 
+    //ejemplo de datos enviados:
+    /*{
+  "id_tablero": "12",
+  "puntos": {
+    "semejanza": 8,
+    "trios": 7,
+    "rey": 7,
+    "diferencia": 10,
+    "bosqueParejas": 10,
+    "solitario": 0,
+    "total": 42
+  },
+  "recintos": {
+    "semejanza": ["t-rex", "t-rex"],
+    "trios": ["stegosaurio", "stegosaurio", "stegosaurio"],
+    "rey": ["velociraptor"],
+    "diferencia": ["brachiosaurio", "triceratops"],
+    "bosqueParejas": ["t-rex", "t-rex", "velociraptor", "velociraptor"],
+    "solitario": []
+  }
+}*/
 
     console.log(" Datos enviados al servidor:", datos);
 
@@ -420,6 +463,8 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(datos)
         });
+        //ejemplo de solicitud fetch:
+        /*{"id_tablero":"12","puntos":{...},"recintos":{...}}*/
 
         const result = await response.json();
 

@@ -10,6 +10,8 @@ class Usuarios {
     }
  
 //validar usuario
+    //esta función recibe el nombre de usuario y la contraseña como parámetros
+    //y verifica si existen en la base de datos y usa consultas preparadas para evitar inyecciones SQL
     public function validarUser($nombreUsuario, $contrasena) {
         $sql = "SELECT * FROM Usuario WHERE nombre_usuario = :nombre_usuario LIMIT 1;";
         $stmt = $this->conexion->prepare($sql);
@@ -22,10 +24,7 @@ class Usuarios {
             if ($usuario['contrasena'] === $contrasena) {
                 return $usuario; // retorna los datos del usuario
             }
-            // para mas adelante cuando usemos hasheadas
-            // if (password_verify($contrasena, $usuario['contraseña'])) {
-            //     return $usuario;
-            // }
+
         }
         return false; // Usuario no encontrado o contraseña incorrecta
     }
